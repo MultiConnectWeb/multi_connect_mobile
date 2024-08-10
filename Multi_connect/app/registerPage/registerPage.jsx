@@ -2,8 +2,8 @@ import { StyleSheet, Text, View, Image, Pressable , TouchableOpacity } from 'rea
 import React from 'react';
 import image from '../../assets/images/Frame 10590.png';
 import image1 from '../../assets/images/Frame 10606.png';
-import {Link } from 'expo-router';
-
+import { useRouter } from "expo-router";
+const  route = useRouter()
 const Register = () => {
   return (
     <View style={styles.container}>
@@ -27,8 +27,8 @@ const Register = () => {
           <Text style={styles.orText}>Or</Text>
           <View style={styles.orLine}></View>
         </View>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>  <Link href="../login/loginPage" >Login </Link></Text>
+        <TouchableOpacity style={styles.button} onPress={()=>route.push("login/loginPage")}>
+          <Text style={styles.buttonText}>  Login </Text>
         </TouchableOpacity>
       </View>
       
