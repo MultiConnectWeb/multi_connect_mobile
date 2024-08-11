@@ -13,7 +13,7 @@ const RootLayout = () => {
                 headerLeft:()=> ( <Button
                     onPress={() => navigation.goBack()}
                     title="Back"
-                    color="#000"
+                    color="white"
                     fontSize="large"
                 />),
                 headerStyle: {
@@ -36,20 +36,41 @@ const RootLayout = () => {
                         <Button
                             onPress={() => navigation.goBack()}
                             title="Back"
-                            color="#000"
+                            color="white"
                             fontSize="large"
                         />
                     ),
                     headerStyle: {
                         backgroundColor: 'green',
                     },
-                    headerTintColor: '#fff', // Change the color of the back button and title
+                    headerTintColor: '#fff',
                 })}
             />
             <Stack.Screen
                 name="wallet/withdraw"
                 options={({ navigation }) => ({
-                    headerTitle: 'Withdraw', // Set the title of the header
+                    headerTitle: 'Withdraw',
+                    headerLeft: () => (
+                        <Button
+                            onPress={() => navigation.goBack()}
+                            title="Back"
+                            color="white"
+                            fontSize="x-large"
+                        />
+                    ),
+                    headerStyle: {
+                        backgroundColor: 'green',
+                        headerTitleFontSize: 'x-large',
+                        headerTitleFontWeight: 'bold',
+                        headerTitleFontFamily: 'Dancing Script',
+                    },
+                    headerTintColor: '#fff',
+                })}
+            />
+            <Stack.Screen
+                name="profile/profile"
+                options={({ navigation }) => ({
+                    headerTitle: 'Profile', // Set the title of the header
                     headerLeft: () => (
                         <Button
                             onPress={() => navigation.goBack()}
@@ -64,7 +85,28 @@ const RootLayout = () => {
                         headerTitleFontWeight: 'bold',
                         headerTitleFontFamily: 'Dancing Script',
                     },
-                    headerTintColor: '#fff', // Change the color of the back button and title
+                    headerTintColor: '#fff',
+                })}
+            />
+            <Stack.Screen
+                name="profile/editProfile"
+                options={({ navigation }) => ({
+                    headerTitle: 'Edit Profile', // Set the title of the header
+                    headerLeft: () => (
+                        <Button
+                            onPress={() => navigation.goBack()}
+                            title="Back"
+                            color="#000"
+                            fontSize="x-large"
+                        />
+                    ),
+                    headerStyle: {
+                        backgroundColor: 'green',
+                        headerTitleFontSize: 'x-large',
+                        headerTitleFontWeight: 'bold',
+                        headerTitleFontFamily: 'Dancing Script',
+                    },
+                    headerTintColor: '#fff',
                 })}
             />
             <Stack.Screen

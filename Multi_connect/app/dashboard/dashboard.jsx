@@ -18,7 +18,9 @@ const Dashboard = () => {
         <View style={styles.mainContent}>
             <View style={styles.card}>
                 <View style={styles.cardHeader}>
-                    <Image style={styles.profileImage} source={image} />
+                    <TouchableOpacity onPress={()=>router.push('profile/profile')}>
+                        <Image style={styles.profileImage} source={image} />
+                    </TouchableOpacity>
                     <Text style={styles.welcomeText}>Welcome, {user ? user.name : 'Service Provider'}!</Text>
                 </View>
                 <View style={styles.infoContainer}>
