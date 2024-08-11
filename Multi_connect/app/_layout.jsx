@@ -2,6 +2,7 @@ import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import { Stack } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import SignUpUser from "./userSignUp/UserSignUp";
 
 const RootLayout = () => {
     return (
@@ -110,6 +111,28 @@ const RootLayout = () => {
                     headerTintColor: '#fff',
                 })}
             />
+            <Stack.Screen
+                name="userSignUp/UserSignUp"
+                options={({ navigation }) => ({
+                    headerTitle: 'Sign Up',
+                    headerLeft: () => (
+                        <Button
+                            onPress={() => navigation.goBack()}
+                            title="Back"
+                            color="#000"
+                            fontSize="xx-large"
+                        />
+                    ),
+                    headerStyle: {
+                        backgroundColor: 'green',
+                        headerTitleFontSize: 'x-large',
+                        headerTitleFontWeight: 'bold',
+                        headerTitleFontFamily: 'Dancing Script',
+                    },
+                    headerTintColor: '#fff', // Change the color of the back button and title
+                })}
+            />
+
             <Stack.Screen
                 name="serviceProviderSignUp/signUp"
                 options={({ navigation }) => ({

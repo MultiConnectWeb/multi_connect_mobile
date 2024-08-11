@@ -10,10 +10,10 @@ const Register = () => {
         <View style={styles.mainContent}>
           <Text style={styles.title}>Sign Up</Text>
           <Text style={styles.subtitle}>
-            Sign up to get premium service from Kwafters at a low rate and enjoy exclusive offers as a Kwafters
+            Sign up to get premium service from Multi_Connect at a low rate and enjoy exclusive offers as a MultiConnector
           </Text>
           <View style={styles.optionsContainer}>
-            <TouchableOpacity style={styles.option}>
+            <TouchableOpacity style={styles.option} onPress={()=> route.push('userSignUp/UserSignUp')}>
               <Image source={image} style={styles.image} />
               <Text style={styles.optionText}>Sign Up As a Client</Text>
             </TouchableOpacity>

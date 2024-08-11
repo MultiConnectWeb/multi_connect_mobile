@@ -8,7 +8,7 @@ import {
   Pressable,
   FlatList,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity, SafeAreaView
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Pages from "./data";
@@ -35,6 +35,7 @@ const LandingPage = () => {
 
 
   const renderPage = ({ item, index }) => (
+
     <ImageBackground 
       source={item.image} 
       style={styles.imageBackground}
@@ -80,7 +81,7 @@ const LandingPage = () => {
         setCurrentPage(index);
       }}
     />
-  );
+        );
 };
 
 const styles = StyleSheet.create({
