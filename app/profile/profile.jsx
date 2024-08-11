@@ -22,7 +22,7 @@ export default function Profile() {
                     <Icon1 name="edit" size={30} color="green" />
                     <View style={styles.textContainer}>
                         <Text style={styles.title}>Profile Setting</Text>
-                        <Text>Edit And Make Changes To Your Profile</Text>
+                        <Text style={{width:width/2}}>Edit And Make Changes To Your Profile</Text>
                     </View>
                     <Icon name="chevron-forward" size={30} color="black" />
                 </TouchableOpacity>
@@ -30,7 +30,7 @@ export default function Profile() {
                     <Icon1 name="power-off" size={30} color="gray" />
                     <View style={styles.textContainer}>
                         <Text style={styles.title}>Deactivate Account</Text>
-                        <Text>Temporarily Deactivate Your Account</Text>
+                        <Text style={{width:width/2}}>Temporarily Deactivate Your Account</Text>
                     </View>
                     <Icon name="chevron-forward" size={30} color="black" />
                 </TouchableOpacity>
@@ -49,12 +49,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
-        marginBottom: width/3,
+        alignSelf:'center'
     },
     profile: {
-        width: width/2.5,
-        height: height/5.5,
-        borderRadius: 90,
+        width: 100,
+        height: 100,
+        borderRadius: 50,
         marginBottom: 10
     },
     username: {
@@ -69,12 +69,14 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     innerSettings: {
+        width: width/1.1,
+        height:height/10,
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 10,
         borderWidth: 1.5,
         borderRadius: width/38,
-        padding: width/25,
+        padding: width/26,
     },
     textContainer: {
         flex: 1,
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: 'bold',
-        fontSize: 16
+        fontSize: width/30
     },
     delete: {
         width: width/1.1,
