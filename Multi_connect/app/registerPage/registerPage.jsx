@@ -6,33 +6,33 @@ import { useRouter } from "expo-router";
 const Register = () => {
   const  route = useRouter()
   return (
-    <View style={styles.container}>
-      <View style={styles.mainContent}>
-        <Text style={styles.title}>Sign Up</Text>
-        <Text style={styles.subtitle}>
-          Sign up to get premium service from Kwafters at a low rate and enjoy exclusive offers as a Kwafters
-        </Text>
-        <View style={styles.optionsContainer}>
-          <TouchableOpacity style={styles.option}>
-            <Image source={image} style={styles.image} />
-            <Text style={styles.optionText}>Sign Up As a Client</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.option} onPress={()=> route.push('serviceProviderSignUp/signUp')}>
-            <Image source={image1} style={styles.image} />
-            <Text style={styles.optionText}>Sign Up As a Service Provider</Text>
+      <View style={styles.container}>
+        <View style={styles.mainContent}>
+          <Text style={styles.title}>Sign Up</Text>
+          <Text style={styles.subtitle}>
+            Sign up to get premium service from Kwafters at a low rate and enjoy exclusive offers as a Kwafters
+          </Text>
+          <View style={styles.optionsContainer}>
+            <TouchableOpacity style={styles.option}>
+              <Image source={image} style={styles.image} />
+              <Text style={styles.optionText}>Sign Up As a Client</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.option} onPress={()=> route.push('serviceProviderSignUp/signUp')}>
+              <Image source={image1} style={styles.image} />
+              <Text style={styles.optionText}>Sign Up As a Service Provider</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.orContainer}>
+            <View style={styles.orLine}></View>
+            <Text style={styles.orText}>Or</Text>
+            <View style={styles.orLine}></View>
+          </View>
+          <TouchableOpacity style={styles.button} onPress={()=>route.push("login/loginPage")}>
+            <Text style={styles.buttonText}>  Login </Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.orContainer}>
-          <View style={styles.orLine}></View>
-          <Text style={styles.orText}>Or</Text>
-          <View style={styles.orLine}></View>
-        </View>
-        <TouchableOpacity style={styles.button} onPress={()=>route.push("login/loginPage")}>
-          <Text style={styles.buttonText}>  Login </Text>
-        </TouchableOpacity>
+
       </View>
-      
-    </View>
   );
 };
 
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-     // Set desired width
+    // Set desired width
     height: 50, // Set desired height
   },
   buttonText: {
@@ -120,4 +120,3 @@ const styles = StyleSheet.create({
   },
 
 });
-

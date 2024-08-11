@@ -14,6 +14,7 @@ const Header = ({ image, name }) => {
 
 const styles = StyleSheet.create({
   header: {
+
     marginBottom: 16,
     width: '90%',
     alignSelf: 'center',
@@ -23,6 +24,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 20,
+    backgroundColor: '#B2FFD1'
+
   },
   image: {
     width: '20%',
