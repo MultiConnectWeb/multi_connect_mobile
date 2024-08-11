@@ -1,7 +1,12 @@
 import {Image, View,Text} from "react-native";
 import {FontAwesome} from "@expo/vector-icons";
 import {Tabs} from "expo-router";
-import image from "../../constants/images"
+import Home from "../../assets/images/home.png"
+import user from "../../assets/images/user.png"
+import repeat from "../../assets/images/Grace.png"
+import message from "../../assets/images/abiodun.png"
+
+
 
 
 
@@ -61,7 +66,7 @@ const TabsLayout = () =>{
                         tabBarIcon :
                             ({color, focused}) =>(
                                 <TabIcon
-                                    icon={image.Home}
+                                    icon={Home}
                                     color={color}
                                     name={"Home"}
                                     focused={focused}
@@ -76,7 +81,7 @@ const TabsLayout = () =>{
                         headerShown:false,
                         tabBarIcon : ({color , focused}) =>
                             <TabIcon
-                                icon={image.repeat}
+                                icon={repeat}
                                 color={color}
                                 name={"My Kwafts"}
                                 focused={focused}
@@ -90,7 +95,7 @@ const TabsLayout = () =>{
                         headerShown:false,
                         tabBarIcon : ({color , focused}) =>
                             <TabIcon
-                                icon={image.message}
+                                icon={message}
                                 color={color}
                                 name={"Chat"}
                                 focused={focused}
@@ -104,7 +109,7 @@ const TabsLayout = () =>{
                         headerShown : false,
                         tabBarIcon : ({color, focused }) =>
                             <TabIcon
-                                icon={image.user}
+                                icon={user}
                                 color={color}
                                 name={"Profile"}
                                 focused={focused}

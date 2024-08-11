@@ -1,5 +1,6 @@
 import {Image, SafeAreaView, StyleSheet, Text, View} from "react-native";
-import  images from "../../constants/images"
+import  bag from "../../assets/images/bag.png"
+import usman from "../../assets/images/usman.png"
 
 const Orders = () =>{
 
@@ -9,12 +10,12 @@ const Orders = () =>{
             <View style={styles.orders}>
                 <View style={styles.detail}>
                     <View style={styles.iconContainer}>
-                        <Image source={images.bag} />
+                        <Image source={bag} />
                     </View>
                     <View>
                         <Text style={styles.subject}>Health Issues</Text>
                         <View style={styles.userInfo}>
-                            <Image source={images.usman} />
+                            <Image source={usman} />
                             <Text>Usman Jide</Text>
                         </View>
                         <Text style={styles.date}>
@@ -32,12 +33,12 @@ const Orders = () =>{
                 </View>
                 <View style={styles.detail}>
                     <View style={styles.iconContainer}>
-                        <Image source={images.bag} />
+                        <Image source={bag} />
                     </View>
                     <View>
                         <Text style={styles.subject}>Treatment</Text>
                         <View style={styles.userInfo}>
-                            <Image source={images.usman} />
+                            <Image source={usman} />
                             <Text>Usman Jide</Text>
                         </View>
                         <Text style={styles.date}>
@@ -55,12 +56,12 @@ const Orders = () =>{
                 </View>
                 <View style={styles.detail}>
                     <View style={styles.iconContainer}>
-                        <Image source={images.bag} />
+                        <Image source={bag} />
                     </View>
                     <View>
                         <Text style={styles.subject}>Medication</Text>
                         <View style={styles.userInfo}>
-                            <Image source={images.usman} />
+                            <Image source={usman} />
                             <Text>Usman Jide</Text>
                         </View>
                         <Text style={styles.date}>
@@ -77,12 +78,12 @@ const Orders = () =>{
                     </View>
                 </View><View style={styles.detail}>
                 <View style={styles.iconContainer}>
-                    <Image source={images.bag} />
+                    <Image source={bag} />
                 </View>
                 <View>
                     <Text style={styles.subject}>Medication</Text>
                     <View style={styles.userInfo}>
-                        <Image source={images.usman} />
+                        <Image source={usman} />
                         <Text>Usman Jide</Text>
                     </View>
                     <Text style={styles.date}>

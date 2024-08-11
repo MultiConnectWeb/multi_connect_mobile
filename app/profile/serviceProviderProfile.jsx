@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements';
-import image from '../../constants/images';
+
+// Import images using the correct syntax
+import abiodunImage from "../../assets/images/abiodun.png";
+import graceImage from "../../assets/images/Grace.png";
 
 const { width, height } = Dimensions.get('window');
 
@@ -15,7 +18,7 @@ const ProfileComponent = () => {
             <View style={styles.profileSection}>
                 <View style={styles.imageContainer}>
                     <Image
-                        source={image.abiodun}
+                        source={abiodunImage}
                         style={styles.profileImage}
                     />
                     <Icon
@@ -69,7 +72,7 @@ const ProfileComponent = () => {
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.reviewsContainer}>
                     <View style={styles.reviewBox}>
                         <View style={styles.reviewHeader}>
-                            <Image source={image.Grace} style={styles.reviewImage} />
+                            <Image source={graceImage} style={styles.reviewImage} />
                             <Text style={styles.reviewName}>Shalom Grace</Text>
                         </View>
                         <Text style={styles.reviewText}>
