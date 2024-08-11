@@ -1,42 +1,40 @@
-import { StyleSheet, Text, View, Image, Pressable , TouchableOpacity } from 'react-native';
 import React from 'react';
-import image from '../../assets/images/Frame 10590.png';
-import image1 from '../../assets/images/Frame 10606.png';
-import { useRouter } from "expo-router";
-const  route = useRouter()
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { useRouter } from 'expo-router';
+
 const Register = () => {
+  const route = useRouter();
+
   return (
-    <View style={styles.container}>
-      <View style={styles.mainContent}>
-        <Text style={styles.title}>Sign Up</Text>
-        <Text style={styles.subtitle}>
-          Sign up to get premium service from Kwafters at a low rate and enjoy exclusive offers as a Kwafters
-        </Text>
-        <View style={styles.optionsContainer}>
-          <View style={styles.option}>
-            <Image source={image} style={styles.image} />
-            <Text style={styles.optionText}>Sign Up As a Client</Text>
+      <View style={styles.container}>
+        <View style={styles.mainContent}>
+          <Text style={styles.title}>Sign Up</Text>
+          <Text style={styles.subtitle}>
+            Sign up to get premium service from Kwafters at a low rate and enjoy exclusive offers as a Kwafters
+          </Text>
+          <View style={styles.optionsContainer}>
+            <View style={styles.option}>
+              <Icon name="user" size={80} color="#B2D6FF" style={styles.icon} />
+              <Text style={styles.optionText}>Sign Up As a Client</Text>
+            </View>
+            <View style={styles.option}>
+              <Icon name="building" size={80} color="#B2FFD1" style={styles.icon} />
+              <Text style={styles.optionText}>Sign Up As a Service Provider</Text>
+            </View>
           </View>
-          <View style={styles.option}>
-            <Image source={image1} style={styles.image} />
-            <Text style={styles.optionText}>Sign Up As a Service Provider</Text>
+          <View style={styles.orContainer}>
+            <View style={styles.orLine}></View>
+            <Text style={styles.orText}>Or</Text>
+            <View style={styles.orLine}></View>
           </View>
+          <TouchableOpacity style={styles.button} onPress={() => route.push("login/loginPage")}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.orContainer}>
-          <View style={styles.orLine}></View>
-          <Text style={styles.orText}>Or</Text>
-          <View style={styles.orLine}></View>
-        </View>
-        <TouchableOpacity style={styles.button} onPress={()=>route.push("login/loginPage")}>
-          <Text style={styles.buttonText}>  Login </Text>
-        </TouchableOpacity>
       </View>
-      
-    </View>
   );
 };
-
-export default Register;
 
 const styles = StyleSheet.create({
   container: {
@@ -77,11 +75,8 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 3,
   },
-  image: {
-    width: 80,
-    height: 80,
-    resizeMode: 'contain',
-    marginBottom: 35,
+  icon: {
+    marginBottom: 15,
   },
   optionText: {
     fontSize: 16,
@@ -110,14 +105,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-     // Set desired width
-    height: 50, // Set desired height
+    height: 50,
   },
   buttonText: {
     color: 'white',
     fontSize: 22,
     fontWeight: 'bold',
   },
-
 });
 
+export default Register;

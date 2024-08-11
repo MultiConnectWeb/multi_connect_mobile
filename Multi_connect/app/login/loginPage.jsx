@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
-import {StyleSheet, Text, View, TextInput, Pressable, TouchableOpacity} from 'react-native';
-import {Link, useRouter} from 'expo-router';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const route = useRouter()
+  const route = useRouter();
+
+  // Dummy user data
+  const users = [
+    { email: 'Philip', password: 'password1', dashboard: 'dashboard/dashboard' },
+    { email: 'BeeJhay', password: 'password2', dashboard: 'dashboard/UserDashboard' },
+  ];
 
   const handleLogin = () => {
     let valid = true;
@@ -26,57 +33,61 @@ const Login = () => {
     }
 
     if (valid) {
-      // Proceed with login logic
-      console.log('Logging in with', { email, password });
-      route.push('dashboard/dashboard');
+      // Check user credentials against the dummy data
+      const user = users.find(u => u.email === email && u.password === password);
+
+      if (user) {
+        console.log('Logging in with', { email, password });
+        route.push(user.dashboard);
+      } else {
+        setEmailError('Invalid email or password');
+      }
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Login</Text>
-      <Text style={styles.subHeader}>
-        Welcome back, login to continue enjoying 
-        professional services at a lower cost.
-      </Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder='Enter email'
-          placeholderTextColor="black"
-          value={email}
-          onChangeText={setEmail}
-          style={styles.input}
-          onBlur={() => !email && setEmailError('Email is required')}
-        />
-        {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
-        <TextInput
-          placeholder='Enter password'
-          placeholderTextColor="black"
-          value={password}
-          onChangeText={setPassword}
-          style={styles.input}
-          secureTextEntry
-          onBlur={() => !password && setPasswordError('Password is required')}
-        />
-        {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
-      </View>
-      <TouchableOpacity style={styles.forgotPassword}>
-        <Text style={styles.forgotPasswordText}>Forgotten Password?</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Login</Text>
-      </TouchableOpacity>
-      <View style={styles.orContainer}>
-        <View style={styles.separator} />
-        <Text style={styles.orText}>Or</Text>
-        <View style={styles.separator} />
-      </View>
-      <TouchableOpacity style={styles.signUpButton} onPress={()=> route.push('registerPage/registerPage')}>
-        <Text style={styles.signUpButtonText}>
-          Sign Up
+      <View style={styles.container}>
+        <Text style={styles.header}>Login</Text>
+        <Text style={styles.subHeader}>
+          Welcome back, login to continue enjoying
+          professional services at a lower cost.
         </Text>
-      </TouchableOpacity>
-    </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+              placeholder='Enter email'
+              placeholderTextColor="black"
+              value={email}
+              onChangeText={setEmail}
+              style={styles.input}
+              onBlur={() => !email && setEmailError('Email is required')}
+          />
+          {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+          <TextInput
+              placeholder='Enter password'
+              placeholderTextColor="black"
+              value={password}
+              onChangeText={setPassword}
+              style={styles.input}
+              secureTextEntry
+              onBlur={() => !password && setPasswordError('Password is required')}
+          />
+          {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
+        </View>
+        <TouchableOpacity style={styles.forgotPassword}>
+          <Text style={styles.forgotPasswordText}>Forgotten Password?</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+          <Text style={styles.loginButtonText}>Login</Text>
+        </TouchableOpacity>
+        <View style={styles.orContainer}>
+          <View style={styles.separator} />
+          <Text style={styles.orText}>Or</Text>
+          <View style={styles.separator} />
+        </View>
+        <TouchableOpacity style={styles.signUpButton} onPress={() => route.push('registerPage/registerPage')}>
+          <Text style={styles.signUpButtonText}>Sign Up</Text>
+        </TouchableOpacity>
+      </View>
   );
 };
 
@@ -100,7 +111,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: '100%',
     marginBottom: 20,
-    gap:6
+    gap: 6,
   },
   input: {
     height: 50,
@@ -122,7 +133,7 @@ const styles = StyleSheet.create({
     color: 'blue',
   },
   loginButton: {
-    width:"95%",
+    width: "95%",
     backgroundColor: 'green',
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -130,7 +141,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   loginButtonText: {
-    alignSelf:"center",
+    alignSelf: "center",
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
@@ -154,14 +165,14 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
-    width:"95%"
+    width: "95%",
   },
   signUpButtonText: {
     color: 'black',
     fontSize: 16,
     fontWeight: 'bold',
-    padding:6,
-    alignSelf:"center"
+    padding: 6,
+    alignSelf: "center",
   },
 });
 
