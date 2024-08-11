@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
-import { Link } from 'expo-router';
-
+import {StyleSheet, Text, View, TextInput, Pressable, TouchableOpacity} from 'react-native';
+import {Link, useRouter} from 'expo-router';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const route = useRouter()
 
   const handleLogin = () => {
     let valid = true;
@@ -28,6 +28,7 @@ const Login = () => {
     if (valid) {
       // Proceed with login logic
       console.log('Logging in with', { email, password });
+      route.push('dashboard/dashboard');
     }
   };
 
@@ -45,7 +46,7 @@ const Login = () => {
           value={email}
           onChangeText={setEmail}
           style={styles.input}
-          onBlur={() => !email && setEmailError('Email is required')}
+          onBlur={() => !email && emailError}
         />
         {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
         <TextInput
@@ -55,28 +56,26 @@ const Login = () => {
           onChangeText={setPassword}
           style={styles.input}
           secureTextEntry
-          onBlur={() => !password && setPasswordError('Password is required')}
+          onBlur={() => !password && passwordError}
         />
         {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
       </View>
-      <Pressable style={styles.forgotPassword}>
+      <TouchableOpacity style={styles.forgotPassword}>
         <Text style={styles.forgotPasswordText}>Forgotten Password?</Text>
-      </Pressable>
-      <Pressable style={styles.loginButton} onPress={handleLogin}>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Login</Text>
-      </Pressable>
+      </TouchableOpacity>
       <View style={styles.orContainer}>
         <View style={styles.separator} />
         <Text style={styles.orText}>Or</Text>
         <View style={styles.separator} />
       </View>
-      <Pressable style={styles.signUpButton}>
+      <TouchableOpacity style={styles.signUpButton} onPress={()=> route.push('registerPage/registerPage')}>
         <Text style={styles.signUpButtonText}>
-          <Link href='../registerPage/registerPage'>
-          Sign Up 
-        </Link>
+          Sign Up
         </Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 };

@@ -15,6 +15,7 @@ import Pages from "./data";
 import { useRouter } from "expo-router";
 
 const pages = Pages
+const {height , widths} = Dimensions.get("window")
 
 const LandingPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     width: Dimensions.get('window').width,
-    height: '100%',
+    height: height,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   skipCenter: {
-    width: "100%",
+    width: widths,
     display: "flex",
     flexDirection: 'row',
     justifyContent: 'center',
