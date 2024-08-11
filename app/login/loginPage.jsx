@@ -46,6 +46,10 @@ const Login = () => {
     }
   };
 
+  const handleForgotPassword = () => {
+    route.push('forgetPassword/ForgetPassword');
+  };
+
   return (
       <View style={styles.container}>
         <Text style={styles.header}>Login</Text>
@@ -74,7 +78,7 @@ const Login = () => {
           />
           {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
         </View>
-        <TouchableOpacity style={styles.forgotPassword}>
+        <TouchableOpacity style={styles.forgotPassword} onPress={handleForgotPassword}>
           <Text style={styles.forgotPasswordText}>Forgotten Password?</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
