@@ -1,4 +1,4 @@
-import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { Stack } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -10,42 +10,50 @@ const RootLayout = () => {
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="landingPage/landingPage" options={{ headerShown: false }} />
 
-            <Stack.Screen name="wallet/wallet" options={ ({ navigation })=>({
-                headerTitle:'Wallet',
-                headerLeft:()=> ( <Button
-                    onPress={() => navigation.goBack()}
-                    title="Back"
-                    color="white"
-                    fontSize="large"
-                />),
-                headerStyle: {
-                    backgroundColor: 'green',
-                },
-            })}/>
-            <Stack.Screen name="dashboard/dashboard" options={{
-                headerTitle:'Dashboard',
-                headerLeft:()=> <></>,
-                headerStyle: {
-                    backgroundColor: 'green',
-                },
-            }}/>
-            <Stack.Screen name="login/loginPage" options={{headerShown:false}}/>
+            <Stack.Screen
+                name="wallet/wallet"
+                options={({ navigation }) => ({
+                    headerTitle: 'Wallet',
+                    headerLeft: () => (
+                        <Button
+                            onPress={() => navigation.goBack()}
+                            title="Back"
+                            color="white"
+                            fontSize="large"
+                        />
+                    ),
+                    headerStyle: {
+                        backgroundColor: 'green',
+                    },
+                })}
+            />
 
-            <Stack.Screen name="(serviceProviderTabs)" options={{headerShown : false}} />
+            <Stack.Screen
+                name="dashboard/dashboard"
+                options={{
+                    headerTitle: 'Dashboard',
+                    headerLeft: () => <></>,
+                    headerStyle: {
+                        backgroundColor: 'green',
+                    },
+                }}
+            />
 
-            <Stack.Screen name="orders/orders" options={{headerShown:false}}/>
+            <Stack.Screen name="login/loginPage" options={{ headerShown: false }} />
+
+            <Stack.Screen name="(serviceProviderTabs)" options={{ headerShown: false }} />
+
+            <Stack.Screen name="orders/orders" options={{ headerShown: false }} />
+
             <Stack.Screen
                 name="dashboard/UserDashboard"
                 options={({ navigation }) => ({
-
                     headerTitle: 'My Dashboard',
                     headerLeft: () => <View />,
-
                     headerStyle: {
-                        backgroundColor: '#B2FFD1', // Background color for the header
+                        backgroundColor: '#B2FFD1',
                     },
-
-                    headerTintColor: '#000', // Color for the back button and title
+                    headerTintColor: '#000',
                     headerRight: () => (
                         <TouchableOpacity onPress={() => navigation.navigate('login/loginPage')}>
                             <Text style={{ color: '#000', fontSize: 16, marginRight: 10 }}>Logout</Text>
@@ -53,6 +61,7 @@ const RootLayout = () => {
                     ),
                 })}
             />
+
             <Stack.Screen
                 name="wallet/withdraw"
                 options={({ navigation }) => ({
@@ -74,10 +83,11 @@ const RootLayout = () => {
                     headerTintColor: '#fff',
                 })}
             />
+
             <Stack.Screen
                 name="profile/profile"
                 options={({ navigation }) => ({
-                    headerTitle: 'Profile', // Set the title of the header
+                    headerTitle: 'Profile',
                     headerLeft: () => (
                         <Button
                             onPress={() => navigation.goBack()}
@@ -95,10 +105,11 @@ const RootLayout = () => {
                     headerTintColor: '#fff',
                 })}
             />
+
             <Stack.Screen
                 name="profile/editProfile"
                 options={({ navigation }) => ({
-                    headerTitle: 'Edit Profile', // Set the title of the header
+                    headerTitle: 'Edit Profile',
                     headerLeft: () => (
                         <Button
                             onPress={() => navigation.goBack()}
@@ -116,6 +127,7 @@ const RootLayout = () => {
                     headerTintColor: '#fff',
                 })}
             />
+
             <Stack.Screen
                 name="userSignUp/UserSignUp"
                 options={({ navigation }) => ({
@@ -134,14 +146,14 @@ const RootLayout = () => {
                         headerTitleFontWeight: 'bold',
                         headerTitleFontFamily: 'Dancing Script',
                     },
-                    headerTintColor: '#fff', // Change the color of the back button and title
+                    headerTintColor: '#fff',
                 })}
             />
 
             <Stack.Screen
                 name="serviceProviderSignUp/signUp"
                 options={({ navigation }) => ({
-                    headerTitle: 'Sign Up', // Set the title of the header
+                    headerTitle: 'Sign Up',
                     headerLeft: () => (
                         <Button
                             onPress={() => navigation.goBack()}
@@ -156,61 +168,70 @@ const RootLayout = () => {
                         headerTitleFontWeight: 'bold',
                         headerTitleFontFamily: 'Dancing Script',
                     },
-                    headerTintColor: '#fff', // Change the color of the back button and title
+                    headerTintColor: '#fff',
                 })}
             />
-            <Stack.Screen name="login/loginPage" options={{ headerShown: false }} />
 
-            <Stack.Screen name="registerPage/registerPage" options={({ navigation }) => ({
-                headerTitle: 'Register',
-                headerLeft: () => (
-                    <Button
-                        onPress={() => navigation.goBack()}
-                        title="Back"
-                        color="#000"
-                        fontSize="large"
-                    />
-                ),
-                headerStyle: {
-                    backgroundColor: 'green',
-                },
-                headerTintColor: '#fff',
-            })} />
+            <Stack.Screen
+                name="registerPage/registerPage"
+                options={({ navigation }) => ({
+                    headerTitle: 'Register',
+                    headerLeft: () => (
+                        <Button
+                            onPress={() => navigation.goBack()}
+                            title="Back"
+                            color="#000"
+                            fontSize="large"
+                        />
+                    ),
+                    headerStyle: {
+                        backgroundColor: 'green',
+                    },
+                    headerTintColor: '#fff',
+                })}
+            />
 
-            <Stack.Screen name="forgetPassword/ForgetPassword" options={({ navigation }) => ({
-                headerTitle: 'ForgetPassword',
-                headerLeft: () => (
-                    <Button
-                        onPress={() => navigation.goBack()}
-                        title="Back"
-                        color="#000"
-                        fontSize="large"
-                    />
-                ),
-                headerStyle: {
-                    backgroundColor: 'green',
-                },
-                headerTintColor: '#fff',
-            })} />
+            <Stack.Screen
+                name="forgetPassword/ForgetPassword"
+                options={({ navigation }) => ({
+                    headerTitle: 'Forget Password',
+                    headerLeft: () => (
+                        <Button
+                            onPress={() => navigation.goBack()}
+                            title="Back"
+                            color="#000"
+                            fontSize="large"
+                        />
+                    ),
+                    headerStyle: {
+                        backgroundColor: 'green',
+                    },
+                    headerTintColor: '#fff',
+                })}
+            />
 
-            <Stack.Screen name="authentication/Authentication" options={({ navigation }) => ({
-                headerTitle: 'Authentication',
-                headerLeft: () => (
-                    <Button
-                        onPress={() => navigation.goBack()}
-                        title="Back"
-                        color="#000"
-                        fontSize="large"
-                    />
-                ),
-                headerStyle: {
-                    backgroundColor: 'green',
-                },
-                headerTintColor: '#fff',
-            })} />
+            <Stack.Screen
+                name="authentication/Authentication"
+                options={({ navigation }) => ({
+                    headerTitle: 'Authentication',
+                    headerLeft: () => (
+                        <Button
+                            onPress={() => navigation.goBack()}
+                            title="Back"
+                            color="#000"
+                            fontSize="large"
+                        />
+                    ),
+                    headerStyle: {
+                        backgroundColor: 'green',
+                    },
+                    headerTintColor: '#fff',
+                })}
+            />
 
-
-                <Stack.Screen name="filteredServices/FilteredServices" options={{
+            <Stack.Screen
+                name="filteredServices/FilteredServices"
+                options={{
                     headerTitle: 'Filtered Services',
                     headerLeft: () => null,
                     headerStyle: {
@@ -218,7 +239,7 @@ const RootLayout = () => {
                     },
                     headerTintColor: '#000',
                 }}
-                />
+            />
         </Stack>
     );
 };
@@ -232,6 +253,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop:20,
-    }
+        paddingTop: 20,
+    },
 });
