@@ -46,7 +46,7 @@ const Login = () => {
           value={email}
           onChangeText={setEmail}
           style={styles.input}
-          onBlur={() => !email && setEmailError('Email is required')}
+          onBlur={() => !email && emailError}
         />
         {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
         <TextInput
@@ -56,7 +56,7 @@ const Login = () => {
           onChangeText={setPassword}
           style={styles.input}
           secureTextEntry
-          onBlur={() => !password && setPasswordError('Password is required')}
+          onBlur={() => !password && passwordError}
         />
         {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
       </View>

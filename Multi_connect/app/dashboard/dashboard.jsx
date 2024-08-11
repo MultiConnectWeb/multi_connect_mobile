@@ -1,15 +1,19 @@
 import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import React from 'react';
 import Data from "./data";
+import {useRouter} from "expo-router";
 
-const image1 = require('../../assets/images/Frame 3.png');
+const image1 = require('../../assets/images/istockphoto-482878550-612x612-removebg-preview.png');
 const image = require('../../assets/images/R (1).jpeg');
 const user = { name: 'John Doe' };
 const data = Data;
-
-const { width, height } = Dimensions.get('window'); // Get screen dimensions
+const { width, height } = Dimensions.get('window');
 
 const Dashboard = () => {
+    const router = useRouter();
+    const handleNavigation = (index) =>{
+        if(index===1)  router.push('wallet/wallet');
+    };
     const MainContent = () => (
         <View style={styles.mainContent}>
             <View style={styles.card}>
@@ -30,14 +34,16 @@ const Dashboard = () => {
                     </View>
                     <Image style={styles.mainImage} source={image1} />
                 </View>
-                <View style={styles.dataContainer}>
-                    {data.map((value, index) => (
-                        <View key={index} style={[styles.dataCard, { backgroundColor: value.color }]}>
-                            <Image style={styles.dataImage} source={value.image} />
-                            <Text style={styles.dataText}>{value.text}</Text>
-                        </View>
-                    ))}
-                </View>
+                    <ScrollView contentContainerStyle={styles.dataContainer}>
+                        {data.map((value, index) => (
+                            <TouchableOpacity key={index} style={[styles.dataCard, {backgroundColor: value.color}]} onPress={()=>handleNavigation(index)}>
+                                <Image style={styles.dataImage} source={value.image}/>
+                                <Text style={styles.dataText}>{value.text}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
+
+
             </View>
         </View>
     );
@@ -45,7 +51,7 @@ const Dashboard = () => {
     return (
         <SafeAreaView style={styles.safeArea}>
             <ScrollView contentContainerStyle={styles.scrollView}>
-                <MainContent />
+                <MainContent/>
             </ScrollView>
         </SafeAreaView>
     );
@@ -55,12 +61,13 @@ const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: '#f0f0f0',
-        width:width
+        width: width
     },
     scrollView: {
         flexGrow: 1,
         alignItems: 'center',
-        width:width
+        width:width,
+        height:height
     },
     button: {
         padding: 8,
@@ -94,24 +101,25 @@ const styles = StyleSheet.create({
     cardHeader: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 16,
+        marginBottom: 10,
         width:width/1.2
     },
     profileImage: {
-        width: width * 0.18,
-        height: height * 0.08,
+        width: width * 0.13,
+        height: height * 0.06,
         borderRadius: width * 0.09,
-        marginRight: 16,
+        marginRight: 10,
     },
     welcomeText: {
-        fontSize: 20,
-        fontWeight: 'bold',
+        fontSize: 27,
+        fontWeight: 'bolder',
+
     },
     infoContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#60A5FA',
+        backgroundColor: 'rgba(45,232,61,0.7)',
         padding: 16,
         borderRadius: 24,
         width: '100%',
@@ -135,30 +143,33 @@ const styles = StyleSheet.create({
         fontFamily: 'Abril Fatface',
     },
     mainImage: {
-        height: 160,
+        height: height/5,
+        width:width/2.5,
         resizeMode: 'contain',
     },
     dataContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        gap: 36,
+        gap: 15,
         width: '90%',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 50,
-        marginBottom: 50,
+        marginTop: 25,
+        marginBottom: height/8,
     },
     dataCard: {
-        width: '44%',
+        width: width/2.6,
+        height: '45%',
         flexDirection: 'column',
-        gap: 20,
+        gap: 80,
         padding: 20,
         borderRadius: 20,
         alignItems: 'center',
     },
     dataImage: {
-        height: 100,
-        width: 50,
+        height: 30,
+        width: 30,
+        alignSelf:"flex-end"
     },
     dataText: {
         fontFamily: 'sans-serif',

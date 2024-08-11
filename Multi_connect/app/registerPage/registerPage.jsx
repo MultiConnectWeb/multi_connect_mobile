@@ -3,8 +3,8 @@ import React from 'react';
 import image from '../../assets/images/Frame 10590.png';
 import image1 from '../../assets/images/Frame 10606.png';
 import { useRouter } from "expo-router";
-const  route = useRouter()
 const Register = () => {
+  const  route = useRouter()
   return (
     <View style={styles.container}>
       <View style={styles.mainContent}>
@@ -13,14 +13,14 @@ const Register = () => {
           Sign up to get premium service from Kwafters at a low rate and enjoy exclusive offers as a Kwafters
         </Text>
         <View style={styles.optionsContainer}>
-          <View style={styles.option}>
+          <TouchableOpacity style={styles.option}>
             <Image source={image} style={styles.image} />
             <Text style={styles.optionText}>Sign Up As a Client</Text>
-          </View>
-          <View style={styles.option}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.option} onPress={()=> route.push('serviceProviderSignUp/signUp')}>
             <Image source={image1} style={styles.image} />
             <Text style={styles.optionText}>Sign Up As a Service Provider</Text>
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.orContainer}>
           <View style={styles.orLine}></View>
