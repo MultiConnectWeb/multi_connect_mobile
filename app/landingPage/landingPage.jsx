@@ -8,7 +8,7 @@ import {
   Pressable,
   FlatList,
   Dimensions,
-  TouchableOpacity, SafeAreaView
+  TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Pages from "./data";
@@ -35,53 +35,52 @@ const LandingPage = () => {
 
 
   const renderPage = ({ item, index }) => (
+      <ImageBackground
+          source={item.image}
+          style={styles.imageBackground}
+          resizeMode="cover"
+      >
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.text}>{item.description}</Text>
+          <Image
+              source={item.image1}
+          />
+          {currentPage === totalPages -1 ?
+              <View style={styles.skipCenter}>
+                <TouchableOpacity style={styles.getStarted} onPress={nextPage}>
+                  <Text style={styles.getStartedText}>
+                    Get Started
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              :<View style={styles.skipCenter}>
+                <Pressable style={styles.button} onPress={nextPage}>
+                  <Image source={require('../../assets/images/arrow-right.png')} style={styles.buttonImage} />
+                </Pressable>
+              </View>
+          }
 
-    <ImageBackground 
-      source={item.image} 
-      style={styles.imageBackground}
-      resizeMode="cover"
-    >
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.text}>{item.description}</Text>
-        <Image
-          source={item.image1}
-        />
-        {currentPage === totalPages -1 ? 
-         <View style={styles.skipCenter}>
-         <TouchableOpacity style={styles.getStarted} onPress={nextPage}>
-           <Text style={styles.getStartedText}>
-             Get Started
-            </Text>
-         </TouchableOpacity>
         </View>
-       :<View style={styles.skipCenter}>
-       <Pressable style={styles.button} onPress={nextPage}>
-         <Image source={require('../../assets/images/arrow-right.png')} style={styles.buttonImage} />
-       </Pressable>
-      </View>
-      }
-       
-      </View>
-    </ImageBackground>
+      </ImageBackground>
   );
 
   return (
-    <FlatList
-      ref={flatListRef}
-      data={pages}
-      renderItem={renderPage}
-      keyExtractor={(item, index) => index.toString()}
-      horizontal
-      pagingEnabled
-      showsHorizontalScrollIndicator={false}
-      style={styles.flatList}
-      onMomentumScrollEnd={(e) => {
-        const index = Math.floor(e.nativeEvent.contentOffset.x / Dimensions.get('window').width);
-        setCurrentPage(index);
-      }}
-    />
-        );
+      <FlatList
+          ref={flatListRef}
+          data={pages}
+          renderItem={renderPage}
+          keyExtractor={(item, index) => index.toString()}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          style={styles.flatList}
+          onMomentumScrollEnd={(e) => {
+            const index = Math.floor(e.nativeEvent.contentOffset.x / Dimensions.get('window').width);
+            setCurrentPage(index);
+          }}
+      />
+  );
 };
 
 const styles = StyleSheet.create({
@@ -97,9 +96,8 @@ const styles = StyleSheet.create({
   textContainer: {
     position: 'absolute',
     width: "100%",
-    height:"35%",
     paddingHorizontal: 20,
-    paddingVertical: 30, 
+    paddingVertical: 30,
     backgroundColor: 'rgba(0, 0, 0, 0.9)',
     bottom: 0,
     alignItems: 'center',
@@ -108,7 +106,7 @@ const styles = StyleSheet.create({
     borderRightWidth:1,
     borderTopColor: "rgb(68,118,4)",
     borderRightColor: "rgb(68,118,4)"
-   
+
 
   },
   title: {
@@ -132,8 +130,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     paddingHorizontal: 20,
-    marginBottom: 20,
-  
+    // marginBottom: 20,
+
   },
   button: {
     backgroundColor: "green",

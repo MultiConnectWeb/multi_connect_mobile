@@ -74,19 +74,14 @@ const styles = StyleSheet.create({
         padding: 16,
         backgroundColor: '#fff',
         justifyContent:'center',
-        marginBottom: width/4,
         height:height,
     },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 20,
-    },
+
     iconButton: {
         padding: 10,
     },
     profile: {
-        width: width * 0.3,
+        width: width *0.3,
         height: width * 0.3,
         borderRadius: width * 0.15,
         alignSelf: 'center',
