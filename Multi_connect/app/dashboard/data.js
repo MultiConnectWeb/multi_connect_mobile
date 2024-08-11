@@ -7,22 +7,22 @@ import image4 from '../../assets/images/contract_edit_24dp_5F6368_FILL0_wght400_
      {
          image:image1,
          text: "All Appointment",
-         color: "rgba(96,165,250, 0.7)"
+         color: "rgba(185,232,45,0.7)"
      },
      {
          image:image2,
          text:"Wallet",
-         color: "rgba(255,109,108,0.7)"
+         color: "rgba(45,232,160,0.7)"
      },
      {
          image:image3,
          text:"Pending Appointment",
-         color:"rgba(234,108,237,0.7)"
+         color: "rgba(45,232,160,0.7)"
      },
      {
          image:image4,
          text: "Transaction History",
-         color: "rgba(255,205,85, 0.7)"
+         color: "rgba(185,232,45,0.7)"
      }
  ]
 
