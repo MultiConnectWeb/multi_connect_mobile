@@ -8,8 +8,6 @@ import message from "../../assets/images/abiodun.png"
 
 
 
-
-
 const  TabIcon = ({icon, color, name, focused}) =>{
 
     const getIcon = () =>{
@@ -61,7 +59,7 @@ const TabsLayout = () =>{
                 <Tabs.Screen
                     name="serviceProviderHome"
                     options={{
-                        title:"serviceProviderHome.jsx",
+                        title:"serviceProviderHome",
                         headerShown : false,
                         tabBarIcon :
                             ({color, focused}) =>(
@@ -103,7 +101,7 @@ const TabsLayout = () =>{
                     }}
                 />
                 <Tabs.Screen
-                    name="profile"
+                    name="serviceProviderProfile"
                     options ={{
                         title : "profile",
                         headerShown : false,

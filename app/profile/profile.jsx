@@ -7,7 +7,7 @@ import {useRouter} from "expo-router";
 const {width,height} = Dimensions.get('window');
 const profileUrl = require('../../assets/images/woman.jpeg');
 
-export default function Profile() {
+const Profile = () => {
     const route = useRouter()
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -103,3 +103,4 @@ const styles = StyleSheet.create({
         color: 'red'
     }
 });
+export default Profile
