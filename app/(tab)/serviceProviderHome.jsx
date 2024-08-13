@@ -1,10 +1,14 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Text, View, StyleSheet } from "react-native";
 import Dashboard from "../(dashboard)/dashboard";
+import Header from "../component/header/header";
 
 const ServiceProviderHome = () => {
     return (
-       Dashboard()
+        <View style={styles.container}>
+            <Header title="" />
+            <Dashboard />
+        </View>
     );
 };
 
