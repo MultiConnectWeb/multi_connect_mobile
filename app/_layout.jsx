@@ -9,6 +9,7 @@ const RootLayout = () => {
         <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="landingPage/landingPage" options={{ headerShown: false }} />
+            <Stack.Screen name="(tab)" options={{headerShown:false}}/>
 
             <Stack.Screen
                 name="wallet/wallet"
@@ -29,7 +30,7 @@ const RootLayout = () => {
             />
 
             <Stack.Screen
-                name="dashboard/dashboard"
+                name="(dashboard)/dashboard"
                 options={{
                     headerTitle: 'Dashboard',
                     headerLeft: () => <></>,
@@ -41,17 +42,17 @@ const RootLayout = () => {
 
             <Stack.Screen name="login/loginPage" options={{ headerShown: false }} />
 
-            <Stack.Screen name="(serviceProviderTabs)" options={{ headerShown: false }} />
+
 
             <Stack.Screen name="orders/orders" options={{ headerShown: false }} />
 
             <Stack.Screen
-                name="dashboard/UserDashboard"
+                name="(dashboard)/UserDashboard"
                 options={({ navigation }) => ({
                     headerTitle: 'My Dashboard',
                     headerLeft: () => <View />,
                     headerStyle: {
-                        backgroundColor: '#B2FFD1',
+                        backgroundColor: 'green',
                     },
                     headerTintColor: '#000',
                     headerRight: () => (
@@ -231,15 +232,25 @@ const RootLayout = () => {
 
             <Stack.Screen
                 name="filteredServices/FilteredServices"
-                options={{
-                    headerTitle: 'Filtered Services',
-                    headerLeft: () => null,
+                options={({ navigation }) => ({
+                    headerTitle: 'Sub Domains',
+                    headerLeft: () => (
+                        <Button
+                            onPress={() => navigation.goBack()}
+                            title="Back"
+                            color="Black"
+                        />
+                    ),
                     headerStyle: {
-                        backgroundColor: '#B2FFD1',
+                        backgroundColor: 'green',
                     },
                     headerTintColor: '#000',
-                }}
+                    headerTitleStyle: {
+                        fontSize: 20,
+                    },
+                })}
             />
+
         </Stack>
     );
 };

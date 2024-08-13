@@ -8,6 +8,8 @@ import image3 from '../../assets/images/Teacher-removebg-preview.png';
 import image4 from '../../assets/images/plumber-removebg-preview.png';
 import image from '../../assets/images/R (1).jpeg';
 import { router } from 'expo-router';
+import TabsLayout from '../(tab)/_layout.jsx';
+
 
 const typewriterSpeed = 50;
 const pauseDuration = 1000;
@@ -157,7 +159,9 @@ const Dashboard = () => {
             <View style={styles.mainContent}>
                 {/* Profile Image and Welcome Text */}
                 <View style={styles.profileSection}>
-                    <Image style={styles.profileImage} source={image} />
+                    <TouchableOpacity onPress={()=>router.push('profile/profile')}>
+                        <Image style={styles.profileImage} source={image} />
+                    </TouchableOpacity>
                     <Text style={styles.welcomeText}>Welcome, {user.name}!</Text>
                 </View>
 
@@ -229,11 +233,21 @@ const Dashboard = () => {
                                 reviewCount={provider.reviewCount}
                             />
                         ))}
+
                     </ScrollView>
                 </View>
+
             </View>
+
+
+
         </ScrollView>
-    );
+
+
+
+
+
+);
 };
 
 const styles = StyleSheet.create({
