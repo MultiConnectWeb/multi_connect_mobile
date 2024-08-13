@@ -1,18 +1,21 @@
-import {SafeAreaView} from "react-native-safe-area-context";
-import {Text, View} from "react-native";
-import UserDashboard from "../(dashboard)/UserDashboard";
-import Header from "../component/header/header";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Text, View, StyleSheet } from "react-native";
+import Dashboard from "../(dashboard)/dashboard";
 
+const ServiceProviderHome = () => {
+    return (
+       Dashboard()
+    );
+};
 
-const ServiceProviderHome = () =>{
-    return(
-        <SafeAreaView>
-            <View>
+export default ServiceProviderHome;
 
-                <UserDashboard/>
-            </View>
-        </SafeAreaView>
-    )
-}
-
-export default ServiceProviderHome
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#f8f8f8",
+    },
+    content: {
+        padding: 16,
+    },
+});
