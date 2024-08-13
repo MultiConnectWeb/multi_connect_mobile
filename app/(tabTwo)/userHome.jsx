@@ -8,7 +8,6 @@ const UserHome = () =>{
     return(
         <SafeAreaView>
             <View>
-
                 <UserDashboard/>
             </View>
         </SafeAreaView>
