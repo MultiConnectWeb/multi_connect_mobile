@@ -14,7 +14,7 @@ import TabsLayout from '../(tab)/_layout.jsx';
 const typewriterSpeed = 50;
 const pauseDuration = 1000;
 
-const Dashboard = () => {
+const userDashboard = () => {
     const navigation = useNavigation();
     const [text, setText] = useState('');
     const [user] = useState({ name: 'BeeJhay' });
@@ -357,4 +357,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Dashboard;
+export default userDashboard;

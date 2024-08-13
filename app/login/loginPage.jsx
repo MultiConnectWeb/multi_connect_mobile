@@ -13,7 +13,7 @@ const Login = () => {
   // Dummy user data
   const users = [
     { email: 'Philip', password: 'password1', dashboard: '(tab)/serviceProviderHome' },
-    { email: 'BeeJhay', password: 'password2', dashboard: '(tab)/serviceProviderHome' },
+    { email: 'BeeJhay', password: 'password2', dashboard: '(tabTwo)/userHome' },
   ];
 
   const handleLogin = () => {

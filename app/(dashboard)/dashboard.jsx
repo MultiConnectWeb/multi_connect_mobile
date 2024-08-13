@@ -10,7 +10,7 @@ const user = { name: 'John Doe' };
 const data = Data;
 const { width, height } = Dimensions.get('window');
 
-const Dashboard = () => {
+const serviceProviderDashboard = () => {
     const router = useRouter();
     const handleNavigation = (index) =>{
         if(index===1)  router.push('wallet/wallet');
@@ -185,4 +185,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Dashboard;
+export default serviceProviderDashboard;

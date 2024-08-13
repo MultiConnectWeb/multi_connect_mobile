@@ -2,14 +2,14 @@ import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { Stack } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import SignUpUser from "./userSignUp/UserSignUp";
 
 const RootLayout = () => {
     return (
         <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="landingPage/landingPage" options={{ headerShown: false }} />
-            <Stack.Screen name="(tab)" options={{headerShown:false}}/>
+            <Stack.Screen name="(tab)" options={{ headerShown: false }} />
+            <Stack.Screen name="(tabTwo)" options={{ headerShown: false }} />
 
             <Stack.Screen
                 name="wallet/wallet"
@@ -20,7 +20,6 @@ const RootLayout = () => {
                             onPress={() => navigation.goBack()}
                             title="Back"
                             color="white"
-                            fontSize="large"
                         />
                     ),
                     headerStyle: {
@@ -33,7 +32,7 @@ const RootLayout = () => {
                 name="(dashboard)/dashboard"
                 options={{
                     headerTitle: 'Dashboard',
-                    headerLeft: () => <></>,
+                    headerLeft: () => <View />,
                     headerStyle: {
                         backgroundColor: 'green',
                     },
@@ -41,9 +40,6 @@ const RootLayout = () => {
             />
 
             <Stack.Screen name="login/loginPage" options={{ headerShown: false }} />
-
-
-
             <Stack.Screen name="orders/orders" options={{ headerShown: false }} />
 
             <Stack.Screen
@@ -72,14 +68,10 @@ const RootLayout = () => {
                             onPress={() => navigation.goBack()}
                             title="Back"
                             color="white"
-                            fontSize="x-large"
                         />
                     ),
                     headerStyle: {
                         backgroundColor: 'green',
-                        headerTitleFontSize: 'x-large',
-                        headerTitleFontWeight: 'bold',
-                        headerTitleFontFamily: 'Dancing Script',
                     },
                     headerTintColor: '#fff',
                 })}
@@ -94,14 +86,10 @@ const RootLayout = () => {
                             onPress={() => navigation.goBack()}
                             title="Back"
                             color="#000"
-                            fontSize="x-large"
                         />
                     ),
                     headerStyle: {
                         backgroundColor: 'green',
-                        headerTitleFontSize: 'x-large',
-                        headerTitleFontWeight: 'bold',
-                        headerTitleFontFamily: 'Dancing Script',
                     },
                     headerTintColor: '#fff',
                 })}
@@ -116,14 +104,10 @@ const RootLayout = () => {
                             onPress={() => navigation.goBack()}
                             title="Back"
                             color="#000"
-                            fontSize="x-large"
                         />
                     ),
                     headerStyle: {
                         backgroundColor: 'green',
-                        headerTitleFontSize: 'x-large',
-                        headerTitleFontWeight: 'bold',
-                        headerTitleFontFamily: 'Dancing Script',
                     },
                     headerTintColor: '#fff',
                 })}
@@ -138,14 +122,10 @@ const RootLayout = () => {
                             onPress={() => navigation.goBack()}
                             title="Back"
                             color="#000"
-                            fontSize="xx-large"
                         />
                     ),
                     headerStyle: {
                         backgroundColor: 'green',
-                        headerTitleFontSize: 'x-large',
-                        headerTitleFontWeight: 'bold',
-                        headerTitleFontFamily: 'Dancing Script',
                     },
                     headerTintColor: '#fff',
                 })}
@@ -160,14 +140,10 @@ const RootLayout = () => {
                             onPress={() => navigation.goBack()}
                             title="Back"
                             color="#000"
-                            fontSize="xx-large"
                         />
                     ),
                     headerStyle: {
                         backgroundColor: 'green',
-                        headerTitleFontSize: 'x-large',
-                        headerTitleFontWeight: 'bold',
-                        headerTitleFontFamily: 'Dancing Script',
                     },
                     headerTintColor: '#fff',
                 })}
@@ -182,7 +158,6 @@ const RootLayout = () => {
                             onPress={() => navigation.goBack()}
                             title="Back"
                             color="#000"
-                            fontSize="large"
                         />
                     ),
                     headerStyle: {
@@ -201,7 +176,6 @@ const RootLayout = () => {
                             onPress={() => navigation.goBack()}
                             title="Back"
                             color="#000"
-                            fontSize="large"
                         />
                     ),
                     headerStyle: {
@@ -220,7 +194,6 @@ const RootLayout = () => {
                             onPress={() => navigation.goBack()}
                             title="Back"
                             color="#000"
-                            fontSize="large"
                         />
                     ),
                     headerStyle: {
@@ -250,7 +223,6 @@ const RootLayout = () => {
                     },
                 })}
             />
-
         </Stack>
     );
 };
