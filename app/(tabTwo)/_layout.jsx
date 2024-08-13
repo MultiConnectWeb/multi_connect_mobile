@@ -3,8 +3,8 @@ import {FontAwesome} from "@expo/vector-icons";
 import {Tabs} from "expo-router";
 import Home from "../../assets/images/home.png"
 import user from "../../assets/images/user.png"
-import repeat from "../../assets/images/Grace.png"
-import message from "../../assets/images/abiodun.png"
+import repeat from "../../assets/images/My Kwafts.png"
+import message from "../../assets/images/chat.png"
 
 
 
