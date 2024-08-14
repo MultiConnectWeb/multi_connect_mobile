@@ -8,7 +8,7 @@ import {
     ScrollView,
     ActivityIndicator,
     Dimensions,
-    Linking
+    Linking, Alert
 } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import {router, useRouter} from "expo-router";
@@ -56,7 +56,30 @@ const SignUpUser = () => {
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked);
     };
+    const handleRegister = async () => {
+        setLoading(true);
+        try {
+            const response = await createUserWithEmailAndPassword(auth, formValues.email, formValues.password);
 
+            await setDoc(doc(database, 'users', response.user.uid), {
+                username: formValues.firstName,
+                email: formValues.email,
+                id: response.user.uid,
+                avatar: "",
+                blocked: [],
+            });
+
+            await setDoc(doc(database, 'userchats', response.user.uid), {
+                chats: [],
+            });
+             Alert.alert('Success', 'Account Created Successfully');
+        } catch (err) {
+            console.log(err);
+             Alert.alert('Error', err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
     const handleSubmit = async () => {
         let formErrors = {};
         const {firstName, lastName, email, phoneNumber, password, confirmPassword} = formValues;
@@ -77,7 +100,6 @@ const SignUpUser = () => {
 
         console.log('Form Submitted:', formValues);
         handleRegister().then();
-        router.push('login/loginPage');
 
         const payload = {
             firstName,
