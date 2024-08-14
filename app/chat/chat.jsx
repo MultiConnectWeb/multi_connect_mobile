@@ -7,7 +7,6 @@ import UseUserStore from '../lib/userStore';
 import upload from '../lib/upload';
 import UseChatStore from '../lib/chatStore';
 import * as ImagePicker from 'expo-image-picker';
-import { formatDistanceToNow } from 'date-fns';
 import {onAuthStateChanged} from "firebase/auth";
 
 const { width } = Dimensions.get('window');
@@ -28,18 +27,13 @@ const Chat = () => {
             if (user) {
                 fetchUserInfo(user.uid);
             } else {
-                // Handle case when no user is authenticated, e.g., navigate to login
                 Alert.alert('Authentication Error', 'User is not authenticated. Redirecting to login.');
-                // Add navigation logic to redirect to login here
             }
         });
     });
 
     useEffect(() => {
         if(!chatId) console.log("No Chat id")
-        // console.log(currentUser);
-        // console.log(currentUser);
-        // console.log(isCurrentUserblocked);
         const unSub = onSnapshot(doc(database, "chats", chatId), (res) => {
             const chatData = res.data();
             // console.log(chatData)
@@ -69,7 +63,7 @@ const Chat = () => {
             quality: 1,
         });
 
-        if (result?.assets?.length > 0) { // Check if result.assets exists and has items
+        if (result?.assets?.length > 0) {
             const imgUrl = await upload(result.assets[0].uri);
             setImg({ uri: imgUrl });
             await handleSend(imgUrl);
@@ -127,17 +121,18 @@ const Chat = () => {
                         <Text style={styles.status}>Lorem ipsum dolor, sit amet.</Text>
                     </View>
                 </View>
-                <View style={styles.icons}>
-                    <TouchableOpacity>
-                        <Image source={require('../../assets/images/phone.png')} style={styles.icon} />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image source={require('../../assets/images/video.png')} style={styles.icon} />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image source={require('../../assets/images/info.png')} style={styles.icon} />
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity style={styles.bookAppointment}>
+                    <Text style={styles.appointment}>Book Appointment </Text>
+                    {/*<TouchableOpacity>*/}
+                    {/*    <Image source={require('../../assets/images/phone.png')} style={styles.icon} />*/}
+                    {/*</TouchableOpacity>*/}
+                    {/*<TouchableOpacity>*/}
+                    {/*    <Image source={require('../../assets/images/video.png')} style={styles.icon} />*/}
+                    {/*</TouchableOpacity>*/}
+                    {/*<TouchableOpacity>*/}
+                    {/*    <Image source={require('../../assets/images/info.png')} style={styles.icon} />*/}
+                    {/*</TouchableOpacity>*/}
+                </TouchableOpacity>
             </View>
             <FlatList
                 data={chat?.messages || []}
@@ -239,14 +234,16 @@ const styles = StyleSheet.create({
         fontSize: width * 0.04,
         color: '#888',
     },
-    icons: {
-        flexDirection: 'row',
-        alignItems: 'center',
+    bookAppointment: {
+        width: width/6,
+        padding: 15,
+        borderRadius:10,
+        backgroundColor: 'blue',
     },
-    icon: {
-        width: width * 0.07,
-        height: width * 0.07,
-        marginLeft: width * 0.03,
+    appointment: {
+      color:'white',
+      fontSize: 20,
+      fontWeight: 'bolder',
     },
     messagesContainer: {
         flexGrow: 1,
