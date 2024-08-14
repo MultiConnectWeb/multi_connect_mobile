@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
+import { StyleSheet, Text, View, TextInput,ActivityIndicator, TouchableOpacity } from 'react-native';
+import {router, useRouter} from 'expo-router';
+import axios from 'axios';
+
+
 
 const Login = () => {
 
@@ -8,15 +11,12 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [formError ,setFormError] = useState('');
   const route = useRouter();
 
-  // Dummy user data
-  const users = [
-    { email: 'Philip', password: 'password1', dashboard: 'dashboard/dashboard' },
-    { email: 'BeeJhay', password: 'password2', dashboard: 'dashboard/UserDashboard' },
-  ];
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     let valid = true;
 
     if (!email) {
@@ -34,18 +34,36 @@ const Login = () => {
     }
 
     if (valid) {
-      // Check user credentials against the dummy data
-      const user = users.find(u => u.email === email && u.password === password);
+      setLoading(true);
 
-      if (user) {
-        console.log('Logging in with', { email, password });
-        route.push(user.dashboard);
-      } else {
-        setEmailError('Invalid email or password');
+      const payload = {
+        email,
+        password,
+      };
+      try {
+        const response = await axios.post("https://multi-connect-latest-ei6f.onrender.com/api/v1/auth",payload);
+        console.log("logged in succesfully",response);
+        router.push('dashboard/UserDashboard')
+      } catch (error){
+        if (error.response){
+          console.log("Backend error",error.response.data);
+          setFormError("Incorrect email or password");
+
+        }else if (error.request) {
+          console.error('Network error:', error.request);
+          setFormError('Network error. Please check your connection.');
+
+        } else {
+          console.error('Error:', error.message);
+          setFormError("An unexpected error occurred. Please try again.');")
+
+        }
+      }finally {
+        setLoading(false)
       }
     }
-  };
 
+  };
   const handleForgotPassword = () => {
     route.push('forgetPassword/ForgetPassword');
   };
@@ -65,6 +83,7 @@ const Login = () => {
               onChangeText={setEmail}
               style={styles.input}
               onBlur={() => !email && emailError}
+              keyboardType= "email-address"
           />
           {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
           <TextInput
@@ -77,13 +96,25 @@ const Login = () => {
               onBlur={() => !password && passwordError}
           />
           {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
+          {formError ? <Text style={styles.errorText}>{formError}</Text> : null}
+          {loading ? (
+              <ActivityIndicator style={styles.loading} size="large" color='green' />
+          ) : (
+              <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+                <Text style={styles.loginButtonText}>Login</Text>
+              </TouchableOpacity>
+
+          )}
+
+
         </View>
+
         <TouchableOpacity style={styles.forgotPassword} onPress={handleForgotPassword}>
           <Text style={styles.forgotPasswordText}>Forgotten Password?</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-          <Text style={styles.loginButtonText}>Login</Text>
-        </TouchableOpacity>
+        {/*<TouchableOpacity style={styles.loginButton} onPress={handleLogin}>*/}
+        {/*  <Text style={styles.loginButtonText}>Login</Text>*/}
+        {/*</TouchableOpacity>*/}
         <View style={styles.orContainer}>
           <View style={styles.separator} />
           <Text style={styles.orText}>Or</Text>
@@ -180,6 +211,9 @@ const styles = StyleSheet.create({
   padding: 6,
   alignSelf: "center",
 },
+  loading:{
+    marginVertical : 20
+  }
 });
 
 export default Login;
