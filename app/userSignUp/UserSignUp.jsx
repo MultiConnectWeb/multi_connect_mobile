@@ -6,12 +6,14 @@ import {
     TouchableOpacity,
     StyleSheet,
     ScrollView,
+    ActivityIndicator,
     Dimensions,
     Linking
 } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { router } from "expo-router";
 import Icon from "react-native-vector-icons/FontAwesome";
+import axios  from "axios";
 
 const { width, height } = Dimensions.get('window');
 
@@ -36,6 +38,8 @@ const SignUpUser = () => {
     });
 
     const [isChecked, setIsChecked] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [formError ,setFormError] = useState('');
 
     const handleChange = (name, value) => {
         setFormValues({
@@ -48,7 +52,7 @@ const SignUpUser = () => {
         setIsChecked(!isChecked);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         let formErrors = {};
         const { firstName, lastName, email, phoneNumber, password, confirmPassword } = formValues;
 
@@ -66,8 +70,40 @@ const SignUpUser = () => {
             return;
         }
 
-        console.log('Form Submitted:', formValues);
-        router.push('login/loginPage')
+        const payload = {
+            firstName,
+            lastName,
+            email,
+            phoneNumber,
+            password,
+            confirmPassword,
+
+        };
+
+        setLoading(true)
+
+        try {
+            const response = await axios.post("https://multi-connect-latest-ei6f.onrender.com/api/v1/register_user",payload);
+            console.log("Signup successful",response);
+            router.push('login/loginPage')
+        } catch (error){
+            if (error.response){
+                console.log("Backend error",error.response.data);
+                setFormError("An error occurred during signup ")
+            }else if (error.request) {
+                console.error('Network error:', error.request);
+                setFormError("Network error. Please try again later")
+            } else {
+                console.error('Error:', error.message);
+                setFormError("An unexpected error occurred. Please try again later")
+
+            }
+        } finally {
+            setLoading(false)
+        }
+
+        // console.log('Form Submitted:', formValues);
+        // router.push('login/loginPage')
     };
 
     return (
@@ -162,10 +198,14 @@ const SignUpUser = () => {
                 </Text>
             </View>
             {errors.terms ? <Text style={styles.errorText}>{errors.terms}</Text> : null}
+            {loading ? (
+                <ActivityIndicator style={styles.loading} size="large" color="green" />
+            ) : (
+                <TouchableOpacity style={styles.signUp} onPress={handleSubmit} >
+                    <Text style={styles.text}>Sign Up</Text>
+                </TouchableOpacity>
+                )}
 
-            <TouchableOpacity style={styles.signUp} onPress={handleSubmit}>
-                <Text style={styles.text}>Sign Up</Text>
-            </TouchableOpacity>
         </ScrollView>
     );
 };
@@ -253,6 +293,9 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: width * 0.06,
         fontWeight: '600',
+    },
+    loading : {
+        marginVertical: 20
     }
 });
 

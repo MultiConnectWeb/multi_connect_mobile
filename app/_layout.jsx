@@ -38,9 +38,15 @@ const RootLayout = () => {
                 }}
             />
 
-            <Stack.Screen name="login/ServiceProviderLoginPage" options={{ headerShown: false }} />
-            <Stack.Screen name="orders/orders" options={{ headerShown: false }} />
-
+            <Stack.Screen name="login/loginPage" options={{ headerShown: false }} />
+            <Stack.Screen
+                name="orders/orders"
+                options={({ navigation }) => ({
+                    headerLeft: () => <BackButton navigation={navigation} />,
+                    headerTitle: '',
+                    headerStyle: {},
+                })}
+            />
             <Stack.Screen
                 name="(dashboard)/UserDashboard"
                 options={({ navigation }) => ({

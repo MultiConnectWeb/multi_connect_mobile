@@ -3,8 +3,9 @@ import {FontAwesome} from "@expo/vector-icons";
 import {Tabs} from "expo-router";
 import Home from "../../assets/images/home.png"
 import user from "../../assets/images/user.png"
-import repeat from "../../assets/images/Grace.png"
-import message from "../../assets/images/abiodun.png"
+import repeat from "../../assets/images/My Kwafts.png"
+import message from "../../assets/images/chat.png"
+import wallet from "../../assets/images/wallet.png"
 
 
 
@@ -96,6 +97,20 @@ const TabsLayout = () =>{
                                 icon={message}
                                 color={color}
                                 name={"Chat"}
+                                focused={focused}
+                            />
+                    }}
+                />
+                <Tabs.Screen
+                    name="userWallet"
+                    options={{
+                        title : "userWallet",
+                        headerShown:false,
+                        tabBarIcon : ({color , focused}) =>
+                            <TabIcon
+                                icon={wallet}
+                                color={color}
+                                name={"Wallet"}
                                 focused={focused}
                             />
                     }}
