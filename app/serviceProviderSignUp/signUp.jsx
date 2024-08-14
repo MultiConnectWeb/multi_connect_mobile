@@ -3,7 +3,6 @@ import {
     View,
     Text,
     TextInput,
-    Button,
     StyleSheet,
     ScrollView,
     Dimensions,
@@ -12,24 +11,28 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Checkbox from 'expo-checkbox';
-import {useRouter} from "expo-router";
-
+import { useRouter } from 'expo-router';
+import axios from 'axios';
 
 const { width, height } = Dimensions.get('window');
 
 const SignUpServiceProvider = () => {
-    const route = useRouter()
-    const [selectedField, setSelectedField] = useState('');
-    const [isFieldDropdownVisible, setIsFieldDropdownVisible] = useState(false);
-    const [selectedSubField, setSelectedSubField] = useState('');
-    const [isSubFieldDropdownVisible, setIsSubFieldDropdownVisible] = useState(false);
-
+    const router = useRouter();
     const [formValues, setFormValues] = useState({
         name: '',
         email: '',
         password: '',
         confirmPassword: '',
+        phoneNumber: '',
+        businessName: '',
+        contactInfo: '',
     });
+
+    const [selectedField, setSelectedField] = useState('');
+    const [isFieldDropdownVisible, setIsFieldDropdownVisible] = useState(false);
+    const [selectedSubField, setSelectedSubField] = useState('');
+    const [isSubFieldDropdownVisible, setIsSubFieldDropdownVisible] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
 
     const [errors, setErrors] = useState({
         name: '',
@@ -37,9 +40,10 @@ const SignUpServiceProvider = () => {
         password: '',
         confirmPassword: '',
         terms: '',
+        phoneNumber: '',
+        businessName: '',
+        contactInfo: '',
     });
-
-    const [isChecked, setIsChecked] = useState(false);
 
     const handleFieldChange = (value) => {
         setSelectedField(value);
@@ -53,10 +57,24 @@ const SignUpServiceProvider = () => {
         setIsSubFieldDropdownVisible(false);
     };
 
+    const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,}$/;
+    const isValidPassword = (password) => {
+        return passwordRegex.test(password);
+    };
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = (email) => {
+        return emailRegex.test(email);
+    };
+
     const handleChange = (name, value) => {
         setFormValues({
             ...formValues,
             [name]: value,
+        });
+        setErrors({
+            ...errors,
+            [name]: '', // Reset the corresponding error
         });
     };
 
@@ -64,51 +82,64 @@ const SignUpServiceProvider = () => {
         setIsChecked(!isChecked);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         let formErrors = {};
-        const { name, email, password, confirmPassword } = formValues;
+        const { name, email, password, confirmPassword, phoneNumber, businessName, contactInfo } = formValues;
 
         if (!name) formErrors.name = 'Name is required';
-        if (!email) formErrors.email = 'Email Address is required';
-        if (!password) formErrors.password = 'Password is required';
+        if (!email) {
+            formErrors.email = 'Email address is required';
+        } else if (!isValidEmail(email)) {
+            formErrors.email = 'Invalid email address.';
+        }
+        if (!password) {
+            formErrors.password = 'Password is required';
+        } else if (!isValidPassword(password)) {
+            formErrors.password = 'Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters.';
+        }
         if (!confirmPassword) formErrors.confirmPassword = 'Confirm Password is required';
         if (password !== confirmPassword) formErrors.confirmPassword = 'Passwords do not match';
         if (!isChecked) formErrors.terms = 'You must agree to the terms and conditions';
+        if (!phoneNumber) formErrors.phoneNumber = 'Phone number is required';
+        if (!businessName) formErrors.businessName = 'Business name is required';
+        if (!contactInfo) formErrors.contactInfo = 'Contact info is required';
 
         if (Object.keys(formErrors).length > 0) {
             setErrors(formErrors);
             return;
         }
 
-        console.log('Form Submitted:', formValues);
-        route.push('dashboard/dashboard')
+        try {
+            const response = await axios.post('https://multi-connect-latest-ei6f.onrender.com/api/V1/register_service_provider', formValues);
+            console.log('Form submitted:', response.data);
+            router.push('login/ServiceProviderLoginPage');
+        } catch (error) {
+            console.log('Registration failed', error);
+        }
     };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.firstContainer}>
-                <Icon name="user" size={width/5} color="black"/>
+                <Icon name="user" size={width / 5} color="#4B0082" />
             </View>
             <Text style={styles.title}>Sign Up As Service Provider</Text>
+
             <TextInput
                 style={[styles.input, errors.name && styles.errorInput]}
                 placeholder="Name"
+                placeholderTextColor='#8B8B8B'
                 value={formValues.name}
-                onChangeText={(text) => {
-                    handleChange('name', text);
-                    setErrors((prev) => ({ ...prev, name: '' }));
-                }}
+                onChangeText={(text) => handleChange('name', text)}
             />
             {errors.name ? <Text style={styles.errorText}>{errors.name}</Text> : null}
 
             <TextInput
                 style={[styles.input, errors.email && styles.errorInput]}
                 placeholder="Email Address"
+                placeholderTextColor='#8B8B8B'
                 value={formValues.email}
-                onChangeText={(text) => {
-                    handleChange('email', text);
-                    setErrors((prev) => ({ ...prev, email: '' }));
-                }}
+                onChangeText={(text) => handleChange('email', text)}
                 keyboardType="email-address"
             />
             {errors.email ? <Text style={styles.errorText}>{errors.email}</Text> : null}
@@ -117,8 +148,9 @@ const SignUpServiceProvider = () => {
                 <Text style={styles.dropdownButtonText}>
                     {selectedField || 'Choose a Role'}
                 </Text>
-                <Icon name={isFieldDropdownVisible ? 'arrow-up' : 'arrow-down'} size={20} color="#000" />
+                <Icon name={isFieldDropdownVisible ? 'arrow-up' : 'arrow-down'} size={20} color="#4B0082" />
             </TouchableOpacity>
+
             {isFieldDropdownVisible && (
                 <View style={styles.dropdownContainer}>
                     <TouchableOpacity style={styles.dropdownItem} onPress={() => handleFieldChange('HEALTHCARE')}>
@@ -138,9 +170,10 @@ const SignUpServiceProvider = () => {
                     <Text style={styles.dropdownButtonText}>
                         {selectedSubField || 'Select Sub-Field'}
                     </Text>
-                    <Icon name={isSubFieldDropdownVisible ? 'arrow-up' : 'arrow-down'} size={20} color="#000" />
+                    <Icon name={isSubFieldDropdownVisible ? 'arrow-up' : 'arrow-down'} size={20} color="#4B0082" />
                 </TouchableOpacity>
             )}
+
             {selectedField && isSubFieldDropdownVisible && (
                 <View style={styles.dropdownContainer}>
                     {selectedField === 'HEALTHCARE' && (
@@ -156,7 +189,6 @@ const SignUpServiceProvider = () => {
                             </TouchableOpacity>
                         </>
                     )}
-
                     {selectedField === 'EDUCATION' && (
                         <>
                             <TouchableOpacity style={styles.dropdownItem} onPress={() => handleSubFieldChange('TEACHER')}>
@@ -170,7 +202,6 @@ const SignUpServiceProvider = () => {
                             </TouchableOpacity>
                         </>
                     )}
-
                     {selectedField === 'TRANSPORTATION' && (
                         <>
                             <TouchableOpacity style={styles.dropdownItem} onPress={() => handleSubFieldChange('LOGISTICS')}>
@@ -190,11 +221,9 @@ const SignUpServiceProvider = () => {
             <TextInput
                 style={[styles.input, errors.password && styles.errorInput]}
                 placeholder="Password"
+                placeholderTextColor='#8B8B8B'
                 value={formValues.password}
-                onChangeText={(text) => {
-                    handleChange('password', text);
-                    setErrors((prev) => ({ ...prev, password: '' }));
-                }}
+                onChangeText={(text) => handleChange('password', text)}
                 secureTextEntry
             />
             {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
@@ -202,140 +231,191 @@ const SignUpServiceProvider = () => {
             <TextInput
                 style={[styles.input, errors.confirmPassword && styles.errorInput]}
                 placeholder="Confirm Password"
+                placeholderTextColor='#8B8B8B'
                 value={formValues.confirmPassword}
-                onChangeText={(text) => {
-                    handleChange('confirmPassword', text);
-                    setErrors((prev) => ({ ...prev, confirmPassword: '' }));
-                }}
+                onChangeText={(text) => handleChange('confirmPassword', text)}
                 secureTextEntry
             />
             {errors.confirmPassword ? <Text style={styles.errorText}>{errors.confirmPassword}</Text> : null}
 
+            <TextInput
+                style={[styles.input, errors.phoneNumber && styles.errorInput]}
+                placeholder="Phone Number"
+                placeholderTextColor='#8B8B8B'
+                value={formValues.phoneNumber}
+                onChangeText={(text) => handleChange('phoneNumber', text)}
+                keyboardType="phone-pad"
+            />
+            {errors.phoneNumber ? <Text style={styles.errorText}>{errors.phoneNumber}</Text> : null}
+
+            <TextInput
+                style={[styles.input, errors.businessName && styles.errorInput]}
+                placeholder="Business Name"
+                placeholderTextColor='#8B8B8B'
+                value={formValues.businessName}
+                onChangeText={(text) => handleChange('businessName', text)}
+            />
+            {errors.businessName ? <Text style={styles.errorText}>{errors.businessName}</Text> : null}
+
+            <TextInput
+                style={[styles.input, errors.contactInfo && styles.errorInput]}
+                placeholder="Contact Information"
+                placeholderTextColor='#8B8B8B'
+                value={formValues.contactInfo}
+                onChangeText={(text) => handleChange('contactInfo', text)}
+            />
+            {errors.contactInfo ? <Text style={styles.errorText}>{errors.contactInfo}</Text> : null}
+
             <View style={styles.checkboxContainer}>
-                <Checkbox value={isChecked} onValueChange={handleCheckboxChange} />
+                <Checkbox
+                    value={isChecked}
+                    onValueChange={handleCheckboxChange}
+                    style={styles.checkbox}
+                    color={isChecked ? '#4B0082' : undefined}
+                />
                 <Text style={styles.checkboxLabel}>
-                    By clicking Sign Up, you agree to our{' '}
-                    <Text style={styles.link} onPress={() => Linking.openURL('https://example.com/terms-and-conditions')}>
-                        Terms & Conditions
+                    I have read and agree to the{' '}
+                    <Text
+                        style={styles.termsLink}
+                        onPress={() => Linking.openURL('https://example.com/terms')}
+                    >
+                        Terms and Conditions
                     </Text>
                 </Text>
             </View>
             {errors.terms ? <Text style={styles.errorText}>{errors.terms}</Text> : null}
 
-            <TouchableOpacity style={styles.signUp} onPress={()=> handleSubmit()}>
-                <Text style={styles.text}>Sign Up</Text>
+            <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+                <Text style={styles.submitButtonText}>Sign Up</Text>
             </TouchableOpacity>
+
+            <View style={styles.loginTextContainer}>
+                <Text style={styles.loginText}>Already have an account? </Text>
+                <Text
+                    style={styles.loginLink}
+                    onPress={() => router.push('login/loginPage')}
+                >
+                    Log In
+                </Text>
+            </View>
         </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        display:"flex",
-        flex: 1,
-        padding: 16,
-        backgroundColor: '#fff',
-        alignSelf:'center',
-        justifyContent:"center"
+        flexGrow: 1,
+        paddingVertical: height / 15,
+        paddingHorizontal: width / 20,
+        backgroundColor: '#F8F9FA', // New background color
     },
-    firstContainer:{
-        width: width/3,
-        height:width/3,
-        alignSelf:"center",
-        alignItems:"center",
-        justifyContent: "center",
-        backgroundColor:"rgba(45,232,160,0.7)",
-        borderRadius: width/5,
-        marginBottom:15,
-    },
-
-    iconContainer: {
-        alignItems: 'flex-start',
-        marginBottom: 16,
-    },
-    backButton: {
-        flexDirection: 'row',
+    firstContainer: {
+        justifyContent: 'center',
         alignItems: 'center',
-        padding: 8,
-        backgroundColor: '#f0f0f0',
-        borderRadius: 50,
+        marginBottom: height / 25,
+        backgroundColor: "rgba(45,232,160,0.7)",
+        width: width / 3,
+        height: width / 3,
+
     },
     title: {
-        fontSize: width * 0.07,
+        fontSize: width / 18,
         fontWeight: 'bold',
-        marginBottom: 16,
+        marginBottom: height / 40,
         textAlign: 'center',
     },
-    input:{
-        height: height * 0.06,
-        borderColor: '#ccc',
+    input: {
+        width: '100%',
+        paddingVertical: height / 100,
+        paddingHorizontal: width / 30,
+        borderRadius: width / 50,
         borderWidth: 1,
-        borderRadius: 5,
-        paddingHorizontal: 10,
-        marginBottom: 8,
-    },
-    errorInput: {
-        borderColor: 'red',
-    },
-    errorText: {
-        color: 'red',
-        fontSize: 12,
-        marginBottom: 8,
+        borderColor: '#D9D9D9',
+        backgroundColor: '#FFFFFF', // Input background color
+        marginBottom: height / 80,
     },
     dropdownButton: {
-        height: height * 0.06,
-        borderColor: '#ccc',
+        width: '100%',
+        paddingVertical: height / 100,
+        paddingHorizontal: width / 30,
+        borderRadius: width / 50,
         borderWidth: 1,
-        borderRadius: 5,
-        paddingHorizontal: 10,
-        marginBottom: 8,
-        backgroundColor: '#fff',
+        borderColor: '#D9D9D9',
+        backgroundColor: '#FFFFFF', // Dropdown button background color
+        marginBottom: height / 80,
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'space-between',
+        alignItems: 'center',
     },
     dropdownButtonText: {
-        fontSize: width * 0.045,
+        fontSize: width / 25,
+        color: '#333333', // Dropdown button text color
     },
     dropdownContainer: {
+        width: '100%',
+        backgroundColor: '#FFFFFF', // Dropdown container background color
+        borderRadius: width / 50,
         borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        marginBottom: 8,
-        backgroundColor: '#fff',
-        zIndex: 1000,
+        borderColor: '#D9D9D9',
+        marginBottom: height / 80,
     },
     dropdownItem: {
-        padding: 12,
-        borderBottomWidth: 1,
+        paddingVertical: height / 100,
+        paddingHorizontal: width / 30,
         borderBottomColor: '#ccc',
+
     },
     checkboxContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 16,
+        marginBottom: height / 80,
+    },
+    checkbox: {
+        marginRight: width / 50,
     },
     checkboxLabel: {
-        fontSize: width * 0.04,
-        marginLeft: 8,
+        fontSize: width / 30,
+        color: '#333333', // Checkbox label color
     },
-    link: {
-        color: 'blue',
+    termsLink: {
+        color: '#4B0082', // Terms link color
+        textDecorationLine: 'underline',
     },
-    signUp:{
-        width:width/1.1,
-        height: height * 0.06,
-        alignItems: "center",
-        justifyContent:"center",
-        borderRadius: 5,
-        backgroundColor:"green",
+    submitButton: {
+        width: '100%',
+        paddingVertical: height / 40,
+        backgroundColor: "rgba(45,232,160,0.7)",
+        borderRadius: width / 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: height / 80,
     },
-    text:{
-        color: "white",
-        fontSize: width * 0.06,
-        fontWeight: "600",
-    }
-
+    submitButtonText: {
+        fontSize: width / 25,
+        color: '#FFFFFF', // Submit button text color
+        fontWeight: 'bold',
+    },
+    errorText: {
+        color: '#FF0000', // Error text color
+        marginBottom: height / 80,
+    },
+    errorInput: {
+        borderColor: '#FF0000', // Error input border color
+    },
+    loginTextContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: height / 40,
+    },
+    loginText: {
+        fontSize: width / 30,
+        color: '#333333', // Login text color
+    },
+    loginLink: {
+        fontSize: width / 30,
+        color: '#4B0082', // Login link color
+        textDecorationLine: 'underline',
+    },
 });
 
 export default SignUpServiceProvider;

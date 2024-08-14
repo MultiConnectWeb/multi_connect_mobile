@@ -38,7 +38,7 @@ const RootLayout = () => {
                 }}
             />
 
-            <Stack.Screen name="login/loginPage" options={{ headerShown: false }} />
+            <Stack.Screen name="login/ServiceProviderLoginPage" options={{ headerShown: false }} />
             <Stack.Screen name="orders/orders" options={{ headerShown: false }} />
 
             <Stack.Screen
