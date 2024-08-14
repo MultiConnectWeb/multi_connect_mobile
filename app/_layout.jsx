@@ -17,6 +17,36 @@ const RootLayout = () => {
             <Stack.Screen name="landingPage/landingPage" options={{ headerShown: false }} />
             <Stack.Screen name="(tab)" options={{ headerShown: false }} />
             <Stack.Screen name="(tabTwo)" options={{ headerShown: false }} />
+            <Stack.Screen name="chat/chat"  options={({ navigation }) => ({
+                headerTitle: 'Chat',
+                headerLeft: () => (
+                    <Button
+                        onPress={() => navigation.goBack()}
+                        title="Back"
+                        color="white"
+                        fontSize="large"
+                    />
+                ),
+                headerStyle: {
+                    backgroundColor: 'green',
+                },
+            })}
+            />
+            <Stack.Screen name="chat/chatList"  options={({ navigation }) => ({
+                headerTitle: 'Chat List',
+                headerLeft: () => (
+                    <Button
+                        onPress={() => navigation.goBack()}
+                        title="Back"
+                        color="white"
+                        fontSize="large"
+                    />
+                ),
+                headerStyle: {
+                    backgroundColor: 'green',
+                },
+            })}
+            />
 
             <Stack.Screen
                 name="wallet/wallet"

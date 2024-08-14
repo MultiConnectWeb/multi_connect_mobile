@@ -13,7 +13,9 @@ const { width, height } = Dimensions.get('window');
 const serviceProviderDashboard = () => {
     const router = useRouter();
     const handleNavigation = (index) =>{
-        if(index===1)  router.push('wallet/wallet');
+         if(index===1) router.push('wallet/wallet')
+        console.log("Navigating to:", index);
+
     };
     const MainContent = () => (
         <View style={styles.mainContent}>

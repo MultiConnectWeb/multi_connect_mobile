@@ -1,10 +1,15 @@
-import { StyleSheet, Text, View, Image, Pressable , TouchableOpacity } from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, View, Image, Pressable, TouchableOpacity, Dimensions} from 'react-native';
+import React, {useState} from 'react';
 import image from '../../assets/images/Frame 10590.png';
 import image1 from '../../assets/images/Frame 10606.png';
 import { useRouter } from "expo-router";
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import {auth, database} from "../lib/firebase";
+import {doc, setDoc} from "firebase/firestore";
+const {width, height} = Dimensions.get('window')
 const Register = () => {
   const  route = useRouter()
+
   return (
       <View style={styles.container}>
         <View style={styles.mainContent}>
@@ -50,12 +55,12 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   title: {
-    fontSize: 32,
+    fontSize: width/15,
     fontWeight: 'bold',
     marginBottom: 10,
   },
   subtitle: {
-    fontSize: 17,
+    fontSize: width/25,
     textAlign: 'center',
     marginBottom: 50,
   },
@@ -115,7 +120,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 22,
+    fontSize: width/23,
     fontWeight: 'bold',
   },
 
