@@ -110,24 +110,24 @@ const styles = StyleSheet.create({
 
   },
   title: {
-    fontSize: width/10,
+    fontSize: 40,
     marginTop:10,
     color: "white",
     alignSelf:'flex-start'
   },
   text: {
     color: 'white',
-    width: width/1.3,
-    fontSize: width/20,
+    fontSize: 25,
     fontWeight: 'bold',
-    textAlign: 'left',
+    textAlign: 'center',
+    fontFamily: "Times New Roman",
     marginBottom: 20,
     marginTop: 10,
     alignSelf:'flex-start'
 
   },
   skipCenter: {
-    width: width,
+    width: widths,
     display: "flex",
     flexDirection: 'row',
     justifyContent: 'center',

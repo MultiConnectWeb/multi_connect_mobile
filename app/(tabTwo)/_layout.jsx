@@ -3,10 +3,9 @@ import {FontAwesome} from "@expo/vector-icons";
 import {Tabs} from "expo-router";
 import Home from "../../assets/images/home.png"
 import user from "../../assets/images/user.png"
-import repeat from "../../assets/images/Grace.png"
-import message from "../../assets/images/abiodun.png"
-
-
+import repeat from "../../assets/images/My Kwafts.png"
+import message from "../../assets/images/chat.png"
+import wallet from "../../assets/images/wallet.png"
 
 
 
@@ -59,9 +58,9 @@ const TabsLayout = () =>{
                 }}
             >
                 <Tabs.Screen
-                    name="serviceProviderHome"
+                    name="userHome"
                     options={{
-                        title:"serviceProviderHome.jsx",
+                        title:"userHome",
                         headerShown : false,
                         tabBarIcon :
                             ({color, focused}) =>(
@@ -75,9 +74,9 @@ const TabsLayout = () =>{
                     }}
                 />
                 <Tabs.Screen
-                    name="kwaft"
+                    name="userkwaft"
                     options={{
-                        title : "kwaft",
+                        title : "userkwaft",
                         headerShown:false,
                         tabBarIcon : ({color , focused}) =>
                             <TabIcon
@@ -103,9 +102,23 @@ const TabsLayout = () =>{
                     }}
                 />
                 <Tabs.Screen
-                    name="profile"
+                    name="userWallet"
+                    options={{
+                        title : "userWallet",
+                        headerShown:false,
+                        tabBarIcon : ({color , focused}) =>
+                            <TabIcon
+                                icon={wallet}
+                                color={color}
+                                name={"Wallet"}
+                                focused={focused}
+                            />
+                    }}
+                />
+                <Tabs.Screen
+                    name="userProfile"
                     options ={{
-                        title : "profile",
+                        title : "userProfile",
                         headerShown : false,
                         tabBarIcon : ({color, focused }) =>
                             <TabIcon

@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView, TouchableOpaci
 import React from 'react';
 import Data from "./data";
 import {useRouter} from "expo-router";
+import TabsLayout from "../(tab)/_layout";
 
 const image1 = require('../../assets/images/istockphoto-482878550-612x612-removebg-preview.png');
 const image = require('../../assets/images/R (1).jpeg');
@@ -9,7 +10,7 @@ const user = { name: 'John Doe' };
 const data = Data;
 const { width, height } = Dimensions.get('window');
 
-const Dashboard = () => {
+const serviceProviderDashboard = () => {
     const router = useRouter();
     const handleNavigation = (index) =>{
          if(index===1) router.push('wallet/wallet')
@@ -43,10 +44,11 @@ const Dashboard = () => {
                         <TouchableOpacity key={index} style={[styles.dataCard, {backgroundColor: value.color}]} onPress={()=>handleNavigation(index)}>
                             <Image style={styles.dataImage} source={value.image}/>
                             <Text style={styles.dataText}>{value.text}</Text>
+                            <TabsLayout />
                         </TouchableOpacity>
                     ))}
                 </ScrollView>
-
+               <TabsLayout/>
 
             </View>
         </View>
@@ -56,6 +58,7 @@ const Dashboard = () => {
         <SafeAreaView style={styles.safeArea}>
             <ScrollView contentContainerStyle={styles.scrollView}>
                 <MainContent/>
+
             </ScrollView>
         </SafeAreaView>
     );
@@ -184,4 +187,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Dashboard;
+export default serviceProviderDashboard;
