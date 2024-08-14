@@ -35,7 +35,7 @@ const Authentication = () => {
         const storedCode = await AsyncStorage.getItem('verificationCode');
 
         if (enteredCode === storedCode) {
-            // Navigate to the appropriate dashboard based on userType
+            // Navigate to the appropriate (dashboard) based on userType
             const userType = await AsyncStorage.getItem('userType');
             if (userType === 'user') {
                 router.push('dashboard/UserDashboard');

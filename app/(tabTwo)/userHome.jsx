@@ -1,15 +1,17 @@
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Text, View} from "react-native";
+import UserDashboard from "../(dashboard)/UserDashboard";
+import Header from "../component/header/header";
 
-const Profile = () =>{
+
+const UserHome = () =>{
     return(
         <SafeAreaView>
             <View>
-                <Text>
-                    profile
-                </Text>
+                <UserDashboard/>
             </View>
         </SafeAreaView>
     )
 }
-export default Profile
+
+export default UserHome

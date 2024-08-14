@@ -6,7 +6,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <LandingPage />
-      <StatusBar style="auto" />
+      {/*<StatusBar style="auto" />*/}
     </View>
   );
 }
