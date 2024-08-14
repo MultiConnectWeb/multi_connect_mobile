@@ -12,7 +12,10 @@ const { width, height } = Dimensions.get('window');
 const Dashboard = () => {
     const router = useRouter();
     const handleNavigation = (index) =>{
-        if(index===1)  router.push('wallet/wallet');
+        // if(index===0) router.push('chat/chat')
+        console.log("Navigating to:", index); // Debugging log
+
+        if(index===0)  router.push('chat/login');
     };
     const MainContent = () => (
         <View style={styles.mainContent}>

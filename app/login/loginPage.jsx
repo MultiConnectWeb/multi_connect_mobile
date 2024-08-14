@@ -1,20 +1,60 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, Text, View, TextInput, TouchableOpacity, Alert} from 'react-native';
+ import {  signInWithEmailAndPassword,onAuthStateChanged } from 'firebase/auth';
+
 import { useRouter } from 'expo-router';
+import {auth} from "../lib/firebase";
+import axios from "axios";
+import UseUserStore from "../lib/userStore";
 
 const Login = () => {
-
+  const {fetchUserInfo} = UseUserStore()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const route = useRouter();
+  let response = null;
 
-  // Dummy user data
-  const users = [
-    { email: 'Philip', password: 'password1', dashboard: 'dashboard/dashboard' },
-    { email: 'BeeJhay', password: 'password2', dashboard: 'dashboard/UserDashboard' },
-  ];
+  useEffect(() => {
+     const unSub = onAuthStateChanged(auth, (user) => {
+       fetchUserInfo(user?.uid);
+    });
+
+     return () => {
+       unSub();
+     };
+   }, [fetchUserInfo]);
+
+  const handleChatLogin = async () => {
+        // setLoading(true);
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+        } catch (err) {
+            console.log(err);
+            Alert.alert('Error', err.message);
+        } finally {
+            // setLoading(false);
+        }
+    };
+  const authenticate = async ()=>{
+    try {
+      response = await axios.post(' https://multi-connect-latest-ei6f.onrender.com/api/V1/auth', {
+        email: email.trim(),
+        password: password,
+      });
+      if(!response.status){
+        Alert.alert('Error', response.data.error);
+        return;
+      }
+
+      console.log('Registration response:', response.data);
+    } catch (err) {
+      console.error('Registration error:', err.response ? err.response.data : err.message);
+    } finally {
+
+    }
+  }
 
   const handleLogin = () => {
     let valid = true;
@@ -34,15 +74,11 @@ const Login = () => {
     }
 
     if (valid) {
-      // Check user credentials against the dummy data
-      const user = users.find(u => u.email === email && u.password === password);
 
-      if (user) {
-        console.log('Logging in with', { email, password });
-        route.push(user.dashboard);
-      } else {
-        setEmailError('Invalid email or password');
-      }
+      Alert.alert('Success', 'Logged In Successfully');
+      handleChatLogin().then()
+      authenticate().then()
+      route.push('user.dashboard');
     }
   };
 

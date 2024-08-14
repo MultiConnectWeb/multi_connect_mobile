@@ -9,6 +9,51 @@ const RootLayout = () => {
         <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="landingPage/landingPage" options={{ headerShown: false }} />
+            <Stack.Screen name="chat/login"  options={({ navigation }) => ({
+                headerTitle: 'Wallet',
+                headerLeft: () => (
+                    <Button
+                        onPress={() => navigation.goBack()}
+                        title="Back"
+                        color="white"
+                        fontSize="large"
+                    />
+                ),
+                headerStyle: {
+                    backgroundColor: 'green',
+                },
+            })}
+            />
+            <Stack.Screen name="chat/chat"  options={({ navigation }) => ({
+                headerTitle: 'Wallet',
+                headerLeft: () => (
+                    <Button
+                        onPress={() => navigation.goBack()}
+                        title="Back"
+                        color="white"
+                        fontSize="large"
+                    />
+                ),
+                headerStyle: {
+                    backgroundColor: 'green',
+                },
+            })}
+            />
+            <Stack.Screen name="chat/chatList"  options={({ navigation }) => ({
+                headerTitle: 'Wallet',
+                headerLeft: () => (
+                    <Button
+                        onPress={() => navigation.goBack()}
+                        title="Back"
+                        color="white"
+                        fontSize="large"
+                    />
+                ),
+                headerStyle: {
+                    backgroundColor: 'green',
+                },
+            })}
+            />
 
             <Stack.Screen
                 name="wallet/wallet"

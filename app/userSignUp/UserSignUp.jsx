@@ -10,12 +10,18 @@ import {
     Linking
 } from 'react-native';
 import Checkbox from 'expo-checkbox';
-import { router } from "expo-router";
+import {router, useRouter} from "expo-router";
 import Icon from "react-native-vector-icons/FontAwesome";
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import {auth, database} from "../lib/firebase";
+import {doc, setDoc} from "firebase/firestore";
+import axios from "axios";
 
 const { width, height } = Dimensions.get('window');
 
 const SignUpUser = () => {
+    let response = null;
+    const route = useRouter()
     const [formValues, setFormValues] = useState({
         firstName: '',
         lastName: '',
@@ -43,10 +49,51 @@ const SignUpUser = () => {
             [name]: value,
         });
     };
+    const handleRegister = async () => {
+        // setLoading(true);
+        try {
+            const response = await createUserWithEmailAndPassword(auth, formValues.email.trim(), formValues.password);
+
+            await setDoc(doc(database, 'users', response.user.uid), {
+                username: formValues.firstname.trim(),
+                email: formValues.email.trim(),
+                id: response.user.uid,
+                avatar: "",
+                blocked: [],
+            });
+
+            await setDoc(doc(database, 'userchats', response.user.uid), {
+                chats: [],
+            });
+        } catch (err) {
+            console.log(err);
+        } finally {
+            // setLoading(false);
+        }
+    };
 
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked);
     };
+    const userSignUp = async () =>{
+        try {
+            response = await axios.post(' https://multi-connect-latest-ei6f.onrender.com/api/V1/api/v1/register_user', {
+                firstname: formValues.firstname.trim(),
+                lastname: formValues.lastname.trim(),
+                email: formValues.email.trim(),
+                password: formValues.password,
+            });
+
+            console.log('Registration response:', response.data);
+            route.push('login/loginPage');
+        } catch (err) {
+            console.error('Registration error:', err.response ? err.response.data : err.message);
+            // Optionally display error to user
+        } finally{
+
+        }
+    }
+
 
     const handleSubmit = () => {
         let formErrors = {};
@@ -67,7 +114,9 @@ const SignUpUser = () => {
         }
 
         console.log('Form Submitted:', formValues);
-        router.push('login/loginPage')
+        handleRegister().then();
+        router.push('login/loginPage');
+
     };
 
     return (

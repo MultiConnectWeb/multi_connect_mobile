@@ -1,14 +1,113 @@
-import React from 'react';
-import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, Dimensions, Alert} from 'react-native';
 import { Icon } from 'react-native-elements';
 
 // Import images using the correct syntax
 import abiodunImage from "../../assets/images/abiodun.png";
 import graceImage from "../../assets/images/Grace.png";
+import {onAuthStateChanged} from "firebase/auth";
+import {auth, database} from "../lib/firebase";
+import {
+    arrayUnion,
+    collection,
+    doc,
+    getDocs,
+    query,
+    serverTimestamp,
+    setDoc,
+    updateDoc,
+    where
+} from "firebase/firestore";
+import UseUserStore from "../lib/userStore";
+import {useRoute} from "@react-navigation/native";
 
 const { width, height } = Dimensions.get('window');
 
 const ProfileComponent = () => {
+    const {fetchUserInfo,currentUser} = UseUserStore()
+    const route = useRoute()
+    const [username,setUsername] = useState("")
+    const [user,SetUser] = useState(null)
+    useEffect(() => {
+        const unSub = onAuthStateChanged(auth, (user) => {
+            fetchUserInfo(user?.uid);
+        });
+
+        return () => {
+            unSub();
+        };
+    }, [fetchUserInfo]);
+
+    useEffect(() => {
+        if (!currentUser) {
+            Alert.alert('Not Authenticated', 'You need to log in to access this feature.');
+        }
+    }, [currentUser]);
+
+    const handleSearch = async () => {
+        const name = username;
+        try {
+            const userRef = collection(database, 'users');
+            const response = query(userRef, where('username', '==', name));
+            const querySnapShot = await getDocs(response);
+
+            if (!querySnapShot.empty) {
+                setUser(querySnapShot.docs[0].data());
+            } else {
+                Alert.alert('User not found', 'No user found with that username.');
+            }
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+
+    const handleAdd = async () => {
+        if (!user) {
+            Alert.alert('No User Selected', 'Please search for a user before adding.');
+            return;
+        }
+
+        const chatRef = collection(database, 'chats');
+        const userChatRef = collection(database, 'userchats');
+        try {
+            const newChatRef = doc(chatRef);
+            await setDoc(newChatRef, {
+                createdAt: serverTimestamp(),
+                messages: [],
+            });
+
+            await updateDoc(doc(userChatRef, currentUser.id), {
+                chats: arrayUnion({
+                    chatId: newChatRef.id,
+                    lastMessage: '',
+                    receiverId: user.id,
+                    updatedAt: Date.now(),
+                }),
+            });
+            await updateDoc(doc(userChatRef, user.id), {
+                chats: arrayUnion({
+                    chatId: newChatRef.id,
+                    lastMessage: '',
+                    receiverId: currentUser.id,
+                    updatedAt: Date.now(),
+                }),
+            });
+
+            Alert.alert('Success', 'User added and chat created successfully!');
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+    const handleMessaging = ()=>{
+        try{
+            handleSearch();
+            handleAdd()
+        }catch (err){
+            console.log(err.message)
+        }
+
+    }
+
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.backButton}>
@@ -36,7 +135,7 @@ const ProfileComponent = () => {
                     <TouchableOpacity style={styles.iconButton}>
                         <Icon name="phone" size={20} color="rgba(69, 131, 19, 1)" />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconButton}>
+                    <TouchableOpacity style={styles.iconButton} onPress={handleMessaging}>
                         <Icon name="message" size={20} color="rgba(69, 131, 19, 1)" />
                     </TouchableOpacity>
                 </View>
