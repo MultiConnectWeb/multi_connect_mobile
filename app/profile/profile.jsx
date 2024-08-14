@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ADD8E6',
         borderRadius: 5,
         marginBottom: 10,
+        gap: width / 5
     },
     logoutText: {
         fontWeight: 'bold',
