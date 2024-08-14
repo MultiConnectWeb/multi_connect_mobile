@@ -44,6 +44,8 @@ const Login = () => {
         const response = await axios.post("https://multi-connect-latest-ei6f.onrender.com/api/v1/auth",payload);
         console.log("logged in successfully",response);
         router.push('(tabTwo)/userHome')
+        // router.push('bookAppointment/BookAppointment')
+
       } catch (error){
         if (error.response){
           console.log("Backend error",error.response.data);

@@ -19,6 +19,16 @@ const RootLayout = () => {
             <Stack.Screen name="(tabTwo)" options={{ headerShown: false }} />
 
             <Stack.Screen
+                name="bookAppointment/BookAppointment"
+                options={({ navigation }) => ({
+                    headerLeft: () => <BackButton navigation={navigation} />,
+                    headerTitle: '',
+                    headerStyle: {},
+                })}
+            />
+
+
+            <Stack.Screen
                 name="wallet/wallet"
                 options={({ navigation }) => ({
                     headerLeft: () => <BackButton navigation={navigation} />,
