@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import React from 'react';
-import Data from "./data";
+import Data1 from "./data1";
 import {useRouter} from "expo-router";
 import TabsLayout from "../(tab)/_layout";
 
 const image1 = require('../../assets/images/istockphoto-482878550-612x612-removebg-preview.png');
 const image = require('../../assets/images/R (1).jpeg');
 const user = { name: 'John Doe' };
-const data = Data;
+const data = Data1;
 const { width, height } = Dimensions.get('window');
 
 const serviceProviderDashboard = () => {

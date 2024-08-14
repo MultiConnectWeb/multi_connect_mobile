@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
 
   },
   skipCenter: {
-    width: widths,
+    width: width,
     display: "flex",
     flexDirection: 'row',
     justifyContent: 'center',
