@@ -5,39 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d83f4d99-f0c6-4dd9-9ddb-ee381aad30a6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/(tab)/serviceProviderHome.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/(tab)/serviceProviderProfile.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/(tabTwo)/_layout.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/(tabTwo)/userProfile.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/(tabTwo)/userWallet.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/(tabTwo)/userkwaft.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/My Kwafts.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/chat.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/wallet.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/data.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/data.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/data.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/data.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(serviceProviderTabs)/_layout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tab)/_layout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(serviceProviderTabs)/chat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tab)/chat.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(serviceProviderTabs)/kwaft.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tab)/kwaft.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(serviceProviderTabs)/serviceProviderHome.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabTwo)/userHome.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(serviceProviderTabs)/serviceProviderProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabTwo)/chat.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/_layout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/authentication/Authentication.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/authentication/Authentication.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/component/header/header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/component/header/header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/dashboard/UserDashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/UserDashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/dashboard/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/dashboard/data.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/dashboard/data.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/dashboard/data.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/landingPage/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/landingPage/landingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/landingPage/landingPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/login/loginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/login/loginPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/profile/profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/profile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/registerPage/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/userSignUp/UserSignUp.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/userSignUp/UserSignUp.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +27,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging chat__endpoint",
+    "git-widget-placeholder": "chat__endpoint",
     "last_opened_file_path": "C:/Users/DELL",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",

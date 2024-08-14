@@ -27,7 +27,7 @@ const ProfileComponent = () => {
     const {fetchUserInfo,currentUser} = UseUserStore()
     const route = useRoute()
     const [username,setUsername] = useState("")
-    const [user,SetUser] = useState(null)
+    const [user,setUser] = useState(null)
     useEffect(() => {
         const unSub = onAuthStateChanged(auth, (user) => {
             fetchUserInfo(user?.uid);

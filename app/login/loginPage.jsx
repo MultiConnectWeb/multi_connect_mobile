@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
+import {StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ActivityIndicator} from 'react-native';
+import {router, useRouter} from 'expo-router';
 import axios from 'axios';
 import {auth} from "../lib/firebase";
 import UseUserStore from "../lib/userStore";
-import {onAuthStateChanged} from "firebase/auth";
+import {onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
   const {fetchUserInfo} = UseUserStore()
@@ -27,6 +27,20 @@ const Login = () => {
       unSub();
     };
   }, [fetchUserInfo]);
+
+      const handleChatLogin = async () => {
+        setLoading(true);
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            Alert.alert('Success', 'Logged In Successfully');
+            route.push('chat/list')
+        } catch (err) {
+            console.log(err);
+            Alert.alert('Error', err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
 
   const handleLogin = async () => {
@@ -58,19 +72,13 @@ const Login = () => {
         console.log("logged in successfully", response);
         Alert.alert('Success', 'Logged In Successfully');
         handleChatLogin().then()
-        authenticate().then()
-        router.push('(tabTwo)/userHome')
+        if(response.data.category === '[USER]') router.push('(tabTwo)/userHome')
+        else if(response.data.category === '[SERVICE_PROVIDER]') router.push('(tab)/serviceProviderHome')
+        else Alert.alert("error", response.data.err);
       } catch (error) {
         if (error.response) {
           console.log("Backend error", error.response.data);
           setFormError("Incorrect email or password");
-
-          if (user) {
-            console.log('Logging in with', {email, password});
-            route.push(user.dashboard);
-          } else {
-            setEmailError('Invalid email or password');
-          }
         } else if (error.request) {
           console.error('Network error:', error.request);
           setFormError('Network error. Please check your connection.');
