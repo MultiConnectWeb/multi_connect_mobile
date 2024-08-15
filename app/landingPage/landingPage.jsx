@@ -15,7 +15,7 @@ import Pages from "./data";
 import { useRouter } from "expo-router";
 
 const pages = Pages
-const {height , widths} = Dimensions.get("window")
+const {height , width} = Dimensions.get("window")
 
 const LandingPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -113,29 +113,32 @@ const styles = StyleSheet.create({
     fontSize: 40,
     marginTop:10,
     color: "white",
-    // fontFamily: "Times New Roman",
+    alignSelf:'flex-start'
   },
   text: {
     color: 'white',
     fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
-    // fontFamily: "Times New Roman",
+    fontFamily: "Times New Roman",
     marginBottom: 20,
     marginTop: 10,
+    alignSelf:'flex-start'
+
   },
   skipCenter: {
-    width: widths,
+    width: width,
     display: "flex",
     flexDirection: 'row',
     justifyContent: 'center',
     paddingHorizontal: 20,
     // marginBottom: 20,
 
+
   },
   button: {
     backgroundColor: "green",
-    padding: 20, // Increased padding for a larger button
+    padding: 20,
     borderRadius: 50,
     shadowColor: 'white',
     shadowOffset: { width: 0, height: 2 },
@@ -145,7 +148,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   buttonImage: {
-    width: 30, // Adjust size of the arrow image if needed
+    width: 30,
     height: 30,
   },
   getStarted:{

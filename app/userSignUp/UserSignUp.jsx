@@ -8,16 +8,21 @@ import {
     ScrollView,
     ActivityIndicator,
     Dimensions,
-    Linking
+    Linking, Alert
 } from 'react-native';
 import Checkbox from 'expo-checkbox';
-import { router } from "expo-router";
+import {router, useRouter} from "expo-router";
 import Icon from "react-native-vector-icons/FontAwesome";
-import axios  from "axios";
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import {auth, database} from "../lib/firebase";
+import {doc, setDoc} from "firebase/firestore";
+import axios from "axios";
 
 const { width, height } = Dimensions.get('window');
 
 const SignUpUser = () => {
+    let response = null;
+    const route = useRouter()
     const [formValues, setFormValues] = useState({
         firstName: '',
         lastName: '',
@@ -51,10 +56,33 @@ const SignUpUser = () => {
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked);
     };
+    const handleRegister = async () => {
+        setLoading(true);
+        try {
+            const response = await createUserWithEmailAndPassword(auth, formValues.email, formValues.password);
 
+            await setDoc(doc(database, 'users', response.user.uid), {
+                username: formValues.firstName,
+                email: formValues.email,
+                id: response.user.uid,
+                avatar: "",
+                blocked: [],
+            });
+
+            await setDoc(doc(database, 'userchats', response.user.uid), {
+                chats: [],
+            });
+             Alert.alert('Success', 'Account Created Successfully');
+        } catch (err) {
+            console.log(err);
+             Alert.alert('Error', err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
     const handleSubmit = async () => {
         let formErrors = {};
-        const { firstName, lastName, email, phoneNumber, password, confirmPassword } = formValues;
+        const {firstName, lastName, email, phoneNumber, password, confirmPassword} = formValues;
 
         if (!firstName) formErrors.firstName = 'First Name is required';
         if (!lastName) formErrors.lastName = 'Last Name is required';
@@ -70,6 +98,9 @@ const SignUpUser = () => {
             return;
         }
 
+        console.log('Form Submitted:', formValues);
+        handleRegister().then();
+
         const payload = {
             firstName,
             lastName,
@@ -83,14 +114,14 @@ const SignUpUser = () => {
         setLoading(true)
 
         try {
-            const response = await axios.post("https://multi-connect-latest-ei6f.onrender.com/api/v1/register_user",payload);
-            console.log("Signup successful",response);
+            const response = await axios.post("https://multi-connect-latest-ei6f.onrender.com/api/v1/register_user", payload);
+            console.log("Signup successful", response);
             router.push('login/loginPage')
-        } catch (error){
-            if (error.response){
-                console.log("Backend error",error.response.data);
+        } catch (error) {
+            if (error.response) {
+                console.log("Backend error", error.response.data);
                 setFormError("An error occurred during signup ")
-            }else if (error.request) {
+            } else if (error.request) {
                 console.error('Network error:', error.request);
                 setFormError("Network error. Please try again later")
             } else {
