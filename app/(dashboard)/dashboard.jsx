@@ -6,6 +6,7 @@ import TabsLayout from "../(tab)/_layout";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const image1 = require('../../assets/images/istockphoto-482878550-612x612-removebg-preview.png');
+const user = { name: 'John Doe' };
 const image = require('../../assets/images/avatar.png');
 const data = Data;
 const { width, height } = Dimensions.get('window');
@@ -13,28 +14,11 @@ const { width, height } = Dimensions.get('window');
 const ServiceProviderDashboard = () => {
     const [serviceProvider, setServiceProvider] = useState(null);
     const router = useRouter();
-
-    useEffect(() => {
-        const getServiceProviderData = async () => {
-            try {
-                const storedData = await AsyncStorage.getItem('service_provider');
-                console.log(storedData)
-                if (storedData) {
-                    setServiceProvider(JSON.parse(storedData));
-                }
-            } catch (error) {
-                console.error("Failed to fetch service provider data:", error);
-            }
-        };
-
-        getServiceProviderData();
-    }, []);
-
-    const handleNavigation = (index) => {
-        if (index === 1) router.push('wallet/wallet');
+    const handleNavigation = (index) =>{
+         if(index===1) router.push('wallet/wallet')
         console.log("Navigating to:", index);
-    };
 
+    };
     const MainContent = () => (
         <View style={styles.mainContent}>
             <View style={styles.card}>
@@ -79,6 +63,7 @@ const ServiceProviderDashboard = () => {
         <SafeAreaView style={styles.safeArea}>
             <ScrollView contentContainerStyle={styles.scrollView}>
                 <MainContent/>
+
             </ScrollView>
         </SafeAreaView>
     );
@@ -93,8 +78,8 @@ const styles = StyleSheet.create({
     scrollView: {
         flexGrow: 1,
         alignItems: 'center',
-        width: width,
-        height: height
+        width:width,
+        height:height
     },
     button: {
         padding: 8,
@@ -114,10 +99,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     card: {
-        flex: 1,
+        flex:1,
         width: '100%',
         backgroundColor: '#fff',
         shadowColor: '#000',
+        // shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 8,
         borderRadius: 16,
@@ -128,8 +114,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 10,
-        width: width/1.2,
-        height: height/15
+        width:width/1.2,
+        height:height/15
     },
     profileImage: {
         width: 50,
@@ -140,6 +126,7 @@ const styles = StyleSheet.create({
     welcomeText: {
         fontSize: width/15,
         fontWeight: 'bolder',
+
     },
     infoContainer: {
         flexDirection: 'row',
@@ -170,14 +157,14 @@ const styles = StyleSheet.create({
     },
     mainImage: {
         height: height/5,
-        width: width/2.5,
+        width:width/2.5,
         resizeMode: 'contain',
     },
     dataContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         gap: width/18,
-        width: "90%",
+        width:"90%",
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 25,
@@ -196,7 +183,7 @@ const styles = StyleSheet.create({
     dataImage: {
         height: 30,
         width: 30,
-        alignSelf: "flex-end"
+        alignSelf:"flex-end"
     },
     dataText: {
         fontFamily: 'sans-serif',
