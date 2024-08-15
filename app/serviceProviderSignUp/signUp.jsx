@@ -17,6 +17,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, database } from "../lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width, height } = Dimensions.get('window');
 
@@ -109,6 +110,9 @@ const SignUpServiceProvider = () => {
             });
 
             console.log('Registration response:', response.data);
+            console.log('Registration response:', response.data.data);
+
+            await AsyncStorage.setItem('service_provider', JSON.stringify(response.data.data.generalUserResponse))
             route.push('login/loginPage');
         } catch (err) {
             console.error('Registration error: ', err.response ? err.response.data : err.message);
