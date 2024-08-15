@@ -1,16 +1,18 @@
 import { StyleSheet, Text, View, Image, SafeAreaView, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
-import React from 'react';
-import Data1 from "./data1";
-import {useRouter} from "expo-router";
+import React, { useEffect, useState } from 'react';
+import Data from "./data";
+import { useRouter } from "expo-router";
 import TabsLayout from "../(tab)/_layout";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const image1 = require('../../assets/images/istockphoto-482878550-612x612-removebg-preview.png');
-const image = require('../../assets/images/R (1).jpeg');
 const user = { name: 'John Doe' };
-const data = Data1;
+const image = require('../../assets/images/avatar.png');
+const data = Data;
 const { width, height } = Dimensions.get('window');
 
-const serviceProviderDashboard = () => {
+const ServiceProviderDashboard = () => {
+    const [serviceProvider, setServiceProvider] = useState(null);
     const router = useRouter();
     const handleNavigation = (index) =>{
          if(index===1) router.push('wallet/wallet')
@@ -21,10 +23,13 @@ const serviceProviderDashboard = () => {
         <View style={styles.mainContent}>
             <View style={styles.card}>
                 <View style={styles.cardHeader}>
-                    <TouchableOpacity onPress={()=>router.push('profile/profile')}>
-                        <Image style={styles.profileImage} source={image} />
+                    <TouchableOpacity onPress={() => router.push('profile/profile')}>
+                        <Image style={styles.profileImage}
+                               source={serviceProvider?.profileUrl ? { uri: serviceProvider.profileUrl } : image}/>
                     </TouchableOpacity>
-                    <Text style={styles.welcomeText}>Welcome, {user ? user.name : 'Service Provider'}!</Text>
+                    <Text style={styles.welcomeText}>
+                        Welcome, {serviceProvider ? serviceProvider.firstName : 'Service Provider'}!
+                    </Text>
                 </View>
                 <View style={styles.infoContainer}>
                     <View style={styles.textContainer}>
@@ -37,19 +42,19 @@ const serviceProviderDashboard = () => {
                             Connect With People That Need Your Service And Get Paid After Completion Of The Work
                         </Text>
                     </View>
-                    <Image style={styles.mainImage} source={image1} />
+                    <Image style={styles.mainImage} source={image1}/>
                 </View>
                 <ScrollView contentContainerStyle={styles.dataContainer}>
                     {data.map((value, index) => (
-                        <TouchableOpacity key={index} style={[styles.dataCard, {backgroundColor: value.color}]} onPress={()=>handleNavigation(index)}>
+                        <TouchableOpacity key={index} style={[styles.dataCard, {backgroundColor: value.color}]}
+                                          onPress={() => handleNavigation(index)}>
                             <Image style={styles.dataImage} source={value.image}/>
                             <Text style={styles.dataText}>{value.text}</Text>
-                            <TabsLayout />
+                            <TabsLayout/>
                         </TouchableOpacity>
                     ))}
                 </ScrollView>
-               <TabsLayout/>
-
+                <TabsLayout/>
             </View>
         </View>
     );
@@ -187,4 +192,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default serviceProviderDashboard;
+export default ServiceProviderDashboard;

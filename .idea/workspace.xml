@@ -5,42 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d83f4d99-f0c6-4dd9-9ddb-ee381aad30a6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/bookAppointment/BookAppointment.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/chat/addUser.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/chat/app.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/chat/chat.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/chat/chatList.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/chat/list.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/chat/login.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/chat/userInfo.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/lib/chatStore.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/lib/firebase.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/lib/upload.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/lib/userStore.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/avatar.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/camera.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/edit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/emoji.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/img.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/info.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/mic.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/minus.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/more.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/phone.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/plus.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/search.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/video.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(dashboard)/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabTwo)/chat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabTwo)/chat.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/_layout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/landingPage/landingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/landingPage/landingPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/login/loginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/login/loginPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/profile/serviceProviderProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/serviceProviderProfile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/registerPage/registerPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/registerPage/registerPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/profile/editProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/editProfile.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/serviceProviderSignUp/signUp.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/serviceProviderSignUp/signUp.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/userSignUp/UserSignUp.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/userSignUp/UserSignUp.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
