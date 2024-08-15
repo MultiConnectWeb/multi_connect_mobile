@@ -33,7 +33,6 @@ const Login = () => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             Alert.alert('Success', 'Logged In Successfully');
-            route.push('chat/list')
         } catch (err) {
             console.log(err);
             Alert.alert('Error', err.message);
@@ -69,12 +68,12 @@ const Login = () => {
       };
       try {
         const response = await axios.post("https://multi-connect-latest-ei6f.onrender.com/api/v1/auth", payload);
-        console.log("logged in successfully", response);
-        Alert.alert('Success', 'Logged In Successfully');
+        console.log("logged in successfully", response.data);
+        // Alert.alert('Success', 'Logged In Successfully');
         handleChatLogin().then()
-        if(response.data.category === '[USER]') router.push('(tabTwo)/userHome')
-        else if(response.data.category === '[SERVICE_PROVIDER]') router.push('(tab)/serviceProviderHome')
-        else Alert.alert("error", response.data.err);
+        if(response.data.data.authority === '[USER]') router.push('(tabTwo)/userHome')
+        else if(response.data.data.authority === '[SERVICE_PROVIDER]') router.push('(tab)/serviceProviderHome')
+        // else Alert.alert("error", response.data.err);
       } catch (error) {
         if (error.response) {
           console.log("Backend error", error.response.data);
@@ -128,23 +127,19 @@ const Login = () => {
             />
             {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
             {formError ? <Text style={styles.errorText}>{formError}</Text> : null}
-            {loading ? (
-                <ActivityIndicator style={styles.loading} size="large" color='green'/>
-            ) : (
-                <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-                  <Text style={styles.loginButtonText}>Login</Text>
-                </TouchableOpacity>
-
-            )}
-
 
           </View>
           <TouchableOpacity style={styles.forgotPassword} onPress={handleForgotPassword}>
             <Text style={styles.forgotPasswordText}>Forgotten Password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-            <Text style={styles.loginButtonText}>Login</Text>
-          </TouchableOpacity>
+          {loading ? (
+              <ActivityIndicator style={styles.loading} size="large" color='green'/>
+          ) : (
+              <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+                <Text style={styles.loginButtonText}>Login</Text>
+              </TouchableOpacity>
+
+          )}
           <View style={styles.orContainer}>
             <View style={styles.separator}/>
             <Text style={styles.orText}>Or</Text>

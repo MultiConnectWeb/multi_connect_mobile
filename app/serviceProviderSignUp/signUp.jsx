@@ -99,9 +99,9 @@ const SignUpServiceProvider = () => {
     const signUp = async () => {
 
         try {
-             response = await axios.post(' https://multi-connect-latest-ei6f.onrender.com/api/V1/register_service_provider', {
-                firstname: formValues.firstname.trim(),
-                lastname: formValues.lastname.trim(),
+             response = await axios.post('https://multi-connect-latest-ei6f.onrender.com/api/V1/register_service_provider', {
+                firstName: formValues.firstname.trim(),
+                lastName: formValues.lastname.trim(),
                 email: formValues.email.trim(),
                 password: formValues.password,
                 category: formValues.category,
@@ -111,7 +111,7 @@ const SignUpServiceProvider = () => {
             console.log('Registration response:', response.data);
             route.push('login/loginPage');
         } catch (err) {
-            console.error('Registration error:', err.response ? err.response.data : err.message);
+            console.error('Registration error: ', err.response ? err.response.data : err.message);
             // Optionally display error to user
         } finally {
 
@@ -134,8 +134,10 @@ const SignUpServiceProvider = () => {
             setErrors(formErrors);
             return;
         }
-        handleRegister().then();
-        signUp().then();
+        signUp();
+        handleRegister();
+
+
     };
 
     return (

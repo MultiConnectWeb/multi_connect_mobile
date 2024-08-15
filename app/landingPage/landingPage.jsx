@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "green",
-    padding: 20, // Increased padding for a larger button
+    padding: 20,
     borderRadius: 50,
     shadowColor: 'white',
     shadowOffset: { width: 0, height: 2 },
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   buttonImage: {
-    width: 30, // Adjust size of the arrow image if needed
+    width: 30,
     height: 30,
   },
   getStarted:{

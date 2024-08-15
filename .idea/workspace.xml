@@ -6,7 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="d83f4d99-f0c6-4dd9-9ddb-ee381aad30a6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/chat/chat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/chat/chat.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/data.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/landingPage/landingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/landingPage/landingPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/login/loginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/login/loginPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/serviceProviderSignUp/signUp.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/serviceProviderSignUp/signUp.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/userSignUp/UserSignUp.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/userSignUp/UserSignUp.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +45,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Dell\Documents\multi_connect_mobile\app\(dashboard)" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
