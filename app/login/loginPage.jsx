@@ -16,7 +16,7 @@ const Login = () => {
   const [formError, setFormError] = useState('');
   const route = useRouter();
 
-  let response = null;
+  // let response = null;
 
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (user) => {
