@@ -5,6 +5,7 @@ import axios from 'axios';
 import {auth} from "../lib/firebase";
 import UseUserStore from "../lib/userStore";
 import {onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = () => {
   const {fetchUserInfo} = UseUserStore()
@@ -71,6 +72,7 @@ const Login = () => {
         console.log("logged in successfully", response.data);
         // Alert.alert('Success', 'Logged In Successfully');
         handleChatLogin().then()
+        await AsyncStorage.setItem('token', response.data.data.token)
         if(response.data.data.authority === '[USER]') router.push('(tabTwo)/userHome')
         else if(response.data.data.authority === '[SERVICE_PROVIDER]') router.push('(tab)/serviceProviderHome')
         // else Alert.alert("error", response.data.err);
