@@ -46,6 +46,16 @@ const SignUpUser = () => {
     const [loading, setLoading] = useState(false);
     const [formError ,setFormError] = useState('');
 
+    const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,}$/;
+    const isValidPassword = (password) => {
+        return passwordRegex.test(password);
+    };
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = (email) => {
+        return emailRegex.test(email);
+    };
+
     const handleChange = (name, value) => {
         setFormValues({
             ...formValues,
@@ -84,6 +94,16 @@ const SignUpUser = () => {
         let formErrors = {};
         const {firstName, lastName, email, phoneNumber, password, confirmPassword} = formValues;
 
+        if (!email) {
+            formErrors.email = 'Email address is required';
+        } else if (!isValidEmail(email)) {
+            formErrors.email = 'Invalid email address.';
+        }
+        if (!password) {
+            formErrors.password = 'Password is required';
+        } else if (!isValidPassword(password)) {
+            formErrors.password = 'Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters.';
+        }
         if (!firstName) formErrors.firstName = 'First Name is required';
         if (!lastName) formErrors.lastName = 'Last Name is required';
         if (!email) formErrors.email = 'Email Address is required';
