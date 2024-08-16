@@ -1,14 +1,53 @@
 import React from "react";
-import { View, Image, TouchableOpacity, Text, StyleSheet, Dimensions, ScrollView } from "react-native";
+import {View, Image, TouchableOpacity, Text, StyleSheet, Dimensions, ScrollView, Alert} from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon1 from 'react-native-vector-icons/FontAwesome';
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import {auth} from "../lib/firebase";
 
 const { width, height } = Dimensions.get('window');
 const profileUrl = require('../../assets/images/woman.jpeg');
 
 const Profile = () => {
-    const router = useRouter(); // Use router instead of route
+    const router = useRouter();
+
+    const handleDeleteAccount = async () => {
+        Alert.alert(
+            "Delete Account",
+            "Are you sure you want to delete your account? This action cannot be undone.",
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel",
+                },
+                {
+                    text: "Delete",
+                    onPress: async () => {
+                        try {
+                            const userDetails = await AsyncStorage.getItem('service_provider');
+                            if (!userDetails) {
+                                throw new Error('User details or token not found.');
+                            }
+                            const user = JSON.parse(userDetails);
+                            const userId = user.id;
+                            await axios.delete(`https://multi-connect-latest-ei6f.onrender.com/api/V1/servicesProvider/delete_by/${userId}`);
+                            await auth.signOut();
+                            await AsyncStorage.removeItem('service_provider');
+                            await AsyncStorage.removeItem('token');
+                            Alert.alert("Account Deleted", "Your account has been deleted successfully.");
+                            router.push('login/loginPage');
+                        } catch (error) {
+                            console.error(error);
+                            Alert.alert("Error", "An error occurred while deleting your account. Please try again.");
+                        }
+                    },
+                },
+            ]
+        );
+    };
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Image
@@ -43,7 +82,7 @@ const Profile = () => {
             </TouchableOpacity>
 
             {/* Existing Delete Account Button */}
-            <TouchableOpacity style={styles.delete}>
+            <TouchableOpacity style={styles.delete} onPress={handleDeleteAccount}>
                 <Text style={styles.deleteText}>Delete Account</Text>
                 <Icon name="trash" size={30} color="red" />
             </TouchableOpacity>

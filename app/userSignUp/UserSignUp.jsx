@@ -82,15 +82,28 @@ const SignUpUser = () => {
     };
     const handleSubmit = async () => {
         let formErrors = {};
-        const {firstName, lastName, email, phoneNumber, password, confirmPassword} = formValues;
+        const { firstname, lastname, email, password, confirmPassword } = formValues;
 
-        if (!firstName) formErrors.firstName = 'First Name is required';
-        if (!lastName) formErrors.lastName = 'Last Name is required';
-        if (!email) formErrors.email = 'Email Address is required';
+        const isValidEmail = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/;
+        const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (!firstname) formErrors.firstname = 'First Name is required';
+        if (!lastname) formErrors.lastname = 'Last Name is required';
+        if (!email) {
+            formErrors.email = 'Email Address is required';
+        } else if (!isValidEmail.test(email)) {
+            formErrors.email = 'Please enter a valid email address';
+        }
         if (!phoneNumber) formErrors.phoneNumber = 'Phone Number is required';
-        if (!password) formErrors.password = 'Password is required';
-        if (!confirmPassword) formErrors.confirmPassword = 'Confirm Password is required';
-        if (password !== confirmPassword) formErrors.confirmPassword = 'Passwords do not match';
+        if (!password) {
+            formErrors.password = 'Password is required';
+        } else if (!passwordPattern.test(password)) {
+            formErrors.password = 'Password must be at least 8 characters long, contain letters, numbers, and special characters';
+        }
+        if (!confirmPassword) {
+            formErrors.confirmPassword = 'Confirm Password is required';
+        } else if (password !== confirmPassword) {
+            formErrors.confirmPassword = 'Passwords do not match';
+        }
         if (!isChecked) formErrors.terms = 'You must agree to the terms and conditions';
 
         if (Object.keys(formErrors).length > 0) {
