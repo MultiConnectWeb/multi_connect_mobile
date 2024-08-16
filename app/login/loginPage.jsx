@@ -41,6 +41,19 @@ const Login = () => {
             setLoading(false);
         }
     };
+      const payload1 = {
+        email
+      }
+    const handUserInfo = async ()=>{
+      try {
+        const find_response = await axios.post(`https://multi-connect-latest-ei6f.onrender.com/api/v1/generalUser/find_by_email`,payload1);
+        console.log(find_response.data);
+        await AsyncStorage.removeItem('service_provider')
+        await  AsyncStorage.setItem('service_provider',JSON.stringify(find_response.data))
+      }catch (error){
+        console.log("Error From Get Endpoint" + error )
+      }
+    }
 
 
   const handleLogin = async () => {
@@ -73,9 +86,16 @@ const Login = () => {
         // Alert.alert('Success', 'Logged In Successfully');
         handleChatLogin().then()
         await AsyncStorage.setItem('token', response.data.data.token)
+        await AsyncStorage.setItem('email',response.data.data.email)
+        await handUserInfo()
         if(response.data.data.authority === '[USER]') router.push('(tabTwo)/userHome')
         else if(response.data.data.authority === '[SERVICE_PROVIDER]') router.push('(tab)/serviceProviderHome')
         // else Alert.alert("error", response.data.err);
+        // const handleUserInfo = async () =>{
+        //   const token = await  AsyncStorage.getItem('token');
+        console.log(response.data.data.token)
+
+        // }
       } catch (error) {
         if (error.response) {
           console.log("Backend error", error.response.data);
@@ -93,9 +113,8 @@ const Login = () => {
         setLoading(false)
       }
 
-
     }
-  }
+   }
     const handleForgotPassword = () => {
       route.push('forgetPassword/ForgetPassword');
     };

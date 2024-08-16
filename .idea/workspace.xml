@@ -6,12 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="d83f4d99-f0c6-4dd9-9ddb-ee381aad30a6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(dashboard)/UserDashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/UserDashboard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(dashboard)/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tab)/_layout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tab)/_layout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tab)/chat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tab)/chat.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabTwo)/chat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabTwo)/chat.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/_layout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/chat/chat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/chat/chat.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/chat/chatList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/chat/chatList.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/login/loginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/login/loginPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/profile/editProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/editProfile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/serviceProviderSignUp/signUp.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/serviceProviderSignUp/signUp.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/profile/profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/profile/serviceProviderProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/serviceProviderProfile.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,13 +52,14 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Dell\Documents\multi_connect_mobile\app\(tab)" />
       <recent name="C:\Users\Dell\Documents\multi_connect_mobile\app\(dashboard)" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-2e7d6887c066-JavaScript-WS-241.15989.47" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-WS-241.14494.235" />
       </set>
     </attachedChunks>
   </component>
@@ -65,6 +72,7 @@
       <option name="presentableId" value="Default" />
       <updated>1723456965502</updated>
       <workItem from="1723456968325" duration="10899000" />
+      <workItem from="1723714822996" duration="50685000" />
     </task>
     <servers />
   </component>

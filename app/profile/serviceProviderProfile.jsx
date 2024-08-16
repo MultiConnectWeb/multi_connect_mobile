@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, Dimensions, Alert} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, Dimensions, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 // Import images using the correct syntax
 import abiodunImage from "../../assets/images/abiodun.png";
 import graceImage from "../../assets/images/Grace.png";
-import {onAuthStateChanged} from "firebase/auth";
-import {auth, database} from "../lib/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, database } from "../lib/firebase";
 import {
     arrayUnion,
     collection,
@@ -19,15 +19,17 @@ import {
     where
 } from "firebase/firestore";
 import UseUserStore from "../lib/userStore";
-import {useRoute} from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
+import {useRouter} from "expo-router";
 
 const { width, height } = Dimensions.get('window');
 
 const ProfileComponent = () => {
-    const {fetchUserInfo,currentUser} = UseUserStore()
-    const route = useRoute()
-    const [username,setUsername] = useState("")
-    const [user,setUser] = useState(null)
+    const { fetchUserInfo, currentUser } = UseUserStore();
+    const route = useRouter();
+    const [username, setUsername] = useState("");
+    const [user, setUser] = useState(null);
+
     useEffect(() => {
         const unSub = onAuthStateChanged(auth, (user) => {
             fetchUserInfo(user?.uid);
@@ -44,22 +46,29 @@ const ProfileComponent = () => {
         }
     }, [currentUser]);
 
-    const handleSearch = async () => {
-        const name = username;
-        try {
-            const userRef = collection(database, 'users');
-            const response = query(userRef, where('username', '==', name));
-            const querySnapShot = await getDocs(response);
+    useEffect(() => {
+        if (username) {
+            const searchUser = async () => {
+                const name = username;
+                try {
+                    const userRef = collection(database, 'users');
+                    const response = query(userRef, where('username', '==', "Victoria"));
+                    const querySnapShot = await getDocs(response);
 
-            if (!querySnapShot.empty) {
-                setUser(querySnapShot.docs[0].data());
-            } else {
-                Alert.alert('User not found', 'No user found with that username.');
-            }
-        } catch (err) {
-            console.error(err.message);
+                    if (!querySnapShot.empty) {
+                        setUser(querySnapShot.docs[0].data());
+                    } else {
+                        Alert.alert('User not found', 'No user found with that username.');
+                        setUser(null);
+                    }
+                } catch (err) {
+                    console.error(err.message);
+                }
+            };
+
+            searchUser();
         }
-    };
+    }, [username]);
 
     const handleAdd = async () => {
         if (!user) {
@@ -94,19 +103,22 @@ const ProfileComponent = () => {
             });
 
             Alert.alert('Success', 'User added and chat created successfully!');
+            route.push('chat/chatList')
         } catch (err) {
             console.error(err.message);
         }
     };
-    const handleMessaging = ()=>{
-        try{
-            handleSearch();
-            handleAdd()
-        }catch (err){
-            console.log(err.message)
-        }
 
-    }
+    const handleMessaging = (name) => {
+        setUsername(name);
+        if(username) handleAdd();
+    };
+
+    // useEffect(() => {
+    //     if (user) {
+    //         handleAdd();
+    //     }
+    // }, [user]);
 
     return (
         <View style={styles.container}>
@@ -135,7 +147,7 @@ const ProfileComponent = () => {
                     <TouchableOpacity style={styles.iconButton}>
                         <Icon name="phone" size={20} color="rgba(69, 131, 19, 1)" />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconButton} onPress={handleMessaging}>
+                    <TouchableOpacity style={styles.iconButton} onPress={() => handleMessaging("Yisa")}>
                         <Icon name="message" size={20} color="rgba(69, 131, 19, 1)" />
                     </TouchableOpacity>
                 </View>
@@ -258,97 +270,87 @@ const styles = StyleSheet.create({
     profession: {
         fontSize: width * 0.04,
         color: 'rgba(70, 70, 70, 1)',
-        marginVertical: 5,
+        marginTop: 5,
     },
     status: {
-        fontSize: width * 0.035,
-        color: 'rgba(70, 70, 70, 1)',
-        marginBottom: 20,
+        fontSize: width * 0.04,
+        color: 'green',
+        marginTop: 5,
     },
     iconRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '50%',
-        marginTop: 10,
+        marginTop: 20,
     },
     iconButton: {
-        backgroundColor: 'rgba(229, 255, 237, 1)',
-        padding: width * 0.025,
-        borderRadius: 25,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginHorizontal: width * 0.02,
+        marginHorizontal: 15,
     },
     details: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: height * 0.02,
+        justifyContent: 'space-around',
+        marginTop: 20,
     },
     detail: {
         alignItems: 'center',
     },
     detailNumber: {
-        fontFamily: 'Georama',
-        fontWeight: '500',
-        fontSize: width * 0.06,
+        fontSize: width * 0.05,
+        fontWeight: 'bold',
     },
     detailText: {
-        fontFamily: 'Georama',
-        fontWeight: '500',
-        fontSize: width * 0.035,
+        fontSize: width * 0.04,
+        color: 'rgba(70, 70, 70, 1)',
     },
     reviewsSection: {
-        marginTop: height * 0.05,
+        marginTop: 20,
     },
     reviewsHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
     },
     reviewsText: {
-        fontSize: width * 0.045,
-        fontWeight: '500',
-        color: 'rgba(34, 34, 34, 1)',
+        fontSize: width * 0.05,
+        fontWeight: 'bold',
     },
     viewAllButton: {
-        fontSize: width * 0.045,
-        color: 'blue',
+        color: 'green',
     },
     reviewsContainer: {
-        marginTop: height * 0.015,
+        marginTop: 10,
     },
     reviewBox: {
-        width: width * 0.45,
-        padding: width * 0.04,
-        backgroundColor: 'rgba(231, 241, 254, 1)',
+        width: width * 0.8,
+        padding: 10,
+        backgroundColor: '#fff',
         borderRadius: 10,
-        marginRight: width * 0.025,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        marginRight: 15,
     },
     reviewHeader: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: height * 0.015,
     },
     reviewImage: {
-        width: width * 0.1,
-        height: width * 0.1,
-        borderRadius: (width * 0.1) / 2,
-        marginRight: width * 0.025,
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        marginRight: 10,
     },
     reviewName: {
-        fontSize: width * 0.04,
-        fontWeight: '500',
+        fontWeight: 'bold',
     },
     reviewText: {
-        fontSize: width * 0.035,
-        color: '#333',
+        marginTop: 10,
+        fontSize: width * 0.04,
     },
     reviewStars: {
         flexDirection: 'row',
-        marginTop: height * 0.01,
+        marginTop: 10,
     },
     starIconReview: {
-        marginRight: width * 0.015,
+        marginRight: 2,
     },
 });
 

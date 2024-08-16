@@ -89,8 +89,8 @@ const TabsLayout = () =>{
                 <Tabs.Screen
                     name="chat"
                     options={{
-                        title : "chat",
-                        headerShown:false,
+                        title : "Messages",
+                        headerShown:true,
                         tabBarIcon : ({color , focused}) =>
                             <TabIcon
                                 icon={message}

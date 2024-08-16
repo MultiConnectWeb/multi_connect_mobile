@@ -16,9 +16,25 @@ const ServiceProviderDashboard = () => {
     const router = useRouter();
     const handleNavigation = (index) =>{
          if(index===1) router.push('wallet/wallet')
+        if(index===0) router.push('chat/chatList')
         console.log("Navigating to:", index);
-
     };
+    useEffect(() => {
+        const getServiceProviderData = async () => {
+            try {
+                const storedData = await AsyncStorage.getItem('service_provider');
+                console.log(storedData)
+                if (storedData) {
+                    setServiceProvider(JSON.parse(storedData));
+                }
+            } catch (error) {
+                console.error("Failed to fetch service provider data:", error);
+            }
+        };
+
+        getServiceProviderData();
+    }, []);
+
     const MainContent = () => (
         <View style={styles.mainContent}>
             <View style={styles.card}>
