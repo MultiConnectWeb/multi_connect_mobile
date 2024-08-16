@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, TextInput, Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import image1 from '../../assets/images/dietrician-removebg-preview.png';
 import image2 from '../../assets/images/Logistic-removebg-preview.png';
 import image3 from '../../assets/images/Teacher-removebg-preview.png';
 import image4 from '../../assets/images/plumber-removebg-preview.png';
 import image from '../../assets/images/R (1).jpeg';
-import { router } from 'expo-router';
-import TabsLayout from '../(tab)/_layout.jsx';
+import TopServiceProviders from '../component/topServiceProvider/topServiceProvider';
+import CategoryDetails from "../component/categoryDetails/categoryDetails";
 
 
 const typewriterSpeed = 50;
-const pauseDuration = 1000;
 
 const userDashboard = () => {
-    const navigation = useNavigation();
     const [text, setText] = useState('');
-    const [user] = useState({ name: 'BeeJhay' });
+    const [user] = useState({name: 'BeeJhay'});
+    const [selectedCategory, setSelectedCategory] = useState(null);
+
     const fullText = "Welcome to MultiConnect! We are thrilled to have you join our revolutionary platform that seamlessly connects service providers with users. Our mission is to create meaningful connections and provide top-notch services to meet all your needs!!!";
 
     useEffect(() => {
@@ -39,31 +38,6 @@ const userDashboard = () => {
         return () => clearInterval(interval);
     }, []);
 
-    const handleCardPress = (category) => {
-        router.push(`/filteredServices/FilteredServices?category=${category}`);
-    };
-
-    const Card = ({ icon, title, job, bgColor, iconBgColor, buttonColor, reviewCount }) => {
-        return (
-            <TouchableOpacity onPress={() => handleCardPress(title)} style={styles.cardTouchable}>
-                <View style={[styles.cardContainer, { backgroundColor: bgColor }]}>
-                    <View style={[styles.iconContainer, { backgroundColor: iconBgColor }]}>
-                        {icon}
-                    </View>
-                    <Text style={styles.cardTitle}>{title}</Text>
-                    {job && <Text style={styles.cardJob}>{job}</Text>}
-                    {reviewCount && (
-                        <View style={styles.reviewContainer}>
-                            {Array.from({ length: reviewCount }).map((_, index) => (
-                                <Icon key={index} name="star" size={14} color="#FFD700" style={styles.reviewStar} />
-                            ))}
-                        </View>
-                    )}
-                </View>
-            </TouchableOpacity>
-        );
-    };
-
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [isEmptyState, setIsEmptyState] = useState(false);
@@ -78,13 +52,13 @@ const userDashboard = () => {
         }
 
         const mockData = [
-            { name: 'Plumber', type: 'HandyMan' },
-            { name: 'Painter', type: 'HandyMan' },
-            { name: 'Teacher', type: 'Education' },
-            { name: 'Tutor', type: 'Education' },
-            { name: 'Dietitian', type: 'Medicals' },
-            { name: 'Riders', type: 'Transportation' },
-            { name: 'Physician', type: 'Medicals' },
+            {name: 'Plumber', type: 'HandyMan'},
+            {name: 'Painter', type: 'HandyMan'},
+            {name: 'Teacher', type: 'Education'},
+            {name: 'Tutor', type: 'Education'},
+            {name: 'Dietitian', type: 'Medicals'},
+            {name: 'Riders', type: 'Transportation'},
+            {name: 'Physician', type: 'Medicals'},
         ];
 
         const filteredResults = mockData.filter((item) =>
@@ -97,28 +71,28 @@ const userDashboard = () => {
 
     const cardData = [
         {
-            icon: <Icon name="hospital-o" size={32} />,
+            icon: <Icon name="hospital-o" size={32}/>,
             title: 'Medicals',
             bgColor: '#E7F1FE',
             iconBgColor: '#B2D6FF',
             buttonColor: '#044793',
         },
         {
-            icon: <Icon name="wrench" size={32} />,
+            icon: <Icon name="wrench" size={32}/>,
             title: 'HandyMan',
             bgColor: '#FEEDD5',
             iconBgColor: '#FDD835',
             buttonColor: '#C69400',
         },
         {
-            icon: <Icon name="book" size={32} />,
+            icon: <Icon name="book" size={32}/>,
             title: 'Education',
             bgColor: '#E5FFED',
             iconBgColor: '#B2FFD1',
             buttonColor: '#28A745',
         },
         {
-            icon: <Icon name="truck" size={32} />,
+            icon: <Icon name="truck" size={32}/>,
             title: 'Transportation',
             bgColor: '#FFEAEA',
             iconBgColor: '#FFB2B2',
@@ -153,21 +127,22 @@ const userDashboard = () => {
         },
     ];
 
+    if (selectedCategory) {
+        return <CategoryDetails route={{params: {category: selectedCategory}}}/>;
+    }
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            {/* Main Content */}
             <View style={styles.mainContent}>
-                {/* Profile Image and Welcome Text */}
                 <View style={styles.profileSection}>
-                    <TouchableOpacity onPress={()=>router.push('profile/profile')}>
-                        <Image style={styles.profileImage} source={image} />
+                    <TouchableOpacity onPress={() => router.push('profile/profile')}>
+                        <Image style={styles.profileImage} source={image}/>
                     </TouchableOpacity>
                     <Text style={styles.welcomeText}>Welcome, {user.name}!</Text>
                 </View>
 
-                {/* Search Section */}
                 <View style={styles.searchContainer}>
-                    <Icon name="search" size={20} color="gray" />
+                    <Icon name="search" size={20} color="gray"/>
                     <TextInput
                         placeholder="Search"
                         value={searchQuery}
@@ -180,7 +155,7 @@ const userDashboard = () => {
                     <View style={styles.searchResults}>
                         {isEmptyState ? (
                             <View style={styles.emptyState}>
-                                <Icon name="frown-o" size={50} color="gray" />
+                                <Icon name="frown-o" size={50} color="gray"/>
                                 <Text style={styles.emptyStateText}>Nothing found</Text>
                             </View>
                         ) : (
@@ -193,63 +168,38 @@ const userDashboard = () => {
                     </View>
                 )}
 
-                {/* About MultiConnect Section */}
                 <View style={styles.aboutSection}>
-                    <View style={[styles.aboutTextContainer, { backgroundColor: '#B2FFD1' }]}>
+                    <View style={[styles.aboutTextContainer, {backgroundColor: '#B2FFD1'}]}>
                         <Text style={styles.aboutText}>{text}</Text>
                     </View>
                 </View>
 
-                {/* Categories Section */}
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Categories</Text>
                     <ScrollView horizontal>
                         {cardData.map((card, index) => (
-                            <Card
+                            <TouchableOpacity
                                 key={index}
-                                icon={card.icon}
-                                title={card.title}
-                                bgColor={card.bgColor}
-                                iconBgColor={card.iconBgColor}
-                                buttonColor={card.buttonColor}
-                            />
+                                style={styles.cardTouchable}
+                                onPress={() => setSelectedCategory(card.title)} // Set the selected category
+                            >
+                                <View style={[styles.cardContainer, {backgroundColor: card.bgColor}]}>
+                                    <View style={[styles.iconContainer, {backgroundColor: card.iconBgColor}]}>
+                                        {card.icon}
+                                    </View>
+                                    <Text style={styles.cardTitle}>{card.title}</Text>
+                                </View>
+                            </TouchableOpacity>
                         ))}
                     </ScrollView>
                 </View>
 
-                {/* Top Service Providers Section */}
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Top Service Providers</Text>
-                    <ScrollView horizontal>
-                        {topServiceProviderData.map((provider, index) => (
-                            <Card
-                                key={index}
-                                icon={<Image source={provider.image} style={styles.serviceProviderImage} />}
-                                title={provider.name}
-                                job={provider.job} // Pass job here
-                                bgColor="#B2FFD1"
-                                iconBgColor="#B2FFD1"
-                                buttonColor="#B2FFD1"
-                                reviewCount={provider.reviewCount}
-                            />
-                        ))}
-
-                    </ScrollView>
-                </View>
-
+                <TopServiceProviders providers={topServiceProviderData}/>
             </View>
-
-
-
         </ScrollView>
+    );
 
-
-
-
-
-);
 };
-
 const styles = StyleSheet.create({
     container: {
         padding: 20,
@@ -339,21 +289,9 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 30,
-        justifyContent: 'center',
         alignItems: 'center',
+        justifyContent: 'center',
         marginBottom: 10,
-    },
-    reviewContainer: {
-        flexDirection: 'row',
-        marginTop: 5,
-    },
-    reviewStar: {
-        marginRight: 2,
-    },
-    serviceProviderImage: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
     },
 });
 

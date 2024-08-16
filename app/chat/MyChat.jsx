@@ -11,7 +11,7 @@ import {onAuthStateChanged} from "firebase/auth";
 
 const { width } = Dimensions.get('window');
 
-const Chat = () => {
+const MyChat = () => {
     const [chat, setChat] = useState(null);
     const [open, setOpen] = useState(false);
     const [text, setText] = useState("");
@@ -33,7 +33,7 @@ const Chat = () => {
     });
 
     useEffect(() => {
-        if(!chatId) console.log("No Chat id")
+        if(!chatId) console.log("No Mychat id")
         const unSub = onSnapshot(doc(database, "chats", chatId), (res) => {
             const chatData = res.data();
             // console.log(chatData)
@@ -84,7 +84,7 @@ const Chat = () => {
             });
 
             const userIDs = [currentUser.id, user.id];
-            userIDs.forEach(async (id) => {
+            for (const id of userIDs) {
                 const userChatsRef = doc(database, "userchats", id);
                 const userChatsSnapshot = await getDoc(userChatsRef);
 
@@ -102,7 +102,7 @@ const Chat = () => {
                         });
                     }
                 }
-            });
+            }
         } catch (err) {
             console.log(err);
         } finally {
@@ -314,4 +314,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Chat;
+export default MyChat;

@@ -1,12 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, Dimensions, Alert} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, ScrollView, StyleSheet, Dimensions, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
-
-// Import images using the correct syntax
-import abiodunImage from "../../assets/images/abiodun.png";
-import graceImage from "../../assets/images/Grace.png";
-import {onAuthStateChanged} from "firebase/auth";
-import {auth, database} from "../lib/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, database } from "../lib/firebase";
 import {
     arrayUnion,
     collection,
@@ -19,15 +15,18 @@ import {
     where
 } from "firebase/firestore";
 import UseUserStore from "../lib/userStore";
-import {useRoute} from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
+import TopServiceProviders from './TopServiceProviders'; // Import your component
 
 const { width, height } = Dimensions.get('window');
 
 const ProfileComponent = () => {
-    const {fetchUserInfo,currentUser} = UseUserStore()
-    const route = useRoute()
-    const [username,setUsername] = useState("")
-    const [user,setUser] = useState(null)
+    const { fetchUserInfo, currentUser } = UseUserStore();
+    const route = useRoute();
+    const [username, setUsername] = useState("");
+    const [user, setUser] = useState(null);
+    const [providers, setProviders] = useState([]); // State to hold providers data
+
     useEffect(() => {
         const unSub = onAuthStateChanged(auth, (user) => {
             fetchUserInfo(user?.uid);
@@ -43,6 +42,25 @@ const ProfileComponent = () => {
             Alert.alert('Not Authenticated', 'You need to log in to access this feature.');
         }
     }, [currentUser]);
+
+    // Fetch service providers from Firebase or any source
+    useEffect(() => {
+        const fetchProviders = async () => {
+            try {
+                // Replace with actual data fetching logic
+                const mockProviders = [
+                    { id: '1', image: require("../../assets/images/provider1.png"), name: 'John Doe', job: 'Plumber', reviewCount: 4 },
+                    { id: '2', image: require("../../assets/images/provider2.png"), name: 'Jane Smith', job: 'Electrician', reviewCount: 5 },
+                    // Add more mock providers here
+                ];
+                setProviders(mockProviders);
+            } catch (error) {
+                console.error(error.message);
+            }
+        };
+
+        fetchProviders();
+    }, []);
 
     const handleSearch = async () => {
         const name = username;
@@ -98,39 +116,19 @@ const ProfileComponent = () => {
             console.error(err.message);
         }
     };
-    const handleMessaging = ()=>{
-        try{
-            handleSearch();
-            handleAdd()
-        }catch (err){
-            console.log(err.message)
-        }
 
-    }
+    const handleMessaging = () => {
+        try {
+            handleSearch();
+            handleAdd();
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
 
     return (
-        <View style={styles.container}>
-            <TouchableOpacity style={styles.backButton}>
-                <Text>{'<'} Back</Text>
-            </TouchableOpacity>
-
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.profileSection}>
-                <View style={styles.imageContainer}>
-                    <Image
-                        source={abiodunImage}
-                        style={styles.profileImage}
-                    />
-                    <Icon
-                        name="star"
-                        size={20}
-                        color="white"
-                        containerStyle={styles.starIcon}
-                    />
-                </View>
-                <Text style={styles.name}>Abiodun Taiwo</Text>
-                <Text style={styles.profession}>Pro Electrician</Text>
-                <Text style={styles.status}>Open to work</Text>
-
                 <View style={styles.iconRow}>
                     <TouchableOpacity style={styles.iconButton}>
                         <Icon name="phone" size={20} color="rgba(69, 131, 19, 1)" />
@@ -160,77 +158,20 @@ const ProfileComponent = () => {
                 </View>
             </View>
 
-            <View style={styles.reviewsSection}>
-                <View style={styles.reviewsHeader}>
-                    <Text style={styles.reviewsText}>Reviews & Ratings</Text>
-                    <TouchableOpacity>
-                        <Text style={styles.viewAllButton}>View All</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.reviewsContainer}>
-                    <View style={styles.reviewBox}>
-                        <View style={styles.reviewHeader}>
-                            <Image source={graceImage} style={styles.reviewImage} />
-                            <Text style={styles.reviewName}>Shalom Grace</Text>
-                        </View>
-                        <Text style={styles.reviewText}>
-                            He is an outstanding artisan with speed in delivery of his quality service. Kind and hardworking man.
-                        </Text>
-                        <View style={styles.reviewStars}>
-                            {[...Array(5)].map((_, index) => (
-                                <Icon
-                                    key={index}
-                                    name="star"
-                                    size={18}
-                                    color="gold"
-                                    containerStyle={styles.starIconReview}
-                                />
-                            ))}
-                        </View>
-                    </View>
-                    <View style={styles.reviewBox}>
-                        <View style={styles.reviewHeader}>
-                            <Text style={styles.reviewName}>Shalom Grace</Text>
-                        </View>
-                        <Text style={styles.reviewText}>
-                            He is an outstanding artisan with speed in delivery of his quality service. Kind and hardworking man.
-                        </Text>
-                        <View style={styles.reviewStars}>
-                            {[...Array(5)].map((_, index) => (
-                                <Icon
-                                    key={index}
-                                    name="star"
-                                    size={18}
-                                    color="gold"
-                                    containerStyle={styles.starIconReview}
-                                />
-                            ))}
-                        </View>
-                    </View>
-                    <View style={styles.reviewBox}>
-                        <Text style={styles.reviewText}>Quick and professional.</Text>
-                    </View>
-                </ScrollView>
-            </View>
-        </View>
+            <TopServiceProviders providers={providers} /> {/* Include the TopServiceProviders component */}
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+    scrollContainer: {
         padding: width * 0.05,
         backgroundColor: '#f5f5f5',
-    },
-    backButton: {
-        position: 'absolute',
-        top: height * 0.02,
-        left: width * 0.05,
+        flexGrow: 1,
     },
     profileSection: {
         alignItems: 'center',
-        marginTop: height * 0.1,
+        marginTop: height * 0.05,
     },
     imageContainer: {
         position: 'relative',
