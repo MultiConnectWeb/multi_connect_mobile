@@ -140,6 +140,8 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         flexDirection:"row",
         borderRadius: 20,
+        marginBottom:height/25,
+
     },
     icon:{
         marginRight:width/40,
@@ -169,14 +171,14 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     item: {
-        height:height/2,
-        width:width/2,
+        height:height/10,
+        width:width,
         flexDirection: 'row',
         alignItems: 'center',
         padding: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
-        backgroundColor: "black"
+        borderBottomWidth: 2,
+        borderBottomColor: 'black',
+        backgroundColor: '#fdf7f7'
     },
     avatar: {
         width: 50,
@@ -195,7 +197,7 @@ const styles = StyleSheet.create({
     },
     lastMessage: {
         fontSize: 14,
-        color: '#666',
+        color: 'black',
     },
     loading: {
         flex: 1,

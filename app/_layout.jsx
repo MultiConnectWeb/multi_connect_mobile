@@ -34,14 +34,7 @@ const RootLayout = () => {
             />
             <Stack.Screen name="chat/chatList"  options={({ navigation }) => ({
                 headerTitle: 'Chat List',
-                headerLeft: () => (
-                    <Button
-                        onPress={() => navigation.goBack()}
-                        title="Back"
-                        color="white"
-                        fontSize="large"
-                    />
-                ),
+                    headerLeft: () => <BackButton navigation={navigation} />,
                 headerStyle: {
                     backgroundColor: 'green',
                 },
@@ -116,6 +109,14 @@ const RootLayout = () => {
 
             <Stack.Screen
                 name="profile/editProfile"
+                options={({ navigation }) => ({
+                    headerLeft: () => <BackButton navigation={navigation} />,
+                    headerTitle: '',
+                    headerStyle: {},
+                })}
+            />
+            <Stack.Screen
+                name="profile/serviceProviderProfile"
                 options={({ navigation }) => ({
                     headerLeft: () => <BackButton navigation={navigation} />,
                     headerTitle: '',

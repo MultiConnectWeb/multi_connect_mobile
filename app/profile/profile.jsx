@@ -1,22 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Image, TouchableOpacity, Text, StyleSheet, Dimensions, ScrollView } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon1 from 'react-native-vector-icons/FontAwesome';
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width, height } = Dimensions.get('window');
-const profileUrl = require('../../assets/images/woman.jpeg');
 
 const Profile = () => {
-    const router = useRouter(); // Use router instead of route
+    const router = useRouter();
+    const [serviceProvider, setServiceProvider] = useState(null);
+
+    useEffect(() => {
+        const fetchServiceProvider = async () => {
+            try {
+                const userString = await AsyncStorage.getItem("service_provider");
+                console.log(userString)
+                if (userString) {
+                    setServiceProvider(JSON.parse(userString));
+                } else {
+                    console.log("No service provider found in AsyncStorage");
+                }
+            } catch (error) {
+                console.error("Error fetching service provider from AsyncStorage", error);
+            }
+        };
+
+        fetchServiceProvider();
+    }, []);
+
+    if (!serviceProvider) {
+        return <Text>Loading...</Text>; // Or any loading indicator
+    }
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Image
-                source={profileUrl}
-                alt={"Profile Picture"}
+                source={require('../../assets/images/avatar.png') }
                 style={styles.profile}
             />
-            <Text style={styles.username}>John Doe</Text>
+            <Text style={styles.username}>{serviceProvider.firstName ? serviceProvider.firstName : "service Provider" } {serviceProvider.lastName}</Text>
             <View style={styles.settings}>
                 <TouchableOpacity style={styles.innerSettings} onPress={() => router.push('profile/editProfile')}>
                     <Icon1 name="edit" size={30} color="green" />
@@ -49,7 +72,7 @@ const Profile = () => {
             </TouchableOpacity>
         </ScrollView>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -57,24 +80,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     profile: {
         width: 100,
         height: 100,
         borderRadius: 50,
-        marginBottom: 10
+        marginBottom: 10,
     },
     username: {
         fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 20
+        marginBottom: 20,
     },
     settings: {
         width: width / 1.1,
         flexDirection: 'column',
         justifyContent: 'space-between',
-        marginBottom: 20
+        marginBottom: 20,
     },
     innerSettings: {
         width: width / 1.1,
@@ -94,7 +117,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: 'bold',
-        fontSize: width / 30
+        fontSize: width / 30,
     },
     logout: {
         width: width / 1.1,
@@ -105,7 +128,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ADD8E6',
         borderRadius: 5,
         marginBottom: 10,
-        gap: width / 5
+        gap: width / 5,
     },
     logoutText: {
         fontWeight: 'bold',
@@ -124,8 +147,8 @@ const styles = StyleSheet.create({
     },
     deleteText: {
         fontWeight: 'bold',
-        color: 'red'
-    }
+        color: 'red',
+    },
 });
 
 export default Profile;

@@ -8,6 +8,8 @@ import upload from '../lib/upload';
 import UseChatStore from '../lib/chatStore';
 import * as ImagePicker from 'expo-image-picker';
 import {onAuthStateChanged} from "firebase/auth";
+import Icon from 'react-native-vector-icons/FontAwesome'; // or any other icon set
+
 
 const { width } = Dimensions.get('window');
 
@@ -115,14 +117,14 @@ const Chat = () => {
         <View style={styles.chat}>
             <View style={styles.top}>
                 <View style={styles.user}>
-                    <Image source={{ uri: user?.avatar || './avatar.png' }} style={styles.avatar} />
+                    <Image source={require('../../assets/images/avatar.png')} style={styles.avatar} />
                     <View style={styles.texts}>
                         <Text style={styles.username}>{user?.username}</Text>
-                        <Text style={styles.status}>Lorem ipsum dolor, sit amet.</Text>
+                        <Text style={styles.status}>Description </Text>
                     </View>
                 </View>
                 <TouchableOpacity style={styles.bookAppointment}>
-                    <Text style={styles.appointment}>Book Appointment </Text>
+                    <Text style={styles.appointment}> Appointment </Text>
                     {/*<TouchableOpacity>*/}
                     {/*    <Image source={require('../../assets/images/phone.png')} style={styles.icon} />*/}
                     {/*</TouchableOpacity>*/}
@@ -166,12 +168,7 @@ const Chat = () => {
                     <TouchableOpacity onPress={handleImg}>
                         <Image source={require('../../assets/images/img.png')} style={styles.icon} />
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image source={require('../../assets/images/camera.png')} style={styles.icon} />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image source={require('../../assets/images/mic.png')} style={styles.icon} />
-                    </TouchableOpacity>
+
                 </View>
                 <TextInput
                     style={styles.input}
@@ -184,16 +181,13 @@ const Chat = () => {
                     <TouchableOpacity onPress={() => setOpen(prev => !prev)}>
                         <Image source={require('../../assets/images/emoji.png')} style={styles.icon} />
                     </TouchableOpacity>
-                    {open && (
-                        <EmojiPicker onEmojiClick={handleEmoji} />
-                    )}
                 </View>
                 <TouchableOpacity
                     style={styles.sendButton}
                     onPress={() => handleSend()}
                     disabled={isCurrentUserblocked || isRecieverBlocked}
                 >
-                    <Text style={styles.sendButtonText}>Send</Text>
+                    <Icon name="send" size={24} color="white" />
                 </TouchableOpacity>
             </View>
         </View>
@@ -203,14 +197,14 @@ const Chat = () => {
 const styles = StyleSheet.create({
     chat: {
         flex: 1,
-        backgroundColor: '#979191',
+        backgroundColor: 'white',
     },
     top: {
         padding: width * 0.05,
         flexDirection: 'row',
         justifyContent: 'space-between',
         borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
+        borderBottomColor: 'black',
         alignItems: 'center',
     },
     user: {
@@ -232,18 +226,20 @@ const styles = StyleSheet.create({
     },
     status: {
         fontSize: width * 0.04,
-        color: '#888',
+        color: 'black',
     },
     bookAppointment: {
-        width: width/6,
-        padding: 15,
+        width: width/4,
         borderRadius:10,
-        backgroundColor: 'blue',
+        backgroundColor: 'green',
     },
     appointment: {
       color:'white',
-      fontSize: 20,
+      fontSize: 15,
+        padding: 10,
       fontWeight: 'bolder',
+      textAlign:'center'
+
     },
     messagesContainer: {
         flexGrow: 1,
@@ -282,9 +278,10 @@ const styles = StyleSheet.create({
     bottom: {
         padding: width * 0.05,
         borderTopWidth: 1,
-        borderTopColor: '#ddd',
+        borderTopColor: 'black',
         flexDirection: 'row',
         alignItems: 'center',
+        backgroundColor: "green",
     },
     iconsBottom: {
         flexDirection: 'row',
@@ -304,7 +301,7 @@ const styles = StyleSheet.create({
         position: 'relative',
     },
     sendButton: {
-        backgroundColor: '#007bff',
+        backgroundColor: 'green',
         padding: width * 0.03,
         borderRadius: width * 0.02,
     },
@@ -312,6 +309,10 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: width * 0.04,
     },
+    icon:{
+
+    }
+
 });
 
 export default Chat;

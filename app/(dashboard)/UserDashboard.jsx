@@ -40,7 +40,8 @@ const userDashboard = () => {
     }, []);
 
     const handleCardPress = (category) => {
-        router.push(`/filteredServices/FilteredServices?category=${category}`);
+        // router.push(`/filteredServices/FilteredServices?category=${category}`);
+        router.push('profile/serviceProviderProfile')
     };
 
     const Card = ({ icon, title, job, bgColor, iconBgColor, buttonColor, reviewCount }) => {
