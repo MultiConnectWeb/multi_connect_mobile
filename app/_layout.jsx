@@ -1,27 +1,40 @@
-// RootLayout.js
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { Stack } from 'expo-router';
-import BackButton from "./button/BackButton";
-import {View} from "react-native";
-
+import { Ionicons } from '@expo/vector-icons';
 
 const RootLayout = () => {
+    const BackButton = ({ navigation }) => (
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <Ionicons name="arrow-back" size={24} color="#2F4F4F" />
+            <Text style={styles.backText}>Back</Text>
+        </TouchableOpacity>
+    );
+
     return (
         <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="landingPage/landingPage" options={{ headerShown: false }} />
             <Stack.Screen name="(tab)" options={{ headerShown: false }} />
             <Stack.Screen name="(tabTwo)" options={{ headerShown: false }} />
-            <Stack.Screen name="chat/chat" options={({ navigation }) => ({
+            <Stack.Screen name="chat/chat"  options={({ navigation }) => ({
                 headerTitle: 'Chat',
-                headerLeft: () => <BackButton navigation={navigation} />,
+                headerLeft: () => (
+                    <Button
+                        onPress={() => navigation.goBack()}
+                        title="Back"
+                        color="white"
+                        fontSize="large"
+                    />
+                ),
                 headerStyle: {
                     backgroundColor: 'green',
                 },
-            })} />
-            <Stack.Screen name="chat/chatList" options={({ navigation }) => ({
-                headerTitle: 'Mychat List',
-                headerLeft: () => <BackButton navigation={navigation} />,
+            })}
+            />
+            <Stack.Screen name="chat/chatList"  options={({ navigation }) => ({
+                headerTitle: 'Chat List',
+                    headerLeft: () => <BackButton navigation={navigation} />,
                 headerStyle: {
                     backgroundColor: 'green',
                 },
@@ -104,7 +117,7 @@ const RootLayout = () => {
                 headerTitle: '',
                 headerStyle: {},
             })} />
-            <Stack.Screen name="categoryDetails/CategoryDetails" options={({ navigation }) => ({
+            <Stack.Screen name="categoryDetails/categoryDetails" options={({ navigation }) => ({
                 headerLeft: () => <BackButton navigation={navigation} />,
                 headerTitle: '',
                 headerStyle: {},
@@ -114,3 +127,23 @@ const RootLayout = () => {
 };
 
 export default RootLayout;
+
+const styles = StyleSheet.create({
+    backButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingLeft: 10,
+    },
+    backText: {
+        color: '#2F4F4F',
+        fontSize: 16,
+        marginLeft: 5,
+    },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 20,
+    },
+});

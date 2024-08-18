@@ -1,24 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import image1 from '../../assets/images/dietrician-removebg-preview.png';
 import image2 from '../../assets/images/Logistic-removebg-preview.png';
 import image3 from '../../assets/images/Teacher-removebg-preview.png';
 import image4 from '../../assets/images/plumber-removebg-preview.png';
 import image from '../../assets/images/R (1).jpeg';
+import { router } from 'expo-router';
 import TopServiceProviders from '../component/topServiceProvider/topServiceProvider';
 import CategoryDetails from "../component/categoryDetails/categoryDetails";
 
+import TabsLayout from '../(tab)/_layout.jsx';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const typewriterSpeed = 50;
+const pauseDuration = 1000;
 
 const userDashboard = () => {
-    const [text, setText] = useState('');
-    const [user] = useState({name: 'BeeJhay'});
     const [selectedCategory, setSelectedCategory] = useState(null);
-
+    const navigation = useNavigation();
+    const [text, setText] = useState('');
+    const [user] = useState({ name: 'BeeJhay' });
+    const[currentUser, setCurrentUser] = useState(null);
     const fullText = "Welcome to MultiConnect! We are thrilled to have you join our revolutionary platform that seamlessly connects service providers with users. Our mission is to create meaningful connections and provide top-notch services to meet all your needs!!!";
 
+    useEffect(() => {
+        const getServiceProviderData = async () => {
+            try {
+                const storedData = await AsyncStorage.getItem('service_provider');
+                console.log(storedData + " This")
+                if (storedData) {
+                    setCurrentUser(JSON.parse(storedData));
+                    console.log(currentUser);
+
+
+                }
+            } catch (error) {
+                console.error("Failed to fetch service Provider data: ", error);
+            }
+
+
+        };
+
+        getServiceProviderData();
+    }, []);
     useEffect(() => {
         let index = 0;
         let interval;
@@ -37,6 +64,35 @@ const userDashboard = () => {
 
         return () => clearInterval(interval);
     }, []);
+    // const [searchQuery, setSearchQuery] = useState('');
+    // const [searchResults, setSearchResults] = useState([]);
+    // const [isEmptyState, setIsEmptyState] = useState(false);
+
+    const handleCardPress = (category) => {
+        router.push(`categoryDetails/categoryDetails`);
+    };
+    console.log(currentUser)
+
+    const Card = ({ icon, title, job, bgColor, iconBgColor, buttonColor, reviewCount }) => {
+        return (
+            <TouchableOpacity onPress={() => handleCardPress(title)} style={styles.cardTouchable}>
+                <View style={[styles.cardContainer, { backgroundColor: bgColor }]}>
+                    <View style={[styles.iconContainer, { backgroundColor: iconBgColor }]}>
+                        {icon}
+                    </View>
+                    <Text style={styles.cardTitle}>{title}</Text>
+                    {job && <Text style={styles.cardJob}>{job}</Text>}
+                    {reviewCount && (
+                        <View style={styles.reviewContainer}>
+                            {Array.from({ length: reviewCount }).map((_, index) => (
+                                <Icon key={index} name="star" size={14} color="#FFD700" style={styles.reviewStar} />
+                            ))}
+                        </View>
+                    )}
+                </View>
+            </TouchableOpacity>
+        );
+    };
 
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -52,13 +108,13 @@ const userDashboard = () => {
         }
 
         const mockData = [
-            {name: 'Plumber', type: 'HandyMan'},
-            {name: 'Painter', type: 'HandyMan'},
-            {name: 'Teacher', type: 'Education'},
-            {name: 'Tutor', type: 'Education'},
-            {name: 'Dietitian', type: 'Medicals'},
-            {name: 'Riders', type: 'Transportation'},
-            {name: 'Physician', type: 'Medicals'},
+            { name: 'Plumber', type: 'HandyMan' },
+            { name: 'Painter', type: 'HandyMan' },
+            { name: 'Teacher', type: 'Education' },
+            { name: 'Tutor', type: 'Education' },
+            { name: 'Dietitian', type: 'Medicals' },
+            { name: 'Riders', type: 'Transportation' },
+            { name: 'Physician', type: 'Medicals' },
         ];
 
         const filteredResults = mockData.filter((item) =>
@@ -71,28 +127,28 @@ const userDashboard = () => {
 
     const cardData = [
         {
-            icon: <Icon name="hospital-o" size={32}/>,
+            icon: <Icon name="hospital-o" size={32} />,
             title: 'Medicals',
             bgColor: '#E7F1FE',
             iconBgColor: '#B2D6FF',
             buttonColor: '#044793',
         },
         {
-            icon: <Icon name="wrench" size={32}/>,
+            icon: <Icon name="wrench" size={32} />,
             title: 'HandyMan',
             bgColor: '#FEEDD5',
             iconBgColor: '#FDD835',
             buttonColor: '#C69400',
         },
         {
-            icon: <Icon name="book" size={32}/>,
+            icon: <Icon name="book" size={32} />,
             title: 'Education',
             bgColor: '#E5FFED',
             iconBgColor: '#B2FFD1',
             buttonColor: '#28A745',
         },
         {
-            icon: <Icon name="truck" size={32}/>,
+            icon: <Icon name="truck" size={32} />,
             title: 'Transportation',
             bgColor: '#FFEAEA',
             iconBgColor: '#FFB2B2',
@@ -133,14 +189,17 @@ const userDashboard = () => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            {/* Main Content */}
             <View style={styles.mainContent}>
+                {/* Profile Image and Welcome Text */}
                 <View style={styles.profileSection}>
                     <TouchableOpacity onPress={() => router.push('profile/profile')}>
                         <Image style={styles.profileImage} source={image}/>
                     </TouchableOpacity>
-                    <Text style={styles.welcomeText}>Welcome, {user.name}!</Text>
+                    <Text style={styles.welcomeText}>Welcome, Bolaji !</Text>
                 </View>
 
+                {/* Search Section */}
                 <View style={styles.searchContainer}>
                     <Icon name="search" size={20} color="gray"/>
                     <TextInput
@@ -168,12 +227,14 @@ const userDashboard = () => {
                     </View>
                 )}
 
+                {/* About MultiConnect Section */}
                 <View style={styles.aboutSection}>
                     <View style={[styles.aboutTextContainer, {backgroundColor: '#B2FFD1'}]}>
                         <Text style={styles.aboutText}>{text}</Text>
                     </View>
                 </View>
 
+                {/* Categories Section */}
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Categories</Text>
                     <ScrollView horizontal>
@@ -191,15 +252,24 @@ const userDashboard = () => {
                                 </View>
                             </TouchableOpacity>
                         ))}
+
                     </ScrollView>
                 </View>
 
                 <TopServiceProviders providers={topServiceProviderData}/>
             </View>
-        </ScrollView>
-    );
 
+
+
+        </ScrollView>
+
+
+
+
+
+);
 };
+
 const styles = StyleSheet.create({
     container: {
         padding: 20,
@@ -289,9 +359,21 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 30,
-        alignItems: 'center',
         justifyContent: 'center',
+        alignItems: 'center',
         marginBottom: 10,
+    },
+    reviewContainer: {
+        flexDirection: 'row',
+        marginTop: 5,
+    },
+    reviewStar: {
+        marginRight: 2,
+    },
+    serviceProviderImage: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
     },
 });
 
