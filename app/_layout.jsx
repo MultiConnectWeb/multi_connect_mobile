@@ -38,145 +38,90 @@ const RootLayout = () => {
                 headerStyle: {
                     backgroundColor: 'green',
                 },
-            })}
-            />
-
-            <Stack.Screen
-                name="bookAppointment/BookAppointment"
-                options={({ navigation }) => ({
-                    headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
-                    headerStyle: {},
-                })}
-            />
-
-
-            <Stack.Screen
-                name="wallet/wallet"
-                options={({ navigation }) => ({
-                    headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
-                    headerStyle: {},
-                })}
-            />
-
-            <Stack.Screen
-                name="(dashboard)/dashboard"
-                options={{
-                    headerLeft: () => <View />,
-                    headerTitle: 'Dashboard',
-                    headerStyle: {
-                        backgroundColor: 'white'
-                    },
-                }}
-            />
-
+            })} />
+            <Stack.Screen name="bookAppointment/BookAppointment" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: '',
+                headerStyle: {},
+            })} />
+            <Stack.Screen name="wallet/wallet" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: '',
+                headerStyle: {},
+            })} />
+            <Stack.Screen name="(dashboard)/dashboard" options={{
+                headerLeft: () => <View />,
+                headerTitle: 'Dashboard',
+                headerStyle: {
+                    backgroundColor: 'white'
+                },
+            }} />
             <Stack.Screen name="login/loginPage" options={{ headerShown: false }} />
-            <Stack.Screen
-                name="orders/orders"
-                options={({ navigation }) => ({
-                    headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
-                    headerStyle: {},
-                })}
-            />
-            <Stack.Screen
-                name="(dashboard)/UserDashboard"
-                options={({ navigation }) => ({
-                    headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
-                    headerStyle: {},
-                })}
-            />
-
-            <Stack.Screen
-                name="wallet/withdraw"
-                options={({ navigation }) => ({
-                    headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
-                    headerStyle: {},
-                })}
-            />
-
-            <Stack.Screen
-                name="profile/profile"
-                options={({ navigation }) => ({
-                    headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
-                    headerStyle: {},
-                })}
-            />
-
-            <Stack.Screen
-                name="profile/editProfile"
-                options={({ navigation }) => ({
-                    headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
-                    headerStyle: {},
-                })}
-            />
-            <Stack.Screen
-                name="profile/serviceProviderProfile"
-                options={({ navigation }) => ({
-                    headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
-                    headerStyle: {},
-                })}
-            />
-
-            <Stack.Screen
-                name="userSignUp/UserSignUp"
-                options={({ navigation }) => ({
-                    headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
-                    headerStyle: {},
-                })}
-            />
-
-            <Stack.Screen
-                name="serviceProviderSignUp/signUp"
-                options={({ navigation }) => ({
-                    headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
-                    headerStyle: {},
-                })}
-            />
-
-            <Stack.Screen
-                name="registerPage/registerPage"
-                options={({ navigation }) => ({
-                    headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
-                    headerStyle: {},
-                })}
-            />
-
-            <Stack.Screen
-                name="forgetPassword/ForgetPassword"
-                options={({ navigation }) => ({
-                    headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
-                    headerStyle: {},
-                })}
-            />
-
-            <Stack.Screen
-                name="authentication/Authentication"
-                options={({ navigation }) => ({
-                    headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
-                    headerStyle: {},
-                })}
-            />
-
-            <Stack.Screen
-                name="filteredServices/FilteredServices"
-                options={({ navigation }) => ({
-                    headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
-                    headerStyle: {},
-                })}
-            />
+            <Stack.Screen name="orders/orders" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: '',
+                headerStyle: {},
+            })} />
+            <Stack.Screen name="(dashboard)/UserDashboard" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: '',
+                headerStyle: {},
+            })} />
+            <Stack.Screen name="wallet/withdraw" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: '',
+                headerStyle: {},
+            })} />
+            <Stack.Screen name="profile/profile" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: '',
+                headerStyle: {},
+            })} />
+            <Stack.Screen name="profile/editProfile" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: '',
+                headerStyle: {},
+            })} />
+            <Stack.Screen name="userSignUp/UserSignUp" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: '',
+                headerStyle: {},
+            })} />
+            <Stack.Screen name="serviceProviderSignUp/signUp" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: '',
+                headerStyle: {},
+            })} />
+            <Stack.Screen name="registerPage/registerPage" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: '',
+                headerStyle: {},
+            })} />
+            <Stack.Screen name="forgetPassword/ForgetPassword" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: '',
+                headerStyle: {},
+            })} />
+            <Stack.Screen name="authentication/Authentication" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: '',
+                headerStyle: {},
+            })} />
+            <Stack.Screen name="profile/serviceProviderProfile" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: '',
+                headerStyle: {},
+            })} />
+            <Stack.Screen name="filteredServices/FilteredServices" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: '',
+                headerStyle: {},
+            })} />
+            <Stack.Screen name="categoryDetails/categoryDetails" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: '',
+                headerStyle: {},
+            })} />
         </Stack>
     );
 };

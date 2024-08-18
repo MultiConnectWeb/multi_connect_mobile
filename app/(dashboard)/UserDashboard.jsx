@@ -8,18 +8,44 @@ import image3 from '../../assets/images/Teacher-removebg-preview.png';
 import image4 from '../../assets/images/plumber-removebg-preview.png';
 import image from '../../assets/images/R (1).jpeg';
 import { router } from 'expo-router';
+import TopServiceProviders from '../component/topServiceProvider/topServiceProvider';
+import CategoryDetails from "../component/categoryDetails/categoryDetails";
+
 import TabsLayout from '../(tab)/_layout.jsx';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const typewriterSpeed = 50;
 const pauseDuration = 1000;
 
 const userDashboard = () => {
+    const [selectedCategory, setSelectedCategory] = useState(null);
     const navigation = useNavigation();
     const [text, setText] = useState('');
     const [user] = useState({ name: 'BeeJhay' });
+    const[currentUser, setCurrentUser] = useState(null);
     const fullText = "Welcome to MultiConnect! We are thrilled to have you join our revolutionary platform that seamlessly connects service providers with users. Our mission is to create meaningful connections and provide top-notch services to meet all your needs!!!";
 
+    useEffect(() => {
+        const getServiceProviderData = async () => {
+            try {
+                const storedData = await AsyncStorage.getItem('service_provider');
+                console.log(storedData + " This")
+                if (storedData) {
+                    setCurrentUser(JSON.parse(storedData));
+                    console.log(currentUser);
+
+
+                }
+            } catch (error) {
+                console.error("Failed to fetch service Provider data: ", error);
+            }
+
+
+        };
+
+        getServiceProviderData();
+    }, []);
     useEffect(() => {
         let index = 0;
         let interval;
@@ -38,11 +64,14 @@ const userDashboard = () => {
 
         return () => clearInterval(interval);
     }, []);
+    // const [searchQuery, setSearchQuery] = useState('');
+    // const [searchResults, setSearchResults] = useState([]);
+    // const [isEmptyState, setIsEmptyState] = useState(false);
 
     const handleCardPress = (category) => {
-        // router.push(`/filteredServices/FilteredServices?category=${category}`);
-        router.push('profile/serviceProviderProfile')
+        router.push(`categoryDetails/categoryDetails`);
     };
+    console.log(currentUser)
 
     const Card = ({ icon, title, job, bgColor, iconBgColor, buttonColor, reviewCount }) => {
         return (
@@ -154,21 +183,25 @@ const userDashboard = () => {
         },
     ];
 
+    if (selectedCategory) {
+        return <CategoryDetails route={{params: {category: selectedCategory}}}/>;
+    }
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
             {/* Main Content */}
             <View style={styles.mainContent}>
                 {/* Profile Image and Welcome Text */}
                 <View style={styles.profileSection}>
-                    <TouchableOpacity onPress={()=>router.push('profile/profile')}>
-                        <Image style={styles.profileImage} source={image} />
+                    <TouchableOpacity onPress={() => router.push('profile/profile')}>
+                        <Image style={styles.profileImage} source={image}/>
                     </TouchableOpacity>
-                    <Text style={styles.welcomeText}>Welcome, {user.name}!</Text>
+                    <Text style={styles.welcomeText}>Welcome, Bolaji !</Text>
                 </View>
 
                 {/* Search Section */}
                 <View style={styles.searchContainer}>
-                    <Icon name="search" size={20} color="gray" />
+                    <Icon name="search" size={20} color="gray"/>
                     <TextInput
                         placeholder="Search"
                         value={searchQuery}
@@ -181,7 +214,7 @@ const userDashboard = () => {
                     <View style={styles.searchResults}>
                         {isEmptyState ? (
                             <View style={styles.emptyState}>
-                                <Icon name="frown-o" size={50} color="gray" />
+                                <Icon name="frown-o" size={50} color="gray"/>
                                 <Text style={styles.emptyStateText}>Nothing found</Text>
                             </View>
                         ) : (
@@ -196,7 +229,7 @@ const userDashboard = () => {
 
                 {/* About MultiConnect Section */}
                 <View style={styles.aboutSection}>
-                    <View style={[styles.aboutTextContainer, { backgroundColor: '#B2FFD1' }]}>
+                    <View style={[styles.aboutTextContainer, {backgroundColor: '#B2FFD1'}]}>
                         <Text style={styles.aboutText}>{text}</Text>
                     </View>
                 </View>
@@ -206,38 +239,24 @@ const userDashboard = () => {
                     <Text style={styles.sectionTitle}>Categories</Text>
                     <ScrollView horizontal>
                         {cardData.map((card, index) => (
-                            <Card
+                            <TouchableOpacity
                                 key={index}
-                                icon={card.icon}
-                                title={card.title}
-                                bgColor={card.bgColor}
-                                iconBgColor={card.iconBgColor}
-                                buttonColor={card.buttonColor}
-                            />
-                        ))}
-                    </ScrollView>
-                </View>
-
-                {/* Top Service Providers Section */}
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Top Service Providers</Text>
-                    <ScrollView horizontal>
-                        {topServiceProviderData.map((provider, index) => (
-                            <Card
-                                key={index}
-                                icon={<Image source={provider.image} style={styles.serviceProviderImage} />}
-                                title={provider.name}
-                                job={provider.job} // Pass job here
-                                bgColor="#B2FFD1"
-                                iconBgColor="#B2FFD1"
-                                buttonColor="#B2FFD1"
-                                reviewCount={provider.reviewCount}
-                            />
+                                style={styles.cardTouchable}
+                                onPress={() => setSelectedCategory(card.title)} // Set the selected category
+                            >
+                                <View style={[styles.cardContainer, {backgroundColor: card.bgColor}]}>
+                                    <View style={[styles.iconContainer, {backgroundColor: card.iconBgColor}]}>
+                                        {card.icon}
+                                    </View>
+                                    <Text style={styles.cardTitle}>{card.title}</Text>
+                                </View>
+                            </TouchableOpacity>
                         ))}
 
                     </ScrollView>
                 </View>
 
+                <TopServiceProviders providers={topServiceProviderData}/>
             </View>
 
 

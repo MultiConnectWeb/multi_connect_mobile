@@ -1,43 +1,39 @@
-import List from "./list";
-import Chat from "./chat";
-import Login from "./login";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../lib/firebase";
 import UseUserStore from "../lib/userStore";
 import UseChatStore from "../lib/chatStore";
-import {View} from "react-native";
-import {useRouter} from "expo-router";
-// import './index.css';
+import { View, ActivityIndicator } from "react-native";
+import { useRouter } from "expo-router";
 
 const App = () => {
-    const route = useRouter()
-    const {currentUser, isLoading, fetchUserInfo} = UseUserStore()
-    const {chatId} = UseChatStore()
-    useEffect(()=>{
-        const unSub = onAuthStateChanged(auth,(user)=>{
-            fetchUserInfo(user?.uid)
-        })
+    const route = useRouter();
+    const { currentUser, isLoading, fetchUserInfo } = UseUserStore();
+    const { chatId } = UseChatStore();
 
-        return ()=>{
-            unSub()
-        }
-    },[fetchUserInfo])
+    useEffect(() => {
+        const unSub = onAuthStateChanged(auth, (user) => {
+            fetchUserInfo(user?.uid);
+        });
 
-    if(isLoading) return <View >Loading... </View>
-    // console.log( "chatId is " + chatId)
-    // console.log(currentUser)
-    return (
-        <View >
-            { currentUser ? (
-                <>
-                    { chatId && route.push('chat/chat')}
-                </>
-            ) :( route.push('chat/login'))
+        return () => {
+            unSub();
+        };
+    }, [fetchUserInfo]);
+
+    useEffect(() => {
+        if (!isLoading) {
+            if (currentUser) {
+                chatId ? route.push('chat/chat') : route.push('chat/login');
+            } else {
+                route.push('chat/login');
             }
-        </View>
+        }
+    }, [isLoading, currentUser, chatId]);
 
-    )
-}
+    if (isLoading) return <View><ActivityIndicator size="large" color="#0000ff" /></View>;
 
-export default App
+    return <View />;
+};
+
+export default App;

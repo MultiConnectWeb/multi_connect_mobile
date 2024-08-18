@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, Dimensions, Alert } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, Dimensions, Alert} from 'react-native';
 import { Icon } from 'react-native-elements';
 
 // Import images using the correct syntax
@@ -121,11 +121,7 @@ const ProfileComponent = () => {
     // }, [user]);
 
     return (
-        <View style={styles.container}>
-            <TouchableOpacity style={styles.backButton}>
-                <Text>{'<'} Back</Text>
-            </TouchableOpacity>
-
+        <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.profileSection}>
                 <View style={styles.imageContainer}>
                     <Image
@@ -225,7 +221,8 @@ const ProfileComponent = () => {
                     </View>
                 </ScrollView>
             </View>
-        </View>
+        </ScrollView>
+
     );
 };
 
@@ -331,6 +328,7 @@ const styles = StyleSheet.create({
     reviewHeader: {
         flexDirection: 'row',
         alignItems: 'center',
+        marginBottom: height * 0.015,
     },
     reviewImage: {
         width: 40,
@@ -344,6 +342,7 @@ const styles = StyleSheet.create({
     reviewText: {
         marginTop: 10,
         fontSize: width * 0.04,
+        fontWeight: '500',
     },
     reviewStars: {
         flexDirection: 'row',
