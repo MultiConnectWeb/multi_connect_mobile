@@ -8,12 +8,14 @@ import upload from '../lib/upload';
 import UseChatStore from '../lib/chatStore';
 import * as ImagePicker from 'expo-image-picker';
 import {onAuthStateChanged} from "firebase/auth";
-import Icon from 'react-native-vector-icons/FontAwesome'; // or any other icon set
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {useRouter} from "expo-router"; // or any other icon set
 
 
 const { width } = Dimensions.get('window');
 
 const Chat = () => {
+    const route = useRouter()
     const [chat, setChat] = useState(null);
     const [open, setOpen] = useState(false);
     const [text, setText] = useState("");
@@ -123,17 +125,8 @@ const Chat = () => {
                         <Text style={styles.status}>Description </Text>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.bookAppointment}>
+                <TouchableOpacity style={styles.bookAppointment} onPress={()=>route.push('bookAppointment/BookAppointment')}>
                     <Text style={styles.appointment}> Appointment </Text>
-                    {/*<TouchableOpacity>*/}
-                    {/*    <Image source={require('../../assets/images/phone.png')} style={styles.icon} />*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<TouchableOpacity>*/}
-                    {/*    <Image source={require('../../assets/images/video.png')} style={styles.icon} />*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<TouchableOpacity>*/}
-                    {/*    <Image source={require('../../assets/images/info.png')} style={styles.icon} />*/}
-                    {/*</TouchableOpacity>*/}
                 </TouchableOpacity>
             </View>
             <FlatList
@@ -148,7 +141,6 @@ const Chat = () => {
                         <View style={styles.messageContent}>
                             {item.img && <Image source={{ uri: item.img }} style={styles.messageImage} />}
                             {item.text && <Text style={styles.messageText}>{item.text}</Text>}
-                            {/*<Text style={styles.messageTime}>{formatDistanceToNow(new Date(item.createdAt), { addSuffix: true })}</Text>*/}
                         </View>
                     </View>
                 )}
@@ -234,11 +226,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'green',
     },
     appointment: {
-      color:'white',
-      fontSize: 15,
+        color:'white',
+        fontSize: 15,
         padding: 10,
-      fontWeight: 'bolder',
-      textAlign:'center'
+        fontWeight: 'bolder',
+        textAlign:'center'
 
     },
     messagesContainer: {
