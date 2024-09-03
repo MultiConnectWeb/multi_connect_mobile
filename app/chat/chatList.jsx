@@ -17,6 +17,7 @@ const ChatList = ({ navigation }) => {
     const [addMode, setAddMode] = useState(false);
     const { currentUser, isLoading, fetchUserInfo } = UseUserStore();
     const { changeChat, user } = UseChatStore();
+    const [isSeen, setIsSeen] = useState(false)
 
     useEffect(()=>{
         const unSub = onAuthStateChanged(auth,(user)=>{
@@ -56,7 +57,7 @@ const ChatList = ({ navigation }) => {
         return <View style={styles.loading}><Text>Loading...</Text></View>;
     }
     const handleSelect = async (chat)=>{
-
+        setIsSeen(true)
         const userChats = chats.map(item=>{
             const {user, ...rest} = item;
             return rest;
@@ -92,6 +93,7 @@ const ChatList = ({ navigation }) => {
                     <TextInput
                         style={styles.searchInput}
                         placeholder="Search..."
+                        placeholderTextColor='black'
                         onChangeText={(text) => setInput(text)}
                     />
                 </View>
@@ -110,7 +112,10 @@ const ChatList = ({ navigation }) => {
                 keyExtractor={(item) => item.chatId}
                 renderItem={({ item }) => (
                     <TouchableOpacity
-                        style={styles.item}
+                        style={[
+                            styles.item,
+                            { backgroundColor: item.isSeen ? '#d4ecd8' : '#74e68b' }
+                        ]}
                         onPress={() => handleSelect(item)}
                     >
                         <Image source={require('../../assets/images/avatar.png')} style={styles.avatar} />
@@ -135,7 +140,7 @@ const styles = StyleSheet.create({
         marginTop:width/38,
         width: width/1.1,
         height: height/18,
-        backgroundColor: '#534e4e',
+        backgroundColor: '#25b642',
         alignSelf:"center",
         justifyContent: "space-between",
         flexDirection:"row",
@@ -153,7 +158,7 @@ const styles = StyleSheet.create({
         width:width/1.4,
         padding:width/90,
         alignItems: 'center',
-        backgroundColor: '#959191',
+        backgroundColor: '#74e68b',
         borderRadius: 20,
         paddingHorizontal: 10,
         elevation: 2,
@@ -163,12 +168,14 @@ const styles = StyleSheet.create({
         height: 20,
         marginRight: 10,
         alignSelf:'center',
-        color:"black"
+        color:"black",
+
     },
     searchInput: {
         flex: 1,
         height: 40,
         fontSize: 16,
+        color:'black',
     },
     item: {
         height:height/10,
@@ -178,7 +185,9 @@ const styles = StyleSheet.create({
         padding: 10,
         borderBottomWidth: 2,
         borderBottomColor: 'black',
-        backgroundColor: '#fdf7f7'
+        backgroundColor: '#d4ecd8'
+
+
     },
     avatar: {
         width: 50,

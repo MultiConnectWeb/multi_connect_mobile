@@ -87,6 +87,7 @@ const Login = () => {
         handleChatLogin().then()
         await AsyncStorage.setItem('token', response.data.data.token)
         await AsyncStorage.setItem('email',response.data.data.email)
+        await AsyncStorage.setItem('authority', response.data.data.authority)
         await handUserInfo()
         if(response.data.data.authority === '[USER]') router.push('(tabTwo)/userHome')
         else if(response.data.data.authority === '[SERVICE_PROVIDER]') router.push('(tab)/serviceProviderHome')

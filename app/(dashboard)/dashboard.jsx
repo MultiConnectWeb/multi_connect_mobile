@@ -41,7 +41,7 @@ const ServiceProviderDashboard = () => {
                 <View style={styles.cardHeader}>
                     <TouchableOpacity onPress={() => router.push('profile/profile')}>
                         <Image style={styles.profileImage}
-                               source={serviceProvider?.profileUrl ? { uri: serviceProvider.profileUrl } : image}/>
+                               source={serviceProvider?.profile.profileUrl ? { uri: serviceProvider.profile.profileUrl } : image}/>
                     </TouchableOpacity>
                     <Text style={styles.welcomeText}>
                         Welcome, {serviceProvider ? serviceProvider.firstName : 'Service Provider'}!

@@ -60,16 +60,16 @@ const RootLayout = () => {
                 })}
             />
 
-            <Stack.Screen
-                name="(dashboard)/dashboard"
-                options={{
-                    headerLeft: () => <View />,
-                    headerTitle: 'Dashboard',
-                    headerStyle: {
-                        backgroundColor: 'white'
-                    },
-                }}
-            />
+            {/*<Stack.Screen*/}
+            {/*    name="(dashboard)/dashboard"*/}
+            {/*    options={{*/}
+            {/*        headerLeft: () => <View />,*/}
+            {/*        headerTitle: 'Dashboard',*/}
+            {/*        headerStyle: {*/}
+            {/*            backgroundColor: 'white'*/}
+            {/*        },*/}
+            {/*    }}*/}
+            {/*/>*/}
 
             <Stack.Screen name="login/loginPage" options={{ headerShown: false }} />
             <Stack.Screen
@@ -80,14 +80,14 @@ const RootLayout = () => {
                     headerStyle: {},
                 })}
             />
-            <Stack.Screen
-                name="(dashboard)/UserDashboard"
-                options={({ navigation }) => ({
-                    headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
-                    headerStyle: {},
-                })}
-            />
+            {/*<Stack.Screen*/}
+            {/*    name="(dashboard)/UserDashboard"*/}
+            {/*    options={({ navigation }) => ({*/}
+            {/*        headerLeft: () => <BackButton navigation={navigation} />,*/}
+            {/*        headerTitle: '',*/}
+            {/*        headerStyle: {},*/}
+            {/*    })}*/}
+            {/*/>*/}
 
             <Stack.Screen
                 name="wallet/withdraw"

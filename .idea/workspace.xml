@@ -6,18 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="d83f4d99-f0c6-4dd9-9ddb-ee381aad30a6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/UserDashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/UserDashboard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(dashboard)/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tab)/_layout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tab)/_layout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tab)/chat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tab)/chat.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabTwo)/chat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabTwo)/chat.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tab)/serviceProviderHome.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tab)/serviceProviderHome.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/_layout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/chat/chat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/chat/chat.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/chat/chatList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/chat/chatList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/login/loginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/login/loginPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/profile/editProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/editProfile.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/profile/profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/profile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/profile/serviceProviderProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/serviceProviderProfile.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +36,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;chat__endpoint&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/DELL&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Dell/Desktop/questionnaire&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -72,7 +68,9 @@
       <option name="presentableId" value="Default" />
       <updated>1723456965502</updated>
       <workItem from="1723456968325" duration="10899000" />
-      <workItem from="1723714822996" duration="50685000" />
+      <workItem from="1723714822996" duration="56455000" />
+      <workItem from="1724978082352" duration="591000" />
+      <workItem from="1725123067170" duration="16672000" />
     </task>
     <servers />
   </component>

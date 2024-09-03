@@ -36,7 +36,7 @@ const Profile = () => {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Image
-                source={require('../../assets/images/avatar.png') }
+                source={ serviceProvider.profile ? {uri:serviceProvider.profile.profileUrl} : require('../../assets/images/avatar.png') }
                 style={styles.profile}
             />
             <Text style={styles.username}>{serviceProvider.firstName ? serviceProvider.firstName : "service Provider" } {serviceProvider.lastName}</Text>

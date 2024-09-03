@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Image, TouchableOpacity, Text, StyleSheet, Dimensions, ScrollView, TextInput, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
@@ -16,7 +16,25 @@ export default function EditProfile() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [imageUri, setImageUri] = useState(null);
+    const [serviceProvider, setServiceProvider] = useState(null);
 
+    useEffect(() => {
+        const fetchServiceProvider = async () => {
+            try {
+                const userString = await AsyncStorage.getItem("service_provider");
+                console.log(userString)
+                if (userString) {
+                    setServiceProvider(JSON.parse(userString));
+                } else {
+                    console.log("No service provider found in AsyncStorage");
+                }
+            } catch (error) {
+                console.error("Error fetching service provider from AsyncStorage", error);
+            }
+        };
+
+        fetchServiceProvider();
+    }, []);
 
     const handleImagePick = async () => {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -44,13 +62,16 @@ export default function EditProfile() {
         }
     };
 
-
     const uploadImage = async (uri, type, fileName) => {
+        // Defaulting to proper type and fileName if undefined
+        const validType = type || 'image/jpeg';  // default to jpeg if type is undefined
+        const validName = fileName || 'uploaded_image.jpg';  // default name if undefined
+
         const formData = new FormData();
         formData.append('file', {
             uri,
-            type,
-            name: fileName,
+            type: validType,
+            name: validName,
         });
         formData.append('upload_preset', uploadPreset);
 
@@ -60,12 +81,13 @@ export default function EditProfile() {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            return response.data.secure_url;
+            console.log('Upload response:', response.data);
+            return response.data.url;
         } catch (error) {
+            console.error('Failed to upload image:', error.message);
             throw new Error('Failed to upload image: ' + error.message);
         }
     };
-
 
     const updateProfileImage = async () => {
         if (!imageUri) {
@@ -78,20 +100,19 @@ export default function EditProfile() {
         ];
 
         try {
-            const userString = await AsyncStorage.getItem('service_provider');
-            const user = JSON.parse(userString);
-            const userId = user.id;
-            const token = await AsyncStorage.getItem("token");
+            const userId = serviceProvider.id;
 
-            const response = await axios.patch(`https://multi-connect-latest-ei6f.onrender.com/api/v1/generalUser/edit/${userId}`, patchDocument, {
-                headers: {
-                    'Content-Type': 'application/json-patch+json'
+            const response = await axios.patch(
+                `https://multi-connect-latest-ei6f.onrender.com/api/v1/generalUser/edit/${userId}`,
+                patchDocument,
+                {
+                    headers: {
+                        'Content-Type': 'application/json-patch+json',
+                    },
                 }
-            });
-
-            // Update AsyncStorage with the new profile image URL
-            user.profileUrl = imageUri; // Adjust property name if needed
-            await AsyncStorage.setItem('service_provider', JSON.stringify(user));
+            );
+            serviceProvider.profile.profileUrl = imageUri;
+            await AsyncStorage.setItem('service_provider', JSON.stringify(serviceProvider));
 
             Alert.alert('Success', 'Profile image updated');
         } catch (error) {
@@ -103,7 +124,7 @@ export default function EditProfile() {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Image
-                source={ imageUri ? imageUri : profileUrl }
+                source={imageUri ? { uri: serviceProvider.profile.profileUrl } : profileUrl}
                 style={styles.profile}
             />
             <TouchableOpacity style={styles.changeProfile} onPress={handleImagePick}>
