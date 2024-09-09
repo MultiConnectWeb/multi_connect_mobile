@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-// import BackButton from "../../button/BackButton";
-
-
+import UserHome from "../(tabTwo)/userHome";
+import {useRouter} from "expo-router";
 
 const CategoryDetails = ({ route }) => {
     const { category } = route.params;
@@ -13,6 +12,7 @@ const CategoryDetails = ({ route }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const navigation = useNavigation();
+    const router = useRouter()
 
     useEffect(() => {
         axios.get(`https://multi-connect-latest-ei6f.onrender.com/api/v1/servicesProvider/get_by_category/${category}`)
@@ -26,15 +26,24 @@ const CategoryDetails = ({ route }) => {
             });
     }, [category]);
 
+    const handleBackToHome = () => {
+       router.back()
+    };
+
     if (loading) {
         return <ActivityIndicator size="large" color="#0000ff" />;
     }
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            {/*<BackButton navigation={navigation} /> /!* Use the BackButton component *!/*/}
-
-            <Text style={styles.title}>{category} Providers</Text>
+            <View style={styles.top}>
+                <TouchableOpacity style={styles.backButton} onPress={handleBackToHome}>
+                    <Icon name="arrow-left" size={20} color="#000" />
+                </TouchableOpacity>
+                <View style={{width: "95%",display: 'flex', justifyContent:'center', alignItems:'center'}}>
+                    <Text style={styles.title}>{category} Providers</Text>
+                </View>
+            </View>
 
             {error ? (
                 <View style={styles.errorContainer}>
@@ -54,14 +63,30 @@ const CategoryDetails = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
+    top:{
+        display:"flex",
+        flex:1,
+        flexDirection:'row',
+        justifyContent: "space-between"
+    },
     container: {
         padding: 20,
         flexGrow: 1,
+    },
+    backButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    backText: {
+        marginLeft: 10,
+        fontSize: 16,
     },
     title: {
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 20,
+        textAlign:'center',
     },
     providerCard: {
         padding: 15,

@@ -6,6 +6,7 @@ import UserHome from "./(tabTwo)/userHome";
 import ServiceProviderHome from "./(tab)/serviceProviderHome";
 import Kwaft from "./(tab)/kwaft";
 import {Redirect} from "expo-router";
+import AppScreen from "./appScreen";
 
 export default function App() {
   const [token, setToken] = useState(null);
@@ -15,14 +16,14 @@ export default function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const storedToken = await AsyncStorage.getItem('token');
+        const tokenString= await AsyncStorage.getItem('token');
+        setToken(tokenString)
         const storedAuthority = await AsyncStorage.getItem('authority');
-        setToken(storedToken);
         setAuthority(storedAuthority);
       } catch (error) {
         console.error('Failed to fetch data from AsyncStorage:', error);
       } finally {
-        setIsLoading(false); // Make sure loading is finished
+        setIsLoading(false);
       }
     };
 
@@ -42,18 +43,17 @@ export default function App() {
     if(authority === '[USER]') return <Redirect href={'/(tabTwo)/userHome'} />
     if(authority === '[SERVICE_PROVIDER]') return <Redirect href={'/(tab)/serviceProviderHome'} />
   }
-  return <Redirect href={'/landingPage/landingPage'}/>
 
-  // return (
-  //     // <View style={styles.container}>
-  //     //   {token ? (
-  //     //       authority === '[USER]' ? <UserHome /> : <Kwaft />
-  //     //   ) : (
-  //     //       <LandingPage />
-  //     //   )}
-  //     //   {/*<StatusBar style="auto" />*/}
-  //     // </View>
-  // );
+  return (
+      <View style={styles.container}>
+        {token ? (
+            authority === '[USER]' ? <UserHome /> : <ServiceProviderHome />
+        ) : (
+            <LandingPage />
+        )}
+        {/*<StatusBar style="auto" />*/}
+      </View>
+  );
 }
 
 const styles = StyleSheet.create({

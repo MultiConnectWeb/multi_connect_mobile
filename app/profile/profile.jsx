@@ -6,7 +6,7 @@ import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width, height } = Dimensions.get('window');
-
+const image =  require('../../assets/images/avatar.png')
 const Profile = () => {
     const router = useRouter();
     const [serviceProvider, setServiceProvider] = useState(null);
@@ -15,7 +15,6 @@ const Profile = () => {
         const fetchServiceProvider = async () => {
             try {
                 const userString = await AsyncStorage.getItem("service_provider");
-                console.log(userString)
                 if (userString) {
                     setServiceProvider(JSON.parse(userString));
                 } else {
@@ -30,13 +29,12 @@ const Profile = () => {
     }, []);
 
     if (!serviceProvider) {
-        return <Text>Loading...</Text>; // Or any loading indicator
+        return <Text>Loading...</Text>;
     }
-
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Image
-                source={ serviceProvider.profile ? {uri:serviceProvider.profile.profileUrl} : require('../../assets/images/avatar.png') }
+                source={ serviceProvider?.profile? {uri: serviceProvider.profile.profileUrl}: image}
                 style={styles.profile}
             />
             <Text style={styles.username}>{serviceProvider.firstName ? serviceProvider.firstName : "service Provider" } {serviceProvider.lastName}</Text>
@@ -108,6 +106,16 @@ const styles = StyleSheet.create({
         borderWidth: 1.5,
         borderRadius: width / 38,
         padding: width / 26,
+        margin: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 4,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+
     },
     textContainer: {
         flex: 1,
@@ -129,6 +137,16 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginBottom: 10,
         gap: width / 5,
+        margin: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 4,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+
     },
     logoutText: {
         fontWeight: 'bold',
@@ -144,6 +162,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#f8d7da',
         borderRadius: 5,
         gap: width / 20,
+        margin: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 4,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+
     },
     deleteText: {
         fontWeight: 'bold',

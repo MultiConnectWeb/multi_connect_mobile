@@ -8,7 +8,7 @@ import {
     ScrollView,
     Dimensions,
     TouchableOpacity,
-    Linking
+    Linking, ActivityIndicator
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Checkbox from 'expo-checkbox';
@@ -28,6 +28,7 @@ const SignUpServiceProvider = () => {
     const [selectedSubField, setSelectedSubField] = useState('');
     const [isSubFieldDropdownVisible, setIsSubFieldDropdownVisible] = useState(false);
     let response = null;
+    const [loading, setLoading] = useState(false)
 
     const [formValues, setFormValues] = useState({
         firstname: "",
@@ -76,7 +77,6 @@ const SignUpServiceProvider = () => {
     };
 
     const handleRegister = async () => {
-        // setLoading(true);
         try {
             const response = await createUserWithEmailAndPassword(auth, formValues.email.trim(), formValues.password);
 
@@ -93,8 +93,6 @@ const SignUpServiceProvider = () => {
             });
         } catch (err) {
             console.log(err);
-        } finally {
-            // setLoading(false);
         }
     };
     const signUp = async () => {
@@ -123,6 +121,7 @@ const SignUpServiceProvider = () => {
     }
 
     const handleSubmit = () => {
+        setLoading(true)
         let formErrors = {};
         const { firstname, lastname, email, password, confirmPassword } = formValues;
 
@@ -140,7 +139,7 @@ const SignUpServiceProvider = () => {
         }
         signUp();
         handleRegister();
-
+        setLoading(false)
 
     };
 
@@ -301,7 +300,14 @@ const SignUpServiceProvider = () => {
             </View>
             {errors.terms ? <Text style={styles.errorText}>{errors.terms}</Text> : null}
 
-            <Button title="Register" onPress={handleSubmit} />
+            {loading ? (
+                <ActivityIndicator style={styles.loading} size="large" color='green'/>
+            ) : (
+                <TouchableOpacity style={styles.signUp} onPress={handleSubmit}>
+                    <Text style={styles.loginButtonText}>Register</Text>
+                </TouchableOpacity>
+
+            )}
         </ScrollView>
     );
 };

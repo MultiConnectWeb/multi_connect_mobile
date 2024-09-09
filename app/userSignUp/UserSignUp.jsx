@@ -134,7 +134,7 @@ const SignUpUser = () => {
         }
 
         // console.log('Form Submitted:', formValues);
-        // router.push('login/loginPage')
+        //  router.push('login/loginPage')
     };
 
     return (

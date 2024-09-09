@@ -4,8 +4,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { router } from 'expo-router';
 
 const TopServiceProviders = ({ providers }) => {
-    const handleCardPress = (title) => {
-        router.push(`profile/serviceProviderProfile`);
+    const handleCardPress = (provider) => {
+        router.push({
+            pathname: `profile/serviceProviderProfile?id=${provider.id}`,
+            params: provider,
+        });
     };
 
     const Card = ({ image, name, job, reviewCount, onPress }) => {
@@ -30,7 +33,7 @@ const TopServiceProviders = ({ providers }) => {
     return (
         <View style={styles.section}>
             <Text style={styles.sectionTitle}>Top Service Providers</Text>
-            <ScrollView horizontal>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 {providers.map((provider, index) => (
                     <Card
                         key={index}
@@ -38,7 +41,7 @@ const TopServiceProviders = ({ providers }) => {
                         name={provider.name}
                         job={provider.job}
                         reviewCount={provider.reviewCount}
-                        onPress={() => handleCardPress(provider.name)}
+                        onPress={() => handleCardPress(provider)}
                     />
                 ))}
             </ScrollView>
@@ -64,6 +67,16 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignItems: 'center',
         backgroundColor: '#B2FFD1',
+        margin: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 4,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+
     },
     cardTitle: {
         marginTop: 10,

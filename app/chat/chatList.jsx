@@ -29,7 +29,10 @@ const ChatList = ({ navigation }) => {
         }
     },[fetchUserInfo])
     useEffect(() => {
-        if (!currentUser?.id) return;
+        if (!currentUser?.id){
+            console.log("no current user");
+            return
+        };
         // console.log(user)
         const unSub = onSnapshot(
             doc(database, 'userchats', currentUser.id),
@@ -144,7 +147,7 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         justifyContent: "space-between",
         flexDirection:"row",
-        borderRadius: 20,
+        borderRadius: 15,
         marginBottom:height/25,
 
     },
@@ -155,11 +158,11 @@ const styles = StyleSheet.create({
     },
     searchBar: {
         flexDirection: 'row',
-        width:width/1.4,
+        width:width/1.3,
         padding:width/90,
         alignItems: 'center',
         backgroundColor: '#74e68b',
-        borderRadius: 20,
+        borderRadius: 15,
         paddingHorizontal: 10,
         elevation: 2,
     },

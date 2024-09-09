@@ -1,13 +1,15 @@
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Text, View} from "react-native";
-import ChatList from '../chat/chatList'
+import BookKWaterScreen from "../bookAppointment/BookAppointment";
+import PlainPage from "../bookAppointment/BookAppointment";
+import AppointmentBooking from "../bookAppointment/BookAppointment";
+import ChatList from "../chat/chatList";
+import {Redirect} from "expo-router";
 
 const Chat = () =>{
     return (
-                <ChatList/>
-
-
-            )
+        <ChatList/>
+    )
 }
 
 export default Chat

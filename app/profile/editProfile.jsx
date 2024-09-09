@@ -1,5 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import { View, Image, TouchableOpacity, Text, StyleSheet, Dimensions, ScrollView, TextInput, Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+    View,
+    Image,
+    TouchableOpacity,
+    Text,
+    StyleSheet,
+    Dimensions,
+    ScrollView,
+    TextInput,
+    Alert,
+    ActivityIndicator
+} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,33 +21,40 @@ const profileUrl = require('../../assets/images/avatar.png');
 const cloudinaryUploadUrl = 'https://api.cloudinary.com/v1_1/ddmwfjq5u/image/upload';
 const uploadPreset = 'multi_connect';
 
-export default function EditProfile() {
+const EditProfile = () => {
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [imageUri, setImageUri] = useState(null);
     const [serviceProvider, setServiceProvider] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [isDone, setIsDone] = useState(false)
+
 
     useEffect(() => {
-        const fetchServiceProvider = async () => {
+        const getServiceProviderData = async () => {
             try {
-                const userString = await AsyncStorage.getItem("service_provider");
-                console.log(userString)
-                if (userString) {
-                    setServiceProvider(JSON.parse(userString));
-                } else {
-                    console.log("No service provider found in AsyncStorage");
+                const storedData = await AsyncStorage.getItem('service_provider');
+
+                if (storedData) {
+                    try {
+                        const parsedData = JSON.parse(storedData);
+                        setServiceProvider(parsedData);
+                    } catch (parseError) {
+                        console.error("Error parsing JSON:", parseError);
+                    }
                 }
             } catch (error) {
-                console.error("Error fetching service provider from AsyncStorage", error);
+                console.error("Failed to fetch service provider data:", error);
             }
         };
 
-        fetchServiceProvider();
+        getServiceProviderData();
     }, []);
 
     const handleImagePick = async () => {
+        setLoading(true)
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== 'granted') {
             Alert.alert('Permission required', 'We need permission to access your photo library.');
@@ -60,12 +78,12 @@ export default function EditProfile() {
                 Alert.alert('Upload Failed', 'Failed to upload image');
             }
         }
+        setLoading(false)
     };
 
     const uploadImage = async (uri, type, fileName) => {
-        // Defaulting to proper type and fileName if undefined
-        const validType = type || 'image/jpeg';  // default to jpeg if type is undefined
-        const validName = fileName || 'uploaded_image.jpg';  // default name if undefined
+        const validType = type || 'image/jpeg';
+        const validName = fileName || 'uploaded_image.jpg';
 
         const formData = new FormData();
         formData.append('file', {
@@ -90,10 +108,17 @@ export default function EditProfile() {
     };
 
     const updateProfileImage = async () => {
+        setIsDone(true)
         if (!imageUri) {
             Alert.alert('No Image Selected', 'Please select an image first');
             return;
         }
+
+        // if (!serviceProvider || !serviceProvider.profile) {
+        //     Alert.alert('Error', 'Service provider information is missing');
+        //     return;
+        // }
+
 
         const patchDocument = [
             { "op": "replace", "path": "/profileUrl", "value": imageUri }
@@ -101,7 +126,6 @@ export default function EditProfile() {
 
         try {
             const userId = serviceProvider.id;
-
             const response = await axios.patch(
                 `https://multi-connect-latest-ei6f.onrender.com/api/v1/generalUser/edit/${userId}`,
                 patchDocument,
@@ -113,23 +137,31 @@ export default function EditProfile() {
             );
             serviceProvider.profile.profileUrl = imageUri;
             await AsyncStorage.setItem('service_provider', JSON.stringify(serviceProvider));
-
             Alert.alert('Success', 'Profile image updated');
         } catch (error) {
             console.error('Error updating profile:', error);
             Alert.alert('Error', 'Failed to update profile image');
+        }
+        finally {
+            setLoading(false)
         }
     };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Image
-                source={imageUri ? { uri: serviceProvider.profile.profileUrl } : profileUrl}
+                source={serviceProvider && serviceProvider.profile && serviceProvider.profile.profileUrl
+                    ? { uri: serviceProvider.profile.profileUrl }
+                    : profileUrl}
                 style={styles.profile}
             />
-            <TouchableOpacity style={styles.changeProfile} onPress={handleImagePick}>
-                <Text style={styles.changeProfileText}>Change Profile Picture</Text>
-            </TouchableOpacity>
+            {loading ? (
+                <ActivityIndicator style={styles.loading} size="large" color='green'/>
+            ) : (
+                <TouchableOpacity style={styles.changeProfile} onPress={handleImagePick}>
+                    <Text style={styles.changeProfileText}>Change Profile Picture</Text>
+                </TouchableOpacity>
+            )}
             <View>
                 <View style={styles.box}>
                     <Text>First Name</Text>
@@ -169,9 +201,14 @@ export default function EditProfile() {
                     />
                 </View>
             </View>
-            <TouchableOpacity style={styles.done} onPress={updateProfileImage}>
-                <Text style={styles.doneText}>Done</Text>
-            </TouchableOpacity>
+            {isDone ? (
+                <ActivityIndicator style={styles.loading} size="large" color='green'/>
+            ) : (
+                <TouchableOpacity style={styles.done} onPress={updateProfileImage} disabled={loading}>
+                    <Text style={styles.doneText}>Done</Text>
+                </TouchableOpacity>
+            )}
+
         </ScrollView>
     );
 }
@@ -223,3 +260,5 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
 });
+
+export default EditProfile;

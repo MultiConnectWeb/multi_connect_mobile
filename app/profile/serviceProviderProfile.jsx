@@ -1,10 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, Dimensions, Alert} from 'react-native';
+import {
+    View,
+    Text,
+    Image,
+    ScrollView,
+    StyleSheet,
+    TouchableOpacity,
+    Dimensions,
+    Alert,
+    FlatList,
+    ActivityIndicator
+} from 'react-native';
 import { Icon } from 'react-native-elements';
-
-// Import images using the correct syntax
-import abiodunImage from "../../assets/images/abiodun.png";
-import graceImage from "../../assets/images/Grace.png";
+import reviews from './review'
+import { useLocalSearchParams } from 'expo-router';
+import abiodunImage from "../../assets/images/Logistic-removebg-preview.png";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, database } from "../lib/firebase";
 import {
@@ -19,16 +29,22 @@ import {
     where
 } from "firebase/firestore";
 import UseUserStore from "../lib/userStore";
-import { useRoute } from "@react-navigation/native";
+
 import {useRouter} from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import topServiceProvider from "../(dashboard)/topServiceProvider";
 
 const { width, height } = Dimensions.get('window');
 
-const ProfileComponent = () => {
+const ProfileComponent = ({routes}) => {
     const { fetchUserInfo, currentUser } = UseUserStore();
     const route = useRouter();
-    const [username, setUsername] = useState("");
+    const {id} = useLocalSearchParams()
+    const params = topServiceProvider.filter((serviceProvider)=> serviceProvider.id === id);
+    const {name, image, job} = params[0]
     const [user, setUser] = useState(null);
+    const [isFound, setIsFound] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const unSub = onAuthStateChanged(auth, (user) => {
@@ -46,36 +62,36 @@ const ProfileComponent = () => {
         }
     }, [currentUser]);
 
-    useEffect(() => {
-        if (username) {
-            const searchUser = async () => {
-                const name = username;
-                try {
-                    const userRef = collection(database, 'users');
-                    const response = query(userRef, where('username', '==', "Victoria"));
-                    const querySnapShot = await getDocs(response);
 
-                    if (!querySnapShot.empty) {
-                        setUser(querySnapShot.docs[0].data());
-                    } else {
-                        Alert.alert('User not found', 'No user found with that username.');
-                        setUser(null);
-                    }
-                } catch (err) {
-                    console.error(err.message);
-                }
-            };
-
-            searchUser();
+    const searchUser = async () => {
+        let currentUser="";
+        try {
+            const userString = await AsyncStorage.getItem("service_provider");
+            currentUser = JSON.parse(userString).firstName
+        } catch (error) {
+            console.error("Error fetching service provider from AsyncStorage", error);
         }
-    }, [username]);
+        try {
+            const userRef = collection(database, 'users');
+            const response = query(userRef, where('username', '==', "Olawale"));
+            const querySnapShot = await getDocs(response);
+
+            if (!querySnapShot.empty) {
+                setUser(querySnapShot.docs[0].data());
+                setIsFound(true);
+            } else {
+                Alert.alert('User not found', 'No user found with that username.');
+                setUser(null);
+            }
+        } catch (err) {
+            console.error(err.message);
+        }finally {
+            setLoading(false)
+        }
+    };
+
 
     const handleAdd = async () => {
-        if (!user) {
-            Alert.alert('No User Selected', 'Please search for a user before adding.');
-            return;
-        }
-
         const chatRef = collection(database, 'chats');
         const userChatRef = collection(database, 'userchats');
         try {
@@ -107,25 +123,42 @@ const ProfileComponent = () => {
         } catch (err) {
             console.error(err.message);
         }
+        finally {
+            setLoading(false)
+        }
     };
 
-    const handleMessaging = (name) => {
-        setUsername(name);
-        if(username) handleAdd();
-    };
+    const handleMessaging = async () => {
+        setLoading(true);
+        await searchUser();
 
-    // useEffect(() => {
-    //     if (user) {
-    //         handleAdd();
-    //     }
-    // }, [user]);
+        if (isFound) {
+            setLoading(true)
+            await handleAdd();
+        }
+    };
+    const renderItem = ({ item }) => (
+        <View style={styles.reviewBox}>
+            <View style={styles.reviewHeader}>
+                {item.image && <Image source={item.image} style={styles.reviewImage} />}
+                {item.name ? <Text style={styles.reviewName}>{item.name} 😊😊</Text> : null}
+            </View>
+            <Text style={styles.reviewText}>{item.review}</Text>
+            <View style={styles.reviewStars}>
+                {[...Array(item.stars)].map((_, index) => (
+                    <Icon key={index} name="star" size={18} color="gold" style={styles.starIconReview} />
+                ))}
+            </View>
+        </View>
+    );
+
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.profileSection}>
                 <View style={styles.imageContainer}>
                     <Image
-                        source={abiodunImage}
+                        source={image}
                         style={styles.profileImage}
                     />
                     <Icon
@@ -135,16 +168,20 @@ const ProfileComponent = () => {
                         containerStyle={styles.starIcon}
                     />
                 </View>
-                <Text style={styles.name}>Abiodun Taiwo</Text>
-                <Text style={styles.profession}>Pro Electrician</Text>
+                <Text style={styles.name}>{name}</Text>
+                <Text style={styles.profession}>{job}</Text>
                 <Text style={styles.status}>Open to work</Text>
 
                 <View style={styles.iconRow}>
                     <TouchableOpacity style={styles.iconButton}>
                         <Icon name="phone" size={20} color="rgba(69, 131, 19, 1)" />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconButton} onPress={() => handleMessaging("Yisa")}>
-                        <Icon name="message" size={20} color="rgba(69, 131, 19, 1)" />
+                    <TouchableOpacity style={styles.iconButton} onPress={handleMessaging}>
+                        {loading ? (
+                            <ActivityIndicator size="small" color="green" />
+                            ) : (
+                            <Icon name="message" size={20} color="rgba(69, 131, 19, 1)" />
+                        )}
                     </TouchableOpacity>
                 </View>
             </View>
@@ -176,50 +213,14 @@ const ProfileComponent = () => {
                     </TouchableOpacity>
                 </View>
 
-                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.reviewsContainer}>
-                    <View style={styles.reviewBox}>
-                        <View style={styles.reviewHeader}>
-                            <Image source={graceImage} style={styles.reviewImage} />
-                            <Text style={styles.reviewName}>Shalom Grace</Text>
-                        </View>
-                        <Text style={styles.reviewText}>
-                            He is an outstanding artisan with speed in delivery of his quality service. Kind and hardworking man.
-                        </Text>
-                        <View style={styles.reviewStars}>
-                            {[...Array(5)].map((_, index) => (
-                                <Icon
-                                    key={index}
-                                    name="star"
-                                    size={18}
-                                    color="gold"
-                                    containerStyle={styles.starIconReview}
-                                />
-                            ))}
-                        </View>
-                    </View>
-                    <View style={styles.reviewBox}>
-                        <View style={styles.reviewHeader}>
-                            <Text style={styles.reviewName}>Shalom Grace</Text>
-                        </View>
-                        <Text style={styles.reviewText}>
-                            He is an outstanding artisan with speed in delivery of his quality service. Kind and hardworking man.
-                        </Text>
-                        <View style={styles.reviewStars}>
-                            {[...Array(5)].map((_, index) => (
-                                <Icon
-                                    key={index}
-                                    name="star"
-                                    size={18}
-                                    color="gold"
-                                    containerStyle={styles.starIconReview}
-                                />
-                            ))}
-                        </View>
-                    </View>
-                    <View style={styles.reviewBox}>
-                        <Text style={styles.reviewText}>Quick and professional.</Text>
-                    </View>
-                </ScrollView>
+                <FlatList
+                    data={reviews}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.reviewsContainer}
+                />
             </View>
         </ScrollView>
 

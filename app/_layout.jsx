@@ -1,15 +1,29 @@
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
-import { Stack } from 'expo-router';
+import React, {useEffect, useState} from 'react';
+import {Stack, useRouter} from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const RootLayout = () => {
+    const router = useRouter();
+    const [authority, setAuthority] = useState('');
     const BackButton = ({ navigation }) => (
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
             <Ionicons name="arrow-back" size={24} color="#2F4F4F" />
             <Text style={styles.backText}>Back</Text>
         </TouchableOpacity>
     );
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const storedAuthority = await AsyncStorage.getItem('authority');
+                setAuthority(storedAuthority);
+            } catch (error) {
+                console.error('Failed to fetch data from AsyncStorage:', error);
+            }
+        };
+    })
 
     return (
         <Stack>
@@ -34,7 +48,7 @@ const RootLayout = () => {
             />
             <Stack.Screen name="chat/chatList"  options={({ navigation }) => ({
                 headerTitle: 'Chat List',
-                    headerLeft: () => <BackButton navigation={navigation} />,
+                headerLeft: () => <BackButton navigation={navigation} />,
                 headerStyle: {
                     backgroundColor: 'green',
                 },
@@ -76,7 +90,23 @@ const RootLayout = () => {
                 name="orders/orders"
                 options={({ navigation }) => ({
                     headerLeft: () => <BackButton navigation={navigation} />,
-                    headerTitle: '',
+                    headerTitle: 'Appointments',
+                    headerStyle: {},
+                })}
+            />
+            <Stack.Screen
+                name="orders/pendingAppointment"
+                options={({ navigation }) => ({
+                    headerLeft: () => <BackButton navigation={navigation} />,
+                    headerTitle: 'Pending Appointment',
+                    headerStyle: {},
+                })}
+            />
+            <Stack.Screen
+                name="orders/cancelledAppointment"
+                options={({ navigation }) => ({
+                    headerLeft: () => <BackButton navigation={navigation} />,
+                    headerTitle: 'Canceled Appointment',
                     headerStyle: {},
                 })}
             />
@@ -94,6 +124,14 @@ const RootLayout = () => {
                 options={({ navigation }) => ({
                     headerLeft: () => <BackButton navigation={navigation} />,
                     headerTitle: '',
+                    headerStyle: {},
+                })}
+            />
+            <Stack.Screen
+                name="wallet/transactionHistory"
+                options={({ navigation }) => ({
+                    headerLeft: () => <BackButton navigation={navigation} />,
+                    headerTitle: 'TransactionHistory',
                     headerStyle: {},
                 })}
             />
@@ -177,6 +215,11 @@ const RootLayout = () => {
                     headerStyle: {},
                 })}
             />
+            <Stack.Screen name="categoryDetails/category" options={({ navigation }) => ({
+                headerLeft: () => <BackButton navigation={navigation} />,
+                headerTitle: 'Details',
+                headerStyle: {},
+            })} />
         </Stack>
     );
 };
