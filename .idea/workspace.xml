@@ -5,38 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d83f4d99-f0c6-4dd9-9ddb-ee381aad30a6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/(dashboard)/topServiceProvider.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/appScreen.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/categoryDetails/category.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/component/style.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/component/userAppointment.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/orders/appointment.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/orders/cancelledAppointment.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/orders/pendingAppointment.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/profile/review.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/wallet/transactionHistory.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/logo.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/UserDashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/UserDashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tab)/chat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tab)/chat.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabTwo)/chat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabTwo)/chat.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabTwo)/userWallet.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabTwo)/userWallet.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/_layout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/chat/chat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/chat/chat.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/chat/chatList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/chat/chatList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/component/categoryDetails/categoryDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/categoryDetails/categoryDetails.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/component/topServiceProvider/topServiceProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/component/topServiceProvider/topServiceProvider.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/login/loginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/login/loginPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/orders/orders.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/orders/orders.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/profile/editProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/editProfile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/profile/profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/profile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/profile/serviceProviderProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/serviceProviderProfile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/serviceProviderSignUp/signUp.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/serviceProviderSignUp/signUp.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/userSignUp/UserSignUp.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/userSignUp/UserSignUp.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/wallet/wallet.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/wallet/wallet.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +28,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "chat__endpoint",
-    "last_opened_file_path": "C:/Users/Dell/Documents/multi_connect_mobile/assets/images",
+    "last_opened_file_path": "C:/Users/Dell/Desktop/my-node-app",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -104,7 +73,11 @@
       <workItem from="1725399962418" duration="12028000" />
       <workItem from="1725572007073" duration="1262000" />
       <workItem from="1725573893332" duration="21077000" />
-      <workItem from="1725619961632" duration="45566000" />
+      <workItem from="1725619961632" duration="48508000" />
+      <workItem from="1726001272630" duration="574000" />
+      <workItem from="1726100991338" duration="5367000" />
+      <workItem from="1726558417134" duration="587000" />
+      <workItem from="1726601620322" duration="3060000" />
     </task>
     <servers />
   </component>
@@ -117,7 +90,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/_layout.jsx</url>
           <line>223</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
