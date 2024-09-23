@@ -4,12 +4,11 @@ import BookKWaterScreen from "../bookAppointment/BookAppointment";
 import PlainPage from "../bookAppointment/BookAppointment";
 import AppointmentBooking from "../bookAppointment/BookAppointment";
 import ChatList from "../chat/chatList";
+import {Redirect} from "expo-router";
 
 const Chat = () =>{
     return (
-        <SafeAreaView>
-            <ChatList/>
-        </SafeAreaView>
+        <ChatList/>
     )
 }
 

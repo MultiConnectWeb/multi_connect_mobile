@@ -6,18 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d83f4d99-f0c6-4dd9-9ddb-ee381aad30a6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/UserDashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/UserDashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(dashboard)/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(dashboard)/dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tab)/_layout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tab)/_layout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tab)/chat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tab)/chat.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabTwo)/chat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabTwo)/chat.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/_layout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/chat/chat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/chat/chat.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/chat/chatList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/chat/chatList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/login/loginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/login/loginPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/profile/editProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/editProfile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/profile/profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/profile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/profile/serviceProviderProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/serviceProviderProfile.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,24 +24,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;chat__endpoint&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/DELL&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Dell\\Documents\\multi_connect_mobile\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "chat__endpoint",
+    "last_opened_file_path": "C:/Users/Dell/Desktop/my-node-app",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Users\\Dell\\Documents\\multi_connect_mobile\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Dell\Documents\multi_connect_mobile\assets\images" />
       <recent name="C:\Users\Dell\Documents\multi_connect_mobile\app\(tab)" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Dell\Documents\multi_connect_mobile\app\(dashboard)" />
+      <recent name="C:\Users\Dell\Documents\multi_connect_mobile\app\categoryDetails" />
+      <recent name="C:\Users\Dell\Documents\multi_connect_mobile\app" />
+      <recent name="C:\Users\Dell\Documents\multi_connect_mobile\app\orders" />
+      <recent name="C:\Users\Dell\Documents\multi_connect_mobile\app\(tab)" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -72,11 +67,32 @@
       <option name="presentableId" value="Default" />
       <updated>1723456965502</updated>
       <workItem from="1723456968325" duration="10899000" />
-      <workItem from="1723714822996" duration="50685000" />
+      <workItem from="1723714822996" duration="56455000" />
+      <workItem from="1724978082352" duration="591000" />
+      <workItem from="1725123067170" duration="21530000" />
+      <workItem from="1725399962418" duration="12028000" />
+      <workItem from="1725572007073" duration="1262000" />
+      <workItem from="1725573893332" duration="21077000" />
+      <workItem from="1725619961632" duration="48508000" />
+      <workItem from="1726001272630" duration="574000" />
+      <workItem from="1726100991338" duration="5367000" />
+      <workItem from="1726558417134" duration="587000" />
+      <workItem from="1726601620322" duration="3060000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app/_layout.jsx</url>
+          <line>223</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

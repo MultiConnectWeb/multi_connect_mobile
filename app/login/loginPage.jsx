@@ -46,8 +46,8 @@ const Login = () => {
   }
   const handUserInfo = async ()=>{
     try {
-      const find_response = await axios.post(`https://multi-connect-latest-ei6f.onrender.com/api/v1/generalUser/find_by_email`,payload1);
-      console.log(find_response.data);
+      const find_response = await axios.get(`https://multi-connect-latest-ei6f.onrender.com/api/v1/generalUser/find_by_email/${email}`);
+      console.log("This is the response from the login" + find_response.data.email);
       await AsyncStorage.removeItem('service_provider')
       await  AsyncStorage.setItem('service_provider',JSON.stringify(find_response.data))
     }catch (error){
@@ -83,19 +83,16 @@ const Login = () => {
       try {
         const response = await axios.post("https://multi-connect-latest-ei6f.onrender.com/api/v1/auth", payload);
         console.log("logged in successfully", response.data);
-        // Alert.alert('Success', 'Logged In Successfully');
-        handleChatLogin().then()
-        await AsyncStorage.setItem('token', response.data.data.token)
-        await AsyncStorage.setItem('email',response.data.data.email)
+        handleChatLogin()
         await handUserInfo()
+        await AsyncStorage.setItem('token', response.data.data.token)
+        await AsyncStorage.setItem('authority', response.data.data.authority)
+
         if(response.data.data.authority === '[USER]') router.push('(tabTwo)/userHome')
         else if(response.data.data.authority === '[SERVICE_PROVIDER]') router.push('(tab)/serviceProviderHome')
-        // else Alert.alert("error", response.data.err);
-        // const handleUserInfo = async () =>{
-        //   const token = await  AsyncStorage.getItem('token');
+
         console.log(response.data.data.token)
 
-        // }
       } catch (error) {
         if (error.response) {
           console.log("Backend error", error.response.data);

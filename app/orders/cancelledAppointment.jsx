@@ -4,13 +4,13 @@ import usman from "../../assets/images/usman.png"
 import Orders from "./appointment";
 import renderItems from "../component/userAppointment";
 import Styles from "../component/style";
-const appointments = Orders
-const styles = Styles
+const  styles = Styles
 const Appointment = () =>{
+    const canceledAppointment = Orders.filter(order => order.status === "Canceled");
     return (
         <SafeAreaView style={styles.ordersHeader}>
             <FlatList
-                data={appointments}
+                data={canceledAppointment}
                 renderItem={renderItems}
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={styles.orders}
@@ -18,5 +18,6 @@ const Appointment = () =>{
         </SafeAreaView>
     )
 }
+
 
 export default Appointment

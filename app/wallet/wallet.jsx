@@ -4,24 +4,11 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon1 from 'react-native-vector-icons/FontAwesome';
 import transaction from "./data";
 import {useRouter} from "expo-router";
+import TransactionHistory from "./transactionHistory";
 const image = require('../../assets/images/account_balance_wallet_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png')
 const {width,height} = Dimensions.get("window");
 const Data = transaction
 
-const transactions = ({item}) =>{
-    return(
-        <View style={styles.transactionContainer}>
-            <View style={styles.imageTextContainer}>
-                <Icon1 name = {item.type === "Deposit" ? "money" : "credit-card"} size = {width/11} />
-                <View style={{gap:width/30}} >
-                    <Text style={styles.type}>{item.type}</Text>
-                    <Text>{item.date}</Text>
-                </View>
-            </View>
-            <Text style={{ color : item.type==="Deposit" ? "rgba(14,188,22,0.7)": "red",fontWeight:"bolder",fontSize:20}}>{item.amount}</Text>
-        </View>
-    )
-}
 export default function Wallet(){
     const route = useRouter()
     return(
@@ -39,7 +26,7 @@ export default function Wallet(){
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <FlatList style={styles.flat} data={Data} renderItem={transactions}/>
+                <TransactionHistory/>
             </View>
         </>
     )
@@ -77,34 +64,8 @@ const styles = StyleSheet.create({
         fontSize: width/25,
         fontWeight: 12,
     },
-    transactionContainer:{
-        marginTop:width/30,
-        width:width/1.1,
-        display:"flex",
-        flexDirection: "row",
-        justifyContent:"space-between",
-        alignItems:"center",
-        alignSelf:"center",
-        borderBottomColor:"black",
-        borderBottomWidth: width/120,
-        padding:width/30,
-    },
-    type:{
-        fontSize:width/17,
-        fontWeight: "600"
-    },
-    imageTextContainer:{
-        display:"flex",
-        flexDirection:'row',
-        alignItems:"center",
-        justifyContent:"center",
-        gap:width/26,
-    },
     mainContainer:{
         marginBottom:width/3,
-    },
-    flat:{
-        height:height/2
     },
     withdraw:{
         backgroundColor:"green",

@@ -1,27 +1,39 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, FlatList, StyleSheet, Dimensions, Platform, Alert } from 'react-native';
+import {
+    View,
+    Text,
+    Image,
+    TextInput,
+    TouchableOpacity,
+    FlatList,
+    StyleSheet,
+    Dimensions,
+    Platform,
+    Alert,
+    KeyboardAvoidingView
+} from 'react-native';
 import EmojiPicker from 'emoji-picker-react';
 import { arrayUnion, doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
-import {auth, database} from '../lib/firebase';
+import { auth, database } from '../lib/firebase';
 import UseUserStore from '../lib/userStore';
-import upload from '../lib/upload';
+import upload from '../lib/upload'; // You can remove this import if it's no longer used
 import UseChatStore from '../lib/chatStore';
 import * as ImagePicker from 'expo-image-picker';
-import {onAuthStateChanged} from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {useRouter} from "expo-router"; // or any other icon set
-
+import { useRouter } from "expo-router";
+import axios from 'axios'; // Add axios import for Cloudinary integration
 
 const { width } = Dimensions.get('window');
 
 const Chat = () => {
-    const route = useRouter()
+    const route = useRouter();
     const [chat, setChat] = useState(null);
     const [open, setOpen] = useState(false);
     const [text, setText] = useState("");
     const [img, setImg] = useState({ uri: "" });
 
-    const { currentUser ,fetchUserInfo} = UseUserStore();
+    const { currentUser, fetchUserInfo } = UseUserStore();
     const { chatId, user, isCurrentUserblocked, isRecieverBlocked } = UseChatStore();
     const endRef = useRef(null);
 
@@ -34,13 +46,13 @@ const Chat = () => {
                 Alert.alert('Authentication Error', 'User is not authenticated. Redirecting to login.');
             }
         });
-    });
+        return () => unSub(); // Cleanup subscription
+    }, [fetchUserInfo]);
 
     useEffect(() => {
-        if(!chatId) console.log("No Chat id")
+        if (!chatId) console.log("No Chat id");
         const unSub = onSnapshot(doc(database, "chats", chatId), (res) => {
             const chatData = res.data();
-            // console.log(chatData)
             if (chatData) {
                 setChat(chatData);
             } else {
@@ -54,6 +66,7 @@ const Chat = () => {
             unSub();
         };
     }, [chatId]);
+
     const handleEmoji = (e) => {
         setText((prev) => prev + e.emoji);
         setOpen(false);
@@ -68,9 +81,32 @@ const Chat = () => {
         });
 
         if (result?.assets?.length > 0) {
-            const imgUrl = await upload(result.assets[0].uri);
-            setImg({ uri: imgUrl });
-            await handleSend(imgUrl);
+            const imageUri = result.assets[0].uri;
+            const uploadUrl = 'https://api.cloudinary.com/v1_1/ddmwfjq5u/image/upload';
+            const uploadPreset = 'multi_connect';
+
+            const formData = new FormData();
+            formData.append('file', {
+                uri: imageUri,
+                type: 'image/jpeg', // or the correct MIME type of the image
+                name: 'image.jpg',
+            });
+            formData.append('upload_preset', uploadPreset);
+
+            try {
+                const response = await axios.post(uploadUrl, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+
+                const imgUrl = response.data.secure_url;
+                console.log(imgUrl)
+                await handleSend(imgUrl);
+
+            } catch (error) {
+                console.error('Error uploading image to Cloudinary:', error);
+            }
         }
     };
 
@@ -122,15 +158,16 @@ const Chat = () => {
                     <Image source={require('../../assets/images/avatar.png')} style={styles.avatar} />
                     <View style={styles.texts}>
                         <Text style={styles.username}>{user?.username}</Text>
-                        <Text style={styles.status}>Description </Text>
+                        <Text style={styles.status}>Description</Text>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.bookAppointment} onPress={()=>route.push('bookAppointment/BookAppointment')}>
+                <TouchableOpacity style={styles.bookAppointment} onPress={() => route.push('bookAppointment/BookAppointment')}>
                     <Text style={styles.appointment}> Appointment </Text>
                 </TouchableOpacity>
             </View>
             <FlatList
                 data={chat?.messages || []}
+                style={{width: '96%',marginTop: 20}}
                 renderItem={({ item }) => (
                     <View
                         style={[
@@ -155,33 +192,37 @@ const Chat = () => {
                     <Image source={{ uri: img.uri }} style={styles.messageImage} />
                 </View>
             ) : null}
-            <View style={styles.bottom}>
-                <View style={styles.iconsBottom}>
-                    <TouchableOpacity onPress={handleImg}>
-                        <Image source={require('../../assets/images/img.png')} style={styles.icon} />
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={Platform.OS === "ios" ? 70 : 0}
+            >
+                <View style={styles.bottom}>
+                    <View style={styles.iconsBottom}>
+                        <TouchableOpacity onPress={handleImg}>
+                            <Image source={require('../../assets/images/img.png')} style={styles.icon} />
+                        </TouchableOpacity>
+                    </View>
+                    <TextInput
+                        style={styles.input}
+                        placeholder={isCurrentUserblocked || isRecieverBlocked ? "You cannot send a message" : "Type a message..."}
+                        value={text}
+                        onChangeText={setText}
+                        editable={!isCurrentUserblocked && !isRecieverBlocked}
+                    />
+                    <View style={styles.emojiContainer}>
+                        <TouchableOpacity onPress={() => setOpen(prev => !prev)}>
+                            <Image source={require('../../assets/images/emoji.png')} style={styles.icon} />
+                        </TouchableOpacity>
+                    </View>
+                    <TouchableOpacity
+                        style={styles.sendButton}
+                        onPress={() => handleSend()}
+                        disabled={isCurrentUserblocked || isRecieverBlocked}
+                    >
+                        <Icon name="send" size={24} color="white" />
                     </TouchableOpacity>
-
                 </View>
-                <TextInput
-                    style={styles.input}
-                    placeholder={isCurrentUserblocked || isRecieverBlocked ? "You cannot send a message" : "Type a message..."}
-                    value={text}
-                    onChangeText={setText}
-                    editable={!isCurrentUserblocked && !isRecieverBlocked}
-                />
-                <View style={styles.emojiContainer}>
-                    <TouchableOpacity onPress={() => setOpen(prev => !prev)}>
-                        <Image source={require('../../assets/images/emoji.png')} style={styles.icon} />
-                    </TouchableOpacity>
-                </View>
-                <TouchableOpacity
-                    style={styles.sendButton}
-                    onPress={() => handleSend()}
-                    disabled={isCurrentUserblocked || isRecieverBlocked}
-                >
-                    <Icon name="send" size={24} color="white" />
-                </TouchableOpacity>
-            </View>
+            </KeyboardAvoidingView>
         </View>
     );
 };
@@ -190,6 +231,7 @@ const styles = StyleSheet.create({
     chat: {
         flex: 1,
         backgroundColor: 'white',
+
     },
     top: {
         padding: width * 0.05,
